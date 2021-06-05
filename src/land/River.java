@@ -11,8 +11,8 @@ public class River {
 
     /**
      * River的构造方法
-     * @param x 横坐标
-     * @param y 纵坐标
+     * @param x 传递要构造的长度
+     * @param y 传递要构造的宽度
      */
     public River(int x,int y){
         this.x = x;
@@ -20,15 +20,15 @@ public class River {
     }
 
     /**
-     * 对应的x，y位置画出河流
-     * @param g 绘图对象
+     * 绘制画出河流
+     * @param g 定义Graphics对象进行绘图
      */
     public void draw(Graphics g){
         g.drawImage(riverImag,x,y,null);
     }
 
     /**
-     * 绘制长方形
+     * 绘制河流长方形
      * @return 返回一个长方形对象
      */
     public Rectangle getRect(){
