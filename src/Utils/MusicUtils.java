@@ -6,7 +6,6 @@ import java.applet.AudioClip;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 /**
@@ -130,6 +129,21 @@ public class MusicUtils implements Runnable {
 
         sourceDataLine.start();
         int bytesCount = 0;
+        byte[] bytes = new byte[1024];
 
+        try {
+            while (bytesCount != -1) {
+                bytesCount = audioInputStream.read(bytes, 0, 1024);
+                if (bytesCount >= 0) {
+                    sourceDataLine.write(bytes, 0, bytes);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        } finally {
+            sourceDataLine.drain();
+            sourceDataLine.close();
+        }
     }
 }
