@@ -7,15 +7,23 @@ import java.awt.*;
  * 硬墙
  */
 public class HardWall {
+    /**
+     * 金属墙图标的宽度与长度
+     */
     public static final int HARD_WALL_WIDTH = 33;
     public static final int HARD_WALL_LENGTH = 33;
-    private int x,y;
+    /**
+     * 金属墙图标的坐标
+     */
+    private final int x;
+    private final int y;
+
     Image hWallImag = new ImageIcon("images/hWall.gif").getImage();
 
     /**
-     * HardWall的构造方法
-     * @param x 传递要构造的长度
-     * @param y 传递要构造的宽度
+     * 金属标图标的构造方法
+     * @param x 传递构造的横坐标参数
+     * @param y 传递构造的纵坐标参数
      */
     public HardWall(int x,int y){
         this.x = x;
@@ -23,16 +31,16 @@ public class HardWall {
     }
 
     /**
-     * 画金属墙
-     * @param g 定义Graphics对象进行绘图
+     * 绘制金属标图标
+     * @param g 传入Graphics实例对象进行绘图
      */
     public void draw(Graphics g){
         g.drawImage(hWallImag,x,y,null);
     }
 
     /**
-     *  绘制金属墙长方形
-     * @return 返回长方形对象
+     *  为金属墙图标绘制一片区域
+     * @return 返回指定参数的一个长方形实例对象
      */
     public Rectangle getRect(){
         return new Rectangle(x,y,HARD_WALL_WIDTH,HARD_WALL_LENGTH);
