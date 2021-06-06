@@ -1,11 +1,18 @@
 package tank;
 
+import home.Home;
+import land.HardWall;
+import land.River;
+import land.Wall;
 import missile.Missile;
+import ui.GameFrame;
 import utils.ImageUtils;
+import utils.MusicUtils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -43,10 +50,12 @@ public class Tank implements KeyListener {
     private static Random random = new Random(); // 用于产生随机数
     private int step; // 通过random生成，产生坦克的数量
 
+    boolean bU = false, bD = false, bL = false, bR = false;
+
     private Direction direction = Direction.STOP;
     private Direction towardDirection = Direction.U;
 
-    enum Direction { // 方向的枚举
+    public enum Direction { // 方向的枚举
         U, D, L, R, STOP
     }
 
@@ -366,6 +375,95 @@ public class Tank implements KeyListener {
         return m;
     }
 
+    /**
+     * 设置坦克的反向
+     */
+    public void setDirection() {
+        if (bL && !bU && !bR && !bD) direction = Direction.L;
+        else if (!bL && bU && !bR && !bD) direction = Direction.U;
+        else if (!bL && !bU && bR && !bD) direction = Direction.R;
+        else if (!bL && !bU && !bR && bD) direction = Direction.D;
+        else if (!bL && !bU && !bR) direction = Direction.STOP;
+    }
+
+    /**
+     * 存放撞击前的坐标
+     */
+    private void changToOldDirection() {
+        this.x = oldX;
+        this.y = oldY;
+    }
+
+    /**
+     * 判断坦克是否撞击普通墙
+     * @param w 判定的墙体
+     * @return 返回判定结果
+     */
+    public boolean collideWithWall(Wall w) {
+        if (this.alive && this.getRect().intersects(w.getRect())) {
+            this.changToOldDirection();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断坦克是否撞击基地
+     * @param home 基地
+     * @return 返回判定结果
+     */
+    public boolean collideWithHome(Home home) {
+        if (this.alive && this.getRect().intersects(home.getRect())) {
+            this.changToOldDirection();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断坦克是否撞击金属墙
+     * @param hw 需要判定的金属墙
+     * @return 返回判定结果
+     */
+    public boolean collideWithHardWall(HardWall hw) {
+        if (this.alive && this.getRect().intersects(hw.getRect())) {
+            this.changToOldDirection();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断坦克是否撞击河流
+     * @param river 需要判定的河流
+     * @return 返回判定结果
+     */
+    public boolean collideWithRiver(River river) {
+        if (this.alive && this.getRect().intersects(river.getRect())) {
+            this.changToOldDirection();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断坦克是否撞击坦克
+     * @param tanks 需要判定的坦克
+     * @return 返回判定结果
+     */
+    public boolean collideWithTanks(List<Tank> tanks) {
+        for (Tank t : tanks) {
+            if (this != t) {
+                if (this.alive && t.isAlive() && this.getRect().intersects(t.getRect())) {
+                    this.changToOldDirection();
+                    t.changToOldDirection();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -373,11 +471,49 @@ public class Tank implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        int key = e.getKeyCode();
+        switch (key) {
+            case KeyEvent.VK_W:
+                bU = true;
+                break;
+            case KeyEvent.VK_S:
+                bD = true;
+                break;
+            case KeyEvent.VK_A:
+                bL = true;
+                break;
+            case KeyEvent.VK_D:
+                bR = true;
+                break;
+            case KeyEvent.VK_P:
+                fire();
+                new Thread(new MusicUtils(MusicUtils.PLAY_FIRE)).start();// 开火的音效
+                break;
+            case KeyEvent.VK_R:
+                if (alive)
+                    setLife(100);
+                break;
+        }
+        setDirection();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        int key = e.getKeyCode();
+        switch (key) {
+            case KeyEvent.VK_W:
+                bU = false;
+                break;
+            case KeyEvent.VK_S:
+                bD = false;
+                break;
+            case KeyEvent.VK_A:
+                bL = false;
+                break;
+            case KeyEvent.VK_D:
+                bR = false;
+                break;
+        }
+        setDirection();
     }
 }

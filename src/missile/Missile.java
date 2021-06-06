@@ -25,6 +25,16 @@ public class Missile {
     private boolean good; // 敌我坦克
     private boolean live = true;
 
-    Tank.Direction = true;
+    Tank.Direction towardDirection;
+
+    /**
+     * 获得击毁的坦克的数量
+     * @return 返回击毁的坦克的数量
+     */
+    public static int getCount() {
+        return count;
+    }
+
+
 
 }
