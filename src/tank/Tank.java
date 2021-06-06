@@ -43,7 +43,8 @@ public class Tank implements KeyListener {
     private static int botSpeed = TANK_SPEED;
 
     private static int tankColor = 0; // 坦克颜色
-    private static int life = 100; // 初始生命值为100
+
+    private int life = 100; // 初始生命值为100
     private boolean alive = true;
     private boolean good; // 敌我
 
@@ -133,7 +134,7 @@ public class Tank implements KeyListener {
      *
      * @return 坦克的生命值
      */
-    public static int getLife() {
+    public int getLife() {
         return life;
     }
 
@@ -142,8 +143,8 @@ public class Tank implements KeyListener {
      *
      * @param life 坦克的新生命值
      */
-    public static void setLife(int life) {
-        Tank.life = life;
+    public void setLife(int life) {
+        this.life = life;
     }
 
     /**

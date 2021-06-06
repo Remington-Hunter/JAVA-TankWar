@@ -53,6 +53,6 @@ public abstract class GameFrame extends JFrame implements ActionListener, Runnab
     /**
      * 实例化一个基地对象
      */
-    public Home home = new Home();
+    public static Home home = new Home();
 
 }
