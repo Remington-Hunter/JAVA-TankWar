@@ -3,6 +3,9 @@ package land;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 硬墙
+ */
 public class HardWall {
     /**
      * 金属墙图标的宽度与长度
