@@ -163,7 +163,7 @@ public class Missile {
      * @return 返回是否击毁
      */
     public boolean hitTank(Tank t) {
-        if(this.alive && this.getRect().intersects(t.getRect()) && t.isLive() && this.good != t.isGood() ){
+        if(this.alive && this.getRect().intersects(t.getRect()) && t.isAlive() && this.good != t.isGood() ){
             if(t.isGood()){//玩家被击中减血
                 t.setLife(t.getLife()- hurt);
                 if(t.getLife()<=0){
@@ -225,7 +225,7 @@ public class Missile {
     public boolean hitHome() { // 当子弹打到家时
         if (this.alive && this.getRect().intersects(GameFrame.home.getRect())) {
             this.alive = false;
-            Home.setLive(false); // 玩家接受一枪就死亡
+            Home.setAlive(false); // 玩家接受一枪就死亡
             return true;
         }
         return false;
