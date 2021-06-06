@@ -14,24 +14,24 @@ public class Home {
      */
     public static final int HOME_WIDTH = 35;
     public static final int HOME_LENGTH = 35;
-    static boolean Alive = true;
+    static boolean alive = true;
 
-    Image HomeImage = new ImageIcon("images/home.gif").getImage();
+    Image homeImage = new ImageIcon("images/home.gif").getImage();
 
     /**
      * 判断是否游戏失败
      *
      * @return 返回基地是否存活
      */
-    public boolean IsAlive() {
-        return Alive;
+    public boolean isAlive() {
+        return alive;
     }
 
     /**
      * 设置基地存活，重新开始游戏
      */
-    public static void SetAlive() {
-        Alive = true;
+    public static void setAlive(boolean alive) {
+        Home.alive = alive;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Home {
      * @param x 基地的横坐标
      * @param y 基地的纵坐标
      */
-    public static void SetHomeLocation(int x, int y) {
+    public static void setHomeLocation(int x, int y) {
         Home.x = x;
         Home.y = y;
     }
@@ -50,8 +50,8 @@ public class Home {
      * @param g 定义Graphics对象进行绘图
      */
     public void draw(Graphics g) {
-        if (Alive) {
-            g.drawImage(HomeImage, x, y, null);
+        if (alive) {
+            g.drawImage(homeImage, x, y, null);
         }
         //这里要加else，由于GameFrame没编写完，先留在这里
     }
