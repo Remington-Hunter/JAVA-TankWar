@@ -6,8 +6,8 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 public class Tree {
-    public static final int width = 33;
-    public static final int length = 33;
+    public static final int Tree_WIDTH = 33;
+    public static final int TREE_LENGTH = 33;
     int x, y;
 
     Image treeImag =  new ImageIcon("images/tree.gif").getImage();
@@ -35,7 +35,7 @@ public class Tree {
      * @return 返回指定参数的长方形实例
      */
     public Rectangle getRect() {
-        return new Rectangle(x, y, width, length);
+        return new Rectangle(x, y, Tree_WIDTH,TREE_LENGTH);
     }
 
 }

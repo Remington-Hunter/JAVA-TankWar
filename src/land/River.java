@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class River {
-    public static final int riverWidth = 33;
-    public static final int riverLength = 33;
+    public static final int RIVER_WIDTH = 33;
+    public static final int RIVER_LENGTH = 33;
     private int x,y;
     Image riverImag = new ImageIcon("images/river.gif").getImage();
 
@@ -32,6 +32,6 @@ public class River {
      * @return 返回一个长方形对象
      */
     public Rectangle getRect(){
-        return new Rectangle(x,y,riverWidth,riverLength);
+        return new Rectangle(x,y,RIVER_WIDTH,RIVER_LENGTH);
     }
 }

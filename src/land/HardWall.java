@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HardWall {
-    public static final int width = 33;
-    public static final int length = 33;
+    public static final int HARD_WALL_WIDTH = 33;
+    public static final int HARD_WALL_LENGTH = 33;
     private int x,y;
     Image hWallImag = new ImageIcon("images/hWall.gif").getImage();
 
@@ -32,6 +32,6 @@ public class HardWall {
      * @return 返回长方形对象
      */
     public Rectangle getRect(){
-        return new Rectangle(x,y,width,length);
+        return new Rectangle(x,y,HARD_WALL_WIDTH,HARD_WALL_LENGTH);
     }
 }

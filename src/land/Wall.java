@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Wall {
-    public static final int width = 33;
-    public static final int length = 33;
+    public static final int WALL_WIDTH = 33;
+    public static final int WALL_LENGTH = 33;
     int x,y;
     Image wallImag = new ImageIcon("images/wall.gif").getImage();
 
@@ -32,6 +32,6 @@ public class Wall {
      * @return 返回一个长方形对象
      */
     public Rectangle getRect(){
-        return new Rectangle(x,y,width,length);
+        return new Rectangle(x,y,WALL_WIDTH,WALL_LENGTH);
     }
 }
