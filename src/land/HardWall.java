@@ -3,6 +3,9 @@ package land;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 硬墙
+ */
 public class HardWall {
     public static final int HARD_WALL_WIDTH = 33;
     public static final int HARD_WALL_LENGTH = 33;
