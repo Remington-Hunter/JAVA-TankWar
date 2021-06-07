@@ -20,7 +20,7 @@ public class Missile {
     private int y;
     private static int hurt = 20; // 子弹伤害
     private static int speed = 4;
-    private static int nSpeed = 4;
+    private static int botSpeed = 4;
     public static final int WIDTH = 4;
     public static final int HEIGHT = 4;
 
@@ -46,6 +46,14 @@ public class Missile {
     }
 
     /**
+     * 设置击毁坦克数量
+     * @param count 传入击毁的坦克数量参数
+     */
+    public static void setCount(int count) {
+        Missile.count = count;
+    }
+
+    /**
      * 返回导弹是否存活
      *
      * @return 返回导弹是否存活
@@ -57,10 +65,10 @@ public class Missile {
     /**
      * 设置导弹的速度
      *
-     * @param nSpeed 导弹的新速度
+     * @param botSpeed 导弹的新速度
      */
-    public static void setNSpeed(int nSpeed) {
-        Missile.nSpeed = nSpeed;
+    public static void setBotSpeed(int botSpeed) {
+        Missile.botSpeed = botSpeed;
     }
 
     /**
