@@ -229,9 +229,9 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
             this.dispose();
             GameFrame.setDifficulty(4);
             //如果玩家在自定义地图前死亡需要重置以下属性
-            GameFrame.hero.setLive(true);
+            GameFrame.hero.setAlive(true);
             GameFrame.hero.setLife(100);
-            GameFrame.printable = true;
+            GameFrame.threadSwitch = true;
             new GameFrame();
         }
         if(e.getActionCommand().equals("back")){

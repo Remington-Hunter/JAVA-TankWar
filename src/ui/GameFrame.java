@@ -8,6 +8,7 @@ import land.Wall;
 import missile.Missile;
 import score.HighestScore;
 import tank.Tank;
+import utils.DiyMapUtils;
 import utils.MapUtils;
 import utils.MusicUtils;
 
@@ -375,6 +376,24 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             else{
                 JOptionPane.showMessageDialog(null,newStr[0]+"获得了最高分："+bullet);
             }
+        }
+        if(e.getActionCommand().equals("help")){
+            threadSwitch = false;//停止线程
+            JOptionPane.showMessageDialog(null,"W、向上，A、向左，S、向下，D、向右，P、发射炮弹，R、加血"+"\n","提示",JOptionPane.INFORMATION_MESSAGE);
+            threadSwitch = true;
+            new Thread(this).start();//线程启动
+        }
+        if(e.getActionCommand().equals("diy")){
+            tankList.clear();
+            missileList.clear();
+            wallList.clear();
+            hardWallList.clear();
+            riverList.clear();
+            treeList.clear();
+            Home.setAlive(true);
+            hero.setAlive(true);
+            this.dispose();
+            new DiyMapUtils();
         }
     }
 }

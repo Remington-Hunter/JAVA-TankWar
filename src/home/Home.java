@@ -62,6 +62,4 @@ public class Home {
     public Rectangle getRect() {
         return new Rectangle(x,y,HOME_WIDTH,HOME_LENGTH);
     }
-
-
 }
