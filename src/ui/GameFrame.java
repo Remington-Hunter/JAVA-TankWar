@@ -1,17 +1,11 @@
 package ui;
 
 import home.Home;
-import land.HardWall;
-import land.River;
-import land.Tree;
-import land.Wall;
+import land.*;
 import missile.Missile;
-import score.HighestScore;
-import score.ScoreFrame;
+import score.*;
 import tank.Tank;
-import utils.DiyMapUtils;
-import utils.MapUtils;
-import utils.MusicUtils;
+import utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +19,41 @@ import java.util.List;
 
 public class GameFrame extends JFrame implements ActionListener, Runnable {
     /**
+     * 存储坦克的列表
+     */
+    public static List<Tank> tankList = new ArrayList<Tank>(0);
+    /**
+     * 存储子弹的列表
+     */
+    public static List<Missile> missileList = new ArrayList<Missile>(0);
+    /**
+     * 存储普通墙的列表
+     */
+    public static List<Wall> wallList = new ArrayList<Wall>(0);
+    /**
+     * 存储金属墙的列表
+     */
+    public static List<HardWall> hardWallList = new ArrayList<HardWall>(0);
+    /**
+     * 存储河流的列表
+     */
+    public static List<River> riverList = new ArrayList<River>(0);
+    /**
+     * 存储界面输的列表
+     */
+    public static List<Tree> treeList = new ArrayList<Tree>(0);
+    /**
+     * 存储爆炸的列表
+     */
+    public static List<Explode> explodeList = new ArrayList<Explode>(0);
+    //实例化一个基地对象
+    public static Home home = new Home();
+    public static Tank hero = new Tank(220, 480, true, Tank.Direction.STOP);
+    //决定音乐的开关
+    public static boolean musicSwitch = false;
+    //决定线程的开启与关闭
+    public static boolean threadSwitch = true;
+    /**
      * 敌人坦克初始数量
      */
     static int enemyCount = 1;
@@ -37,69 +66,22 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
      */
     static int difficulty = 0;
 
-    /**
-     * 设置地图难度
-     * @param difficulty 传入地图难度参数
-     */
-    public static void setDifficulty(int difficulty) {
-        GameFrame.difficulty = difficulty;
-    }
-
     {
         MapUtils.changeMap(difficulty);
     }
 
-    /**
-     * 存储坦克的列表
-     */
-    public static List<Tank> tankList = new ArrayList<Tank>(0);
-
     //初始化一个坦克
     {
-        tankList.add(new Tank(80,50,false,Tank.Direction.D));
+        tankList.add(new Tank(80, 50, false, Tank.Direction.D));
     }
-
-    /**
-     * 存储子弹的列表
-     */
-    public static List<Missile> missileList = new ArrayList<Missile>(0);
-    /**
-     * 存储普通墙的列表
-     */
-    public static List<Wall> wallList = new ArrayList<Wall>(0);
-    /**
-     * 存储金属墙的列表
-     */
-    public static List<HardWall>hardWallList = new ArrayList<HardWall>(0);
-    /**
-     * 存储河流的列表
-     */
-    public static List<River> riverList = new ArrayList<River>(0);
-    /**
-     * 存储界面输的列表
-     */
-    public static List<Tree>treeList = new ArrayList<Tree>(0);
-    /**
-     * 存储爆炸的列表
-     */
-    public static List<Explode> explodeList = new ArrayList<Explode>(0);
-
-    //实例化一个基地对象
-    public static Home home = new Home();
-    public static Tank hero = new Tank(220,480,true,Tank.Direction.STOP);
-    //决定音乐的开关
-    public static boolean musicSwitch = false;
-    //决定线程的开启与关闭
-    public static boolean threadSwitch = true;
-
-    public GameFrame(){
+    public GameFrame() {
         //为英雄坦克注册键盘监听事件
         addKeyListener(hero);
         createMenu();//创建菜单
 
         setTitle("坦克大战");
         setVisible(true);
-        setSize(800,600);
+        setSize(800, 600);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -108,7 +90,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         thread.start();
 
         // 在面板上绘制坦克、子弹、墙、基地
-        JPanel jPanel = new JPanel(){
+        JPanel jPanel = new JPanel() {
             {
                 setBackground(Color.gray);
             }
@@ -117,14 +99,14 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
              * 绘画游戏界面
              * @param g 传入Graphics参数绘制图像
              */
-            public void paint(Graphics g){
+            public void paint(Graphics g) {
                 super.paint(g);
-                g.drawString("你的分数："+Missile.getCount(),10,20);
-                g.drawString("你的生命值："+hero.getLife(),10,40);
-                g.drawString("敌人对你的上海:"+Missile.getHurt(),10,60);
-                g.drawString("第："+round+" 轮战斗"+"，敌人总数："+tankList.size(),10,80);
-                g.drawRect(45,515,700,15);
-                g.fillRect(45,515,hero.getLife()*7,15);
+                g.drawString("你的分数：" + Missile.getCount(), 10, 20);
+                g.drawString("你的生命值：" + hero.getLife(), 10, 40);
+                g.drawString("敌人对你的上海:" + Missile.getHurt(), 10, 60);
+                g.drawString("第：" + round + " 轮战斗" + "，敌人总数：" + tankList.size(), 10, 80);
+                g.drawRect(45, 515, 700, 15);
+                g.fillRect(45, 515, hero.getLife() * 7, 15);
 
                 hero.draw(g);//画出英雄坦克
                 home.draw(g);//画出自己的基地
@@ -132,45 +114,45 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 hero.collideWithHome(home);//玩家撞上自己的基地
 
                 //把子弹列表中的子弹绘制出来
-                for(Missile missile:missileList){
+                for (Missile missile : missileList) {
                     missile.draw(g);
                     missile.hitTanks(tankList);//玩家子弹攻击地方
                     missile.hitTank(hero);//地方子弹攻击玩家
                     missile.hitHome();//地方子弹攻击我方基地
 
-                    for(Wall wall:wallList){
-                        missile.hitWalls(wall);//子弹攻击到普通墙上
+                    for (Wall w : wallList) {
+                        missile.hitWalls(w);//子弹攻击到普通墙上
                     }
-                    for(HardWall hardWall:hardWallList){
-                        missile.hitWalls(hardWall);//子弹攻击到金属墙上
+                    for (HardWall hw : hardWallList) {
+                        missile.hitWalls(hw);//子弹攻击到金属墙上
                     }
                 }
 
                 //绘制出坦克列表中的坦克
-                for(Tank tank:tankList){
+                for (Tank tank : tankList) {
                     tank.draw(g);
 
                     //绘制普通墙
-                    for(Wall wall:wallList){
-                        wall.draw(g);
-                        tank.collideWithWall(wall);//每个坦克撞到普通墙上
-                        hero.collideWithWall(wall);//玩家撞到普通墙上
+                    for (Wall w : wallList) {
+                        w.draw(g);
+                        tank.collideWithWall(w);//每个坦克撞到普通墙上
+                        hero.collideWithWall(w);//玩家撞到普通墙上
                     }
 
                     //绘制金属墙
-                    for(HardWall hardWall:hardWallList){
-                        hardWall.draw(g);
-                        tank.collideWithHardWall(hardWall);//每个坦克撞到金属墙上
-                        hero.collideWithHardWall(hardWall);//玩家撞到金属墙上
+                    for (HardWall hw : hardWallList) {
+                        hw.draw(g);
+                        tank.collideWithHardWall(hw);//每个坦克撞到金属墙上
+                        hero.collideWithHardWall(hw);//玩家撞到金属墙上
                     }
 
                     //绘制河流
-                    for(River river:riverList){
+                    for (River river : riverList) {
                         river.draw(g);
                         tank.collideWithRiver(river);//每个坦克撞到河流
                     }
                     //绘制丛林
-                    for(Tree tree:treeList){
+                    for (Tree tree : treeList) {
                         tree.draw(g);
                     }
 
@@ -179,24 +161,22 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 }
 
                 //绘制出所有爆炸
-                for(Explode explode:explodeList){
+                for (Explode explode : explodeList) {
                     explode.draw(g);
                 }
 
                 //没关卡敌人的设置
-                if(tankList.size()==0&&round<6){
-                    for(int i=0;i<enemyCount*2;i++){
-                        Tank tank = null;
-                        if(i<2){
-                            tank = new Tank(100+70*i,50,false,Tank.Direction.L);
+                if (tankList.size() == 0 && round < 6) {
+                    for (int i = 0; i < enemyCount * 2; i++) {
+                        Tank t = null;
+                        if (i < 2) {
+                            t = new Tank(100 + 70 * i, 50, false, Tank.Direction.L);
+                        } else if (i > 3) {
+                            t = new Tank(510, i * 50 + 20, false, Tank.Direction.R);
+                        } else {
+                            t = new Tank(50 + 50 * i, 500, false, Tank.Direction.D);
                         }
-                        else if(i>3){
-                            tank = new Tank(510,i*50+20,false,Tank.Direction.R);
-                        }
-                        else{
-                            tank = new Tank(50+50*i,500,false,Tank.Direction.D);
-                        }
-                        tankList.add(tank);
+                        tankList.add(t);
                     }
                     enemyCount++;
                     round++;
@@ -206,7 +186,20 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         add(jPanel);
     }
 
-    public void createMenu(){
+    /**
+     * 设置地图难度
+     *
+     * @param difficulty 传入地图难度参数
+     */
+    public static void setDifficulty(int difficulty) {
+        GameFrame.difficulty = difficulty;
+    }
+
+    public static void main(String[] args) {
+        new GameFrame();
+    }
+
+    public void createMenu() {
         //菜单栏
         JMenuBar jMenuBar = new JMenuBar();
         //菜单项
@@ -241,8 +234,9 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         jMenu1.add(jMenuItem11);
         jMenu2.add(jMenuItem4);
         jMenu2.add(jMenuItem5);
-        jMenu2.add(jMenuItem6);
+        jMenu3.add(jMenuItem6);
         jMenu3.add(jMenuItem12);
+
         jMenu4.add(jMenuItem7);
         jMenu4.add(jMenuItem8);
         jMenu4.add(jMenuItem9);
@@ -291,40 +285,35 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
 
     }
 
-    public static void main(String[] args) {
-        new GameFrame();
-    }
-
-    public void run(){
+    public void run() {
         //每隔20毫秒重新画图
-        while(threadSwitch){
-            try{
-                if(Missile.getCount()==31||!hero.isAlive()){
+        while (threadSwitch) {
+            try {
+                if (Missile.getCount() == 31 || !hero.isAlive()) {
                     threadSwitch = false;
-                    if(Missile.getCount()==31){
+                    if (Missile.getCount() == 31) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_WIN)).start();
-                        JOptionPane.showMessageDialog(null,"赢得胜利");
+                        JOptionPane.showMessageDialog(null, "赢得胜利");
                         //判断是否是最高分
                         maxScore();
                     }
-                    if(!hero.isAlive()){
+                    if (!hero.isAlive()) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
-                        JOptionPane.showMessageDialog(null,"游戏结束！");
+                        JOptionPane.showMessageDialog(null, "游戏结束！");
                         maxScore();
                     }
-                    try{
+                    try {
                         FileWriter fileWriter = new FileWriter("txt/score.txt");
                         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                        bufferedWriter.write("\t\t"+StartFrame.getUserName()+"获得的分数为："+Missile.getCount()+"\n");
+                        bufferedWriter.write("\t\t" + StartFrame.getUserName() + "获得的分数为：" + Missile.getCount() + "\n");
                         bufferedWriter.close();
                         fileWriter.close();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 Thread.sleep(20);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             repaint();
@@ -334,34 +323,34 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
     /**
      * 最高分判定与写入
      */
-    public void maxScore(){
+    public void maxScore() {
         String str = HighestScore.readText();
         String[] newStr = str.split(":");
         int bullet = Integer.parseInt(newStr[1]);
-        if(Missile.getCount()>bullet){
+        if (Missile.getCount() > bullet) {
             bullet = Missile.getCount();
-            HighestScore.write(StartFrame.getUserName(),bullet);
-            if(StartFrame.getUserName().equals("匿名玩家")){
-                JOptionPane.showMessageDialog(null,"恭喜您获得了最高分"+bullet);
-            }
-            else{
-                JOptionPane.showMessageDialog(null,StartFrame.getUserName()+". "+"恭喜您获得了最高分"+bullet);
+            HighestScore.write(StartFrame.getUserName(), bullet);
+            if (StartFrame.getUserName().equals("匿名玩家")) {
+                JOptionPane.showMessageDialog(null, "恭喜您获得了最高分" + bullet);
+            } else {
+                JOptionPane.showMessageDialog(null, StartFrame.getUserName() + ". " + "恭喜您获得了最高分" + bullet);
             }
         }
     }
 
     /**
      * 初始化所有变量
+     *
      * @param response 传入是否需要初始化变量的参数
      */
-    public void initVariable(int response){
-        if(response==0){
+    public void initVariable(int response) {
+        if (response == 0) {
             threadSwitch = true;
             Home.setAlive(true);//重新激活基地
-            Home.setHomeLocation(290,250);//重置基地位置
+            Home.setHomeLocation(290, 250);//重置基地位置
             hero.setLife(100);//重新设置英雄坦克血量
             hero.setAlive(true);//冲洗激活英雄坦克
-            hero.setTankLocation(220,480,Tank.Direction.STOP);//重置英雄坦克位置
+            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             round = 1;//重置战斗轮数
             enemyCount = 1;//重置地方坦克数量
             Tank.setBotSpeed(3);//重置地方坦克速度
@@ -379,55 +368,52 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             setDifficulty(0);//重置地图难度
             this.dispose();
             new GameFrame();
-        }
-        else{
+        } else {
             threadSwitch = true;
             new Thread(this).start();//线程启动
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e){
-        if(e.getActionCommand().equals("stop")){
-            if(threadSwitch){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("stop")) {
+            if (threadSwitch) {
                 //停止线程
                 threadSwitch = false;
-            }
-            else{
+            } else {
                 threadSwitch = true;
                 //启动线程
                 new Thread(this).start();
             }
         }
-        if(e.getActionCommand().equals("commit")){
-            if(!threadSwitch){
+        if (e.getActionCommand().equals("commit")) {
+            if (!threadSwitch) {
                 threadSwitch = true;
                 //线程启动
                 new Thread(this).start();
             }
         }
-        if(e.getActionCommand().equals("music")){
-            if(!musicSwitch){
+        if (e.getActionCommand().equals("music")) {
+            if (!musicSwitch) {
                 MusicUtils.playMusic();
-            }
-            else{
+            } else {
                 MusicUtils.stopMusic();
             }
             musicSwitch = !musicSwitch;
         }
-        if(e.getActionCommand().equals("restart")){
+        if (e.getActionCommand().equals("restart")) {
             threadSwitch = false;
-            Object[] options = {"确定","取消"};
-            int response = JOptionPane.showOptionDialog(this,"您确认要开始游戏！","", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+            Object[] options = {"确定", "取消"};
+            int response = JOptionPane.showOptionDialog(this, "您确认要开始游戏！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             initVariable(response);
         }
-        if(e.getActionCommand().equals("back")){
+        if (e.getActionCommand().equals("back")) {
             threadSwitch = false;
-            Object[] options = {"确定","取消"};
-            int response = JOptionPane.showOptionDialog(this,"您确认要返回到主界面！", "",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+            Object[] options = {"确定", "取消"};
+            int response = JOptionPane.showOptionDialog(this, "您确认要返回到主界面！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             initVariable(response);
         }
-        if(e.getActionCommand().equals("difficulty1")){
+        if (e.getActionCommand().equals("difficulty1")) {
             tankList.clear();
             missileList.clear();
             wallList.clear();
@@ -436,12 +422,12 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             Missile.setBotSpeed(8);//改变地方子弹速度
             Missile.setMissileColor(1);//改变地方坦克颜色
             setDifficulty(1);//改变地图难度
-            Home.setHomeLocation(370,500);//重置基地位置
-            hero.setTankLocation(220,480,Tank.Direction.STOP);//重置英雄坦克位置
+            Home.setHomeLocation(370, 500);//重置基地位置
+            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             this.dispose();
             new GameFrame();
         }
-        if(e.getActionCommand().equals("difficulty2")){
+        if (e.getActionCommand().equals("difficulty2")) {
             tankList.clear();
             missileList.clear();
             wallList.clear();
@@ -451,12 +437,12 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             Missile.setMissileColor(2);//改变地方坦克颜色
             Missile.setHurt(30);//设置敌人坦克伤害
             setDifficulty(2);//改变地图难度
-            Home.setHomeLocation(370,250);//重置基地位置
-            hero.setTankLocation(220,480,Tank.Direction.STOP);//重置英雄坦克位置
+            Home.setHomeLocation(370, 250);//重置基地位置
+            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             this.dispose();
             new GameFrame();
         }
-        if(e.getActionCommand().equals("difficulty3")){
+        if (e.getActionCommand().equals("difficulty3")) {
             tankList.clear();
             missileList.clear();
             Tank.setBotSpeed(11);//改变地方坦克速度
@@ -465,36 +451,35 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             Missile.setMissileColor(3);//改变地方坦克颜色
             Missile.setHurt(40);//设置敌人坦克伤害
             setDifficulty(3);//改变地图难度
-            Home.setHomeLocation(390,250);//重置基地位置
-            hero.setTankLocation(220,480,Tank.Direction.STOP);//重置英雄坦克位置
+            Home.setHomeLocation(390, 250);//重置基地位置
+            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             this.dispose();
             new GameFrame();
         }
-        if(e.getActionCommand().equals("history")){
+        if (e.getActionCommand().equals("history")) {
             try {
                 new ScoreFrame();
-            }catch (IOException e1){
+            } catch (IOException e1) {
                 e1.printStackTrace();
             }
         }
-        if(e.getActionCommand().equals("rank")){
+        if (e.getActionCommand().equals("rank")) {
             String str = HighestScore.readText();
             String[] newStr = str.split(":");
             int bullet = Integer.parseInt(newStr[1]);
-            if(newStr[0].equals("")){
-                JOptionPane.showMessageDialog(null,"匿名玩家"+"获得了最高分："+bullet);
-            }
-            else{
-                JOptionPane.showMessageDialog(null,newStr[0]+"获得了最高分："+bullet);
+            if (newStr[0].equals("")) {
+                JOptionPane.showMessageDialog(null, "匿名玩家" + "获得了最高分：" + bullet);
+            } else {
+                JOptionPane.showMessageDialog(null, newStr[0] + "获得了最高分：" + bullet);
             }
         }
-        if(e.getActionCommand().equals("help")){
+        if (e.getActionCommand().equals("help")) {
             threadSwitch = false;//停止线程
-            JOptionPane.showMessageDialog(null,"W、向上，A、向左，S、向下，D、向右，P、发射炮弹，R、加血"+"\n","提示",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "W、向上，A、向左，S、向下，D、向右，P、发射炮弹，R、加血" + "\n", "提示", JOptionPane.INFORMATION_MESSAGE);
             threadSwitch = true;
             new Thread(this).start();//线程启动
         }
-        if(e.getActionCommand().equals("diy")){
+        if (e.getActionCommand().equals("diy")) {
             tankList.clear();
             missileList.clear();
             wallList.clear();

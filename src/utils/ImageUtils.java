@@ -8,10 +8,10 @@ import java.awt.*;
 public class ImageUtils {
     private ImageUtils() {}
 
-    public static final Image TANK_U = new ImageIcon("image/tankU.gif").getImage();
-    public static final Image TANK_D = new ImageIcon("image/tankD.gif").getImage();
-    public static final Image TANK_L = new ImageIcon("image/tankL.gif").getImage();
-    public static final Image TANK_R = new ImageIcon("image/tankR.gif").getImage();
+    public static final Image TANK_U = new ImageIcon("images/tankU.gif").getImage();
+    public static final Image TANK_D = new ImageIcon("images/tankD.gif").getImage();
+    public static final Image TANK_L = new ImageIcon("images/tankL.gif").getImage();
+    public static final Image TANK_R = new ImageIcon("images/tankR.gif").getImage();
 
     // 敌方坦克
     public static final Image E_TANK_U = new ImageIcon("images/EtankU.png").getImage();
@@ -36,7 +36,4 @@ public class ImageUtils {
     public static final Image E3_TANK_D = new ImageIcon("images/E3tankD.png").getImage();
     public static final Image E3_TANK_L = new ImageIcon("images/E3tankL.png").getImage();
     public static final Image E3_TANK_R = new ImageIcon("images/E3tankR.png").getImage();
-
-
-
 }
