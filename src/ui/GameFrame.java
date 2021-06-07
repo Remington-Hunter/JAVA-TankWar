@@ -13,6 +13,7 @@ import utils.MapUtils;
 import utils.MusicUtils;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -94,6 +95,112 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         //为英雄坦克注册键盘监听事件
         addKeyListener(hero);
         createMenu();
+        setTitle("坦克大战");
+        setVisible(true);
+        setSize(800,600);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        Thread thread = new Thread(this);
+        thread.start();
+
+        JPanel jPanel = new JPanel(){
+            {
+                setBackground(Color.gray);
+            }
+
+            /**
+             * 绘画游戏界面
+             * @param g 传入Graphics参数绘制图像
+             */
+            public void paint(Graphics g){
+                super.paint(g);
+                g.drawString("你的分数："+Missile.getCount(),10,20);
+                g.drawString("你的生命值："+hero.getLife(),10,40);
+                g.drawString("敌人对你的上海:"+Missile.getHurt(),10,60);
+                g.drawString("第："+round+" 轮战斗"+"，敌人总数："+tankList.size(),10,80);
+                g.drawRect(45,515,700,15);
+                g.fillRect(45,515,hero.getLife()*7,15);
+
+                hero.draw(g);//画出英雄坦克
+                home.draw(g);//画出自己的基地
+                hero.collideWithTanks(tankList);//玩家撞上敌方坦克
+                hero.collideWithHome(home);//玩家撞上自己的基地
+
+                //把子弹列表中的子弹绘制出来
+                for(Missile missile:missileList){
+                    missile.draw(g);
+                    missile.hitTanks(tankList);//玩家子弹攻击地方
+                    missile.hitTank(hero);//地方子弹攻击玩家
+                    missile.hitHome();//地方子弹攻击我方基地
+
+                    for(Wall wall:wallList){
+                        missile.hitWalls(wall);//子弹攻击到普通墙上
+                    }
+                    for(HardWall hardWall:hardWallList){
+                        missile.hitWalls(hardWall);//子弹攻击到金属墙上
+                    }
+                }
+
+                //绘制出坦克列表中的坦克
+                for(Tank tank:tankList){
+                    tank.draw(g);
+
+                    //绘制普通墙
+                    for(Wall wall:wallList){
+                        wall.draw(g);
+                        tank.collideWithWall(wall);//每个坦克撞到普通墙上
+                        hero.collideWithWall(wall);//玩家撞到普通墙上
+                    }
+
+                    //绘制金属墙
+                    for(HardWall hardWall:hardWallList){
+                        hardWall.draw(g);
+                        tank.collideWithHardWall(hardWall);//每个坦克撞到金属墙上
+                        hero.collideWithHardWall(hardWall);//玩家撞到金属墙上
+                    }
+
+                    //绘制河流
+                    for(River river:riverList){
+                        river.draw(g);
+                        tank.collideWithRiver(river);//每个坦克撞到河流
+                    }
+                    //绘制丛林
+                    for(Tree tree:treeList){
+                        tree.draw(g);
+                    }
+
+                    tank.collideWithTanks(tankList);//敌方坦克撞到自己方坦克上
+                    tank.collideWithHome(home);//地方坦克撞到我方基地
+                }
+
+                //绘制出所有爆炸
+                for(Explode explode:explodeList){
+                    explode.draw(g);
+                }
+
+                //没关卡敌人的设置
+                if(tankList.size()==0&&round<6){
+                    for(int i=0;i<enemyCount*2;i++){
+                        Tank tank = null;
+                        if(i<2){
+                            tank = new Tank(100+70*i,50,false,Tank.Direction.L);
+                        }
+                        else if(i>3){
+                            tank = new Tank(510,i*50+20,false,Tank.Direction.R);
+                        }
+                        else{
+                            tank = new Tank(50+50*i,500,false,Tank.Direction.D);
+                        }
+                        tankList.add(tank);
+                    }
+                    enemyCount++;
+                    round++;
+                }
+            }
+        };
+        add(jPanel);
     }
 
     public void createMenu(){
@@ -178,6 +285,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
 
         //将菜单放在窗体上
         this.setJMenuBar(jMenuBar);
+
     }
 
     public static void main(String[] args) {
