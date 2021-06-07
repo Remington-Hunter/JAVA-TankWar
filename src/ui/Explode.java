@@ -5,11 +5,15 @@ import java.awt.*;
 public class Explode {
     /**
      * 爆炸位置
+     *
+     *
      */
     int x;
     int y;
     /**
      * 判断是否爆炸
+     *
+     *
      */
     private boolean alive = true;
     /**
