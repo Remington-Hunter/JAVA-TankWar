@@ -1,5 +1,7 @@
 package score;
 
+import ui.StartFrame;
+
 import java.io.*;
 
 public class HighestScore {
@@ -27,7 +29,7 @@ public class HighestScore {
                 if(!file.createNewFile()) {
                     throw new IOException();
                 }
-                write(0);
+                write(null,0);
             }
             bufferedReader = new BufferedReader(new FileReader(file));
             String temp = null;
@@ -56,8 +58,8 @@ public class HighestScore {
      * 在文件中写入函数
      * @param score 传入分数参数
      */
-    public static void write(int score){
-        String ScoreString =  ""+score;  //StartFrame.getUserName()这里后面还要调用StartFrame类方法
+    public static void write(String username,int score){
+        String ScoreString = StartFrame.getUserName()+":"+score;  //StartFrame.getUserName()这里后面还要调用StartFrame类方法
         try{
             PrintStream printStream = new PrintStream(new FileOutputStream(file));
             printStream.println("nmsl");//这里要该

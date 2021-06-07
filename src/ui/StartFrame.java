@@ -4,6 +4,7 @@ import utils.MusicUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -48,7 +49,7 @@ public class StartFrame extends JFrame implements KeyListener {
             }
             public void mousePressed(MouseEvent e){
                 String username = JOptionPane.showInputDialog("请输入玩家姓名：");
-                if(username.equals("")){
+                if("".equals(username)||username==null){
                     userName = "匿名玩家";
                 }
                 else {
@@ -94,6 +95,78 @@ public class StartFrame extends JFrame implements KeyListener {
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
-        
+
+        Thread tankRun = new Thread(new Runnable() {
+            int xLeft = -481,yLeft = 5; //向左滚动条的初始位置
+            int xRight = 800,yRight = 5;//向右滚动条的初始位置
+            boolean dir = true;//决定方向
+            @Override
+            public void run() {
+                while(true){
+                    if(dir){
+                        xLeft += 5;
+                        jlRunTank1.setBounds(xLeft,yLeft,481,90);
+                    }
+                    if(xLeft>770){
+                        dir = false;
+                        xLeft = -481;
+                    }
+                    if(!dir){
+                        xRight-=5;
+                        jlRunTank2.setBounds(xRight,yRight,481,90);
+                    }
+                    if(xRight<-481){
+                        dir = true;
+                        xRight = 800;
+                    }
+                    try {
+                        Thread.sleep(30);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    repaint();
+                }
+            }
+        });
+        tankRun.start();
+    }
+
+    public static void main(String[] args) {
+        MusicUtils.playMusic();
+        new StartFrame();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e){
+        //TODO
+    }
+    @Override
+    public void keyPressed(KeyEvent e){
+        if(e.getKeyCode()==KeyEvent.VK_W){
+            new Thread(new MusicUtils(MusicUtils.PLAY_CHOOSE)).start();
+            jlSelect.setBounds(260,368,70,40);
+            choose = 1;
+        }
+        if(e.getKeyCode()==KeyEvent.VK_S){
+            new Thread(new MusicUtils(MusicUtils.PLAY_CHOOSE)).start();
+            jlSelect.setBounds(260,448,70,40);
+            choose = 2;
+        }
+        if(e.getKeyCode()==KeyEvent.VK_ENTER && choose==1){
+            new Thread(new MusicUtils(MusicUtils.PLAY_CHOOSE)).start();
+            userName = JOptionPane.showInputDialog("请输入玩家姓名：");
+            dispose();
+            MusicUtils.stopMusic();
+            new GameFrame();
+        }
+        if(e.getKeyCode()==KeyEvent.VK_ENTER && choose==2){
+            dispose();
+            MusicUtils.stopMusic();
+            //new DoubleFrame();
+        }
+    }
+    @Override
+    public void keyReleased(KeyEvent e){
+        //TODO
     }
 }

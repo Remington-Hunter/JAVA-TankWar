@@ -372,7 +372,7 @@ public class Tank implements KeyListener {
         int x = this.x + 15;
         int y = this.y + 15;
         Missile m = new Missile(x, y, good, towardDirection);
-        GameFrame.missiles.add(m);
+        GameFrame.missileList.add(m);
         return m;
     }
 
