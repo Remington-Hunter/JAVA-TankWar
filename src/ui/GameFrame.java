@@ -16,18 +16,18 @@ public abstract class GameFrame extends JFrame implements ActionListener, Runnab
     /**
      * 敌人坦克初始数量
      */
-    static int EnemyCount = 1;
+    static int enemyCount = 1;
     /**
      * 战斗轮数
      */
-    static int Round = 1;
+    static int round = 1;
     /**
      * 默认地图难度
      */
-    static int Difficulty = 0;
+    static int difficulty = 0;
 
     {
-        MapUtils.ChangeMap(Difficulty);
+        MapUtils.changeMap(difficulty);
     }
 
     /**

@@ -20,7 +20,6 @@ public class Home {
 
     /**
      * 判断是否游戏失败
-     *
      * @return 返回基地是否存活
      */
     public boolean isAlive() {

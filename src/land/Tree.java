@@ -9,7 +9,6 @@ import javax.swing.ImageIcon;
  * 树木地形
  */
 public class Tree {
-
     /**
      * 丛林图标的宽度与长度
      */

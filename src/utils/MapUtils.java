@@ -9,10 +9,10 @@ import ui.GameFrame;
 public class MapUtils {
     /**
      * 根据地图难度进行选择改变地图形状
-     * @param Difficulty 传入地图难度参数
+     * @param difficulty 传入地图难度参数
      */
-    public static void ChangeMap(int Difficulty){
-        switch (Difficulty){
+    public static void changeMap(int difficulty){
+        switch (difficulty){
             case 0:
                 for(int i=0;i<10;i++){
                     GameFrame.wallList.add(new Wall(50+30*i,300));
@@ -30,7 +30,7 @@ public class MapUtils {
                 GameFrame.hardWallList.clear();
                 GameFrame.riverList.clear();
                 GameFrame.treeList.clear();
-                int[][] SimpleMap = {
+                int[][] simpleMap = {
                         {0,0,0,4,0,0,0,2,2,2,2,2,2,0,0,0,0,0,0,},
                         {0,0,0,0,1,1,0,0,0,2,2,0,0,1,1,0,0,0,0,},
                         {0,0,0,1,1,1,1,0,0,0,4,0,1,1,1,1,0,0,0,},
@@ -46,18 +46,18 @@ public class MapUtils {
                         {0,0,0,0,0,4,1,1,0,0,0,1,1,4,0,0,0,4,0,},
                         {0,0,0,0,0,4,1,1,0,0,0,1,1,4,0,0,0,0,0,},
                 };
-                for(int i=0;i<SimpleMap.length;i++){
-                    for(int j=0;j< SimpleMap[i].length;j++){
-                        if(SimpleMap[i][j]==1){
+                for(int i=0;i<simpleMap.length;i++){
+                    for(int j=0;j< simpleMap[i].length;j++){
+                        if(simpleMap[i][j]==1){
                             GameFrame.wallList.add(new Wall(100+30*j,127+31*i));
                         }
-                        if(SimpleMap[i][j]==2){
+                        if(simpleMap[i][j]==2){
                             GameFrame.hardWallList.add(new HardWall(90+30*j,33*i));
                         }
-                        if(SimpleMap[i][j]==3){
+                        if(simpleMap[i][j]==3){
                             GameFrame.riverList.add(new River(82+30*j,33*i));
                         }
-                        if(SimpleMap[i][j]==4){
+                        if(simpleMap[i][j]==4){
                             GameFrame.treeList.add(new Tree(98+30*j,127+32*i));
                         }
                     }
@@ -68,7 +68,7 @@ public class MapUtils {
                 GameFrame.hardWallList.clear();
                 GameFrame.riverList.clear();
                 GameFrame.treeList.clear();
-                int[][] MediumMap = {
+                int[][] mediumMap = {
                         {0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,4,4,4,0,},
                         {0,0,1,1,1,1,0,0,0,0,0,0,0,0,4,0,1,1,0,},
                         {0,0,0,0,1,0,0,0,2,2,2,2,0,0,0,0,0,1,0,},
@@ -84,18 +84,18 @@ public class MapUtils {
                         {0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,},
                         {0,0,4,4,4,0,0,0,0,0,0,0,0,0,4,0,1,0,4,},
                 };
-                for(int i=0;i<MediumMap.length;i++){
-                    for(int j=0;j< MediumMap[i].length;j++){
-                        if(MediumMap[i][j]==1){
+                for(int i=0;i<mediumMap.length;i++){
+                    for(int j=0;j< mediumMap[i].length;j++){
+                        if(mediumMap[i][j]==1){
                             GameFrame.wallList.add(new Wall(90+30*j,48+31*i));
                         }
-                        if(MediumMap[i][j]==2){
+                        if(mediumMap[i][j]==2){
                             GameFrame.hardWallList.add(new HardWall(90+30*j,33+33*i));
                         }
-                        if(MediumMap[i][j]==3){
+                        if(mediumMap[i][j]==3){
                             GameFrame.riverList.add(new River(90+30*j,33*i));
                         }
-                        if(MediumMap[i][j]==4){
+                        if(mediumMap[i][j]==4){
                             GameFrame.treeList.add(new Tree(90+30*j,40+32*i));
                         }
                     }
@@ -106,7 +106,7 @@ public class MapUtils {
                 GameFrame.hardWallList.clear();
                 GameFrame.riverList.clear();
                 GameFrame.treeList.clear();
-                int[][] HellMap = {
+                int[][] hellMap = {
                         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
                         {0,1,1,1,1,4,4,4,4,4,4,4,4,4,1,1,1,1,0,},
                         {0,1,0,0,0,0,0,0,4,4,4,4,0,0,0,0,0,1,0,},
@@ -122,18 +122,18 @@ public class MapUtils {
                         {0,1,1,1,1,4,4,4,4,4,4,4,4,4,1,1,1,1,0,},
                         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
                 };
-                for(int i=0;i<HellMap.length;i++){
-                    for(int j=0;j< HellMap[i].length;j++){
-                        if(HellMap[i][j]==1){
+                for(int i=0;i<hellMap.length;i++){
+                    for(int j=0;j< hellMap[i].length;j++){
+                        if(hellMap[i][j]==1){
                             GameFrame.wallList.add(new Wall(110+30*j,50+31*i));
                         }
-                        if(HellMap[i][j]==2){
+                        if(hellMap[i][j]==2){
                             GameFrame.hardWallList.add(new HardWall(100+30*j,33*i));
                         }
-                        if(HellMap[i][j]==3){
+                        if(hellMap[i][j]==3){
                             GameFrame.riverList.add(new River(80+30*j,33*i));
                         }
-                        if(HellMap[i][j]==4){
+                        if(hellMap[i][j]==4){
                             GameFrame.treeList.add(new Tree(109+30*j,42+32*i));
                         }
                     }

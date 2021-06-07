@@ -3,17 +3,17 @@ package score;
 import java.io.*;
 
 public class HighestScore {
-    static String MaxString;
+    static String maxString;
     static String filename = "txt/maxScore.txt";
     static File file = new File(filename);
-    static String Mode = "体验模式";
+    static String mode = "体验模式";
 
     /**
      * 最高分数构造方法
-     * @param Mode 传入模式名字
+     * @param mode 传入模式名字
      */
-    public static void setModeName(String Mode){
-        HighestScore.Mode = Mode;
+    public static void setModeName(String mode){
+        HighestScore.mode = mode;
     }
 
     /**
@@ -32,7 +32,7 @@ public class HighestScore {
             bufferedReader = new BufferedReader(new FileReader(file));
             String temp = null;
             while((temp=bufferedReader.readLine())!=null){
-                MaxString = temp;
+                maxString = temp;
             }
             bufferedReader.close();
         }
@@ -49,7 +49,7 @@ public class HighestScore {
                 }
             }
         }
-        return MaxString;
+        return maxString;
     }
 
     /**

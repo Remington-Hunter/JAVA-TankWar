@@ -11,7 +11,7 @@ public class Explode {
     /**
      * 判断是否爆炸
      */
-    private boolean Alive = true;
+    private boolean alive = true;
     /**
      * 爆炸事件控制
      */
@@ -36,10 +36,10 @@ public class Explode {
      * @param g 定义Graphics对象进行绘图
      */
     public void draw(Graphics g){
-        if(!Alive) return;
+        if(!alive) return;
 
         if(Step==DIAMETER.length){
-            Alive = false;
+            alive = false;
             Step = 0;
             GameFrame.explodeList.remove(this);
             return;
