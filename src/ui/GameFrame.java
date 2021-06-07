@@ -94,6 +94,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         //为英雄坦克注册键盘监听事件
         addKeyListener(hero);
         createMenu();
+
     }
 
     public void createMenu(){
@@ -204,7 +205,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                     try{
                         FileWriter fileWriter = new FileWriter("txt/score.txt");
                         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                        bufferedWriter.write("\t\t"+StartFrame.getUsername()+"获得的分数为："+Missile.getCount()+"\n");
+                        bufferedWriter.write("\t\t"+StartFrame.getUserName()+"获得的分数为："+Missile.getCount()+"\n");
                         bufferedWriter.close();
                         fileWriter.close();
                     }catch (Exception e){
@@ -229,12 +230,12 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         int bullet = Integer.parseInt(newStr[1]);
         if(Missile.getCount()>bullet){
             bullet = Missile.getCount();
-            HighestScore.write(StartFrame.getUsername(),bullet);
-            if(StratFrame.getUsername().equals("匿名玩家")){
+            HighestScore.write(StartFrame.getUserName(),bullet);
+            if(StartFrame.getUserName().equals("匿名玩家")){
                 JOptionPane.showMessageDialog(null,"恭喜您获得了最高分"+bullet);
             }
             else{
-                JOptionPane.showMessageDialog(null,StratFrame.getUsername()+". "+"恭喜您获得了最高分"+bullet);
+                JOptionPane.showMessageDialog(null,StartFrame.getUserName()+". "+"恭喜您获得了最高分"+bullet);
             }
         }
     }

@@ -131,7 +131,7 @@ public class Missile {
      */
     public void move() {
         if (!good) {
-            speed = nSpeed;
+            speed = botSpeed;
         } else {
             speed = 5;
         }
@@ -185,7 +185,7 @@ public class Missile {
             this.alive = false;
             new Thread(new MusicUtils(MusicUtils.PLAY_EXPLODE)).start();
             Explode e = new Explode(x, y);
-            GameFrame.explodes.add(e);
+            GameFrame.explodeList.add(e);
             return true;
         }
         return false;
