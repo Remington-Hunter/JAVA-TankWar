@@ -7,6 +7,7 @@ import land.Tree;
 import land.Wall;
 import missile.Missile;
 import score.HighestScore;
+import score.ScoreFrame;
 import tank.Tank;
 import utils.DiyMapUtils;
 import utils.MapUtils;
@@ -94,8 +95,8 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
     public GameFrame(){
         //为英雄坦克注册键盘监听事件
         addKeyListener(hero);
-        createMenu();
-<<<<<<< HEAD
+        createMenu();//创建菜单
+
         setTitle("坦克大战");
         setVisible(true);
         setSize(800,600);
@@ -106,6 +107,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         Thread thread = new Thread(this);
         thread.start();
 
+        // 在面板上绘制坦克、子弹、墙、基地
         JPanel jPanel = new JPanel(){
             {
                 setBackground(Color.gray);
@@ -202,9 +204,6 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             }
         };
         add(jPanel);
-=======
-
->>>>>>> 4c536c1825c3b5cd1057dae81cd9ce2f6784b140
     }
 
     public void createMenu(){
