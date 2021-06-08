@@ -15,79 +15,19 @@ import java.util.List;
  * 普通导弹类
  */
 public class Missile {
-    // 位置
-    private int x;
-    private int y;
+    public static final int WIDTH = 4;
+    public static final int HEIGHT = 4;
     private static int hurt = 20; // 子弹伤害
     private static int speed = 4;
     private static int botSpeed = 4;
-    public static final int WIDTH = 4;
-    public static final int HEIGHT = 4;
-
     private static int missileColor = 0;
     private static int count = 0; // 击毁坦克数量
-
-    public static void setMissileColor(int missileColor) {
-        Missile.missileColor = missileColor;
-    }
-
+    Tank.Direction towardDirection;
+    // 位置
+    private int x;
+    private int y;
     private boolean good; // 敌我坦克
     private boolean alive = true;
-
-    Tank.Direction towardDirection;
-
-    /**
-     * 获得击毁的坦克的数量
-     *
-     * @return 返回击毁的坦克的数量
-     */
-    public static int getCount() {
-        return count;
-    }
-
-    /**
-     * 设置击毁坦克数量
-     * @param count 传入击毁的坦克数量参数
-     */
-    public static void setCount(int count) {
-        Missile.count = count;
-    }
-
-    /**
-     * 返回导弹是否存活
-     *
-     * @return 返回导弹是否存活
-     */
-    public boolean isAlive() {
-        return alive;
-    }
-
-    /**
-     * 设置导弹的速度
-     *
-     * @param botSpeed 导弹的新速度
-     */
-    public static void setBotSpeed(int botSpeed) {
-        Missile.botSpeed = botSpeed;
-    }
-
-    /**
-     * 设置导弹的伤害
-     *
-     * @param hurt 导弹的新伤害
-     */
-    public static void setHurt(int hurt) {
-        Missile.hurt = hurt;
-    }
-
-    /**
-     * 获取导弹的伤害
-     *
-     * @return 返回导弹的伤害
-     */
-    public static int getHurt() {
-        return hurt;
-    }
 
     /**
      * 导弹的构造方法
@@ -102,6 +42,64 @@ public class Missile {
         this.y = y;
         this.good = good;
         this.towardDirection = towardDirection;
+    }
+
+    public static void setMissileColor(int missileColor) {
+        Missile.missileColor = missileColor;
+    }
+
+    /**
+     * 获得击毁的坦克的数量
+     *
+     * @return 返回击毁的坦克的数量
+     */
+    public static int getCount() {
+        return count;
+    }
+
+    /**
+     * 设置击毁坦克数量
+     *
+     * @param count 传入击毁的坦克数量参数
+     */
+    public static void setCount(int count) {
+        Missile.count = count;
+    }
+
+    /**
+     * 设置导弹的速度
+     *
+     * @param botSpeed 导弹的新速度
+     */
+    public static void setBotSpeed(int botSpeed) {
+        Missile.botSpeed = botSpeed;
+    }
+
+    /**
+     * 获取导弹的伤害
+     *
+     * @return 返回导弹的伤害
+     */
+    public static int getHurt() {
+        return hurt;
+    }
+
+    /**
+     * 设置导弹的伤害
+     *
+     * @param hurt 导弹的新伤害
+     */
+    public static void setHurt(int hurt) {
+        Missile.hurt = hurt;
+    }
+
+    /**
+     * 返回导弹是否存活
+     *
+     * @return 返回导弹是否存活
+     */
+    public boolean isAlive() {
+        return alive;
     }
 
     public void draw(Graphics g) {
@@ -159,6 +157,7 @@ public class Missile {
 
     /**
      * 获得导弹的轮廓
+     *
      * @return 返回导弹的轮廓
      */
     public Rectangle getRect() {
@@ -167,18 +166,19 @@ public class Missile {
 
     /**
      * 击中坦克
+     *
      * @param t 需要击中的坦克
      * @return 返回是否击毁
      */
     public boolean hitTank(Tank t) {
-        if(this.alive && this.getRect().intersects(t.getRect()) && t.isAlive() && this.good != t.isGood() ){
-            if(t.isGood()){//玩家被击中减血
-                t.setLife(t.getLife()- hurt);
-                if(t.getLife()<=0){
+        if (this.alive && this.getRect().intersects(t.getRect()) && t.isAlive() && this.good != t.isGood()) {
+            if (t.isGood()) {//玩家被击中减血
+                t.setLife(t.getLife() - hurt);
+                if (t.getLife() <= 0) {
                     t.setLife(0);
                     t.setAlive(false);
                 }
-            }else{//敌方直接死
+            } else {//敌方直接死
                 t.setAlive(false);
                 count++;
             }
@@ -193,6 +193,7 @@ public class Missile {
 
     /**
      * 击中一堆坦克
+     *
      * @param tanks 坦克集合
      */
     public void hitTanks(List<Tank> tanks) {
@@ -201,6 +202,7 @@ public class Missile {
 
     /**
      * 击中墙壁
+     *
      * @param w 击中的墙壁
      * @return 返回是否击毁
      */
@@ -215,6 +217,7 @@ public class Missile {
 
     /**
      * 击中金属墙
+     *
      * @param hw 击中的金属墙
      * @return 返回是否击中
      */
@@ -228,6 +231,7 @@ public class Missile {
 
     /**
      * 击中基地
+     *
      * @return 返回是否击中
      */
     public boolean hitHome() { // 当子弹打到家时

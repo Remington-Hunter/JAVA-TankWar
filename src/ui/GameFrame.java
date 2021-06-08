@@ -114,13 +114,15 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 hero.collideWithHome(home);//玩家撞上自己的基地
 
                 //把子弹列表中的子弹绘制出来
-                for (Missile missile : missileList) {
+                for (int i=0;i<missileList.size();i++) {
+                    Missile missile = missileList.get(i);
                     missile.draw(g);
                     missile.hitTanks(tankList);//玩家子弹攻击地方
-                    missile.hitTank(hero);//地方子弹攻击玩家
-                    missile.hitHome();//地方子弹攻击我方基地
+                    missile.hitTank(hero);//敌方子弹攻击玩家
+                    missile.hitHome();//敌方子弹攻击我方基地
 
-                    for (Wall w : wallList) {
+                    for (int j=0;j<wallList.size();j++) {
+                        Wall w = wallList.get(j);
                         missile.hitWalls(w);//子弹攻击到普通墙上
                     }
                     for (HardWall hw : hardWallList) {
@@ -289,7 +291,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         //每隔20毫秒重新画图
         while (threadSwitch) {
             try {
-                if (Missile.getCount() == 31 || !hero.isAlive()) {
+                if (Missile.getCount() == 31 || !hero.isAlive()||!home.isAlive()) {
                     threadSwitch = false;
                     if (Missile.getCount() == 31) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_WIN)).start();
@@ -297,7 +299,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                         //判断是否是最高分
                         maxScore();
                     }
-                    if (!hero.isAlive()) {
+                    if (!hero.isAlive()||!home.isAlive()) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
                         JOptionPane.showMessageDialog(null, "游戏结束！");
                         maxScore();

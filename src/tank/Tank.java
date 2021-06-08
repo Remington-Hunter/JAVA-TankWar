@@ -231,8 +231,7 @@ public class Tank implements KeyListener {
 
     /**
      * 绘制坦克
-     *
-     * @param g graphics类用于绘图
+     * @param g Graphics类用于绘图
      */
     public void draw(Graphics g) {
         if (alive && good) {
