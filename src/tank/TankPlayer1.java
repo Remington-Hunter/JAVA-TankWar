@@ -1,9 +1,15 @@
 package tank;
 
+import missile.MissilePlayer1;
+import prop.Supply;
+import ui.DoubleFrame;
 import utils.ImageUtils;
+import utils.MusicUtils;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 public class TankPlayer1 implements KeyListener {
     static int speed = 4;//坦克初始速度
@@ -50,6 +56,7 @@ public class TankPlayer1 implements KeyListener {
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
+
 
     public enum Direction {
         U, D, L, R, STOP
@@ -139,7 +146,117 @@ public class TankPlayer1 implements KeyListener {
         if (y > 511) y = 511;
     }
 
-    public
+    /**
+     * 玩家发射子弹方法，并将子弹加入玩家一子弹列表中
+     */
+    public void fire(){
+        int x = this.x + 15;
+        int y = this.y + 15;
+        MissilePlayer1 missilePlayer1 = new MissilePlayer1(x,y,towardDirection);
+        DoubleFrame.missilePlayer1List1.add(missilePlayer1);
+    }
 
+    /**
+     * 玩家一坦克移动方向
+     */
+    public void setDirection(){
+        if (bL && !bU && !bR && !bD) direction = Direction.L;
+        else if (!bL && bU && !bR && !bD) direction = Direction.U;
+        else if (!bL && !bU && bR && !bD) direction = Direction.R;
+        else if (!bL && !bU && !bR && bD) direction = Direction.D;
+        else if (!bL && !bU && !bR) direction = Direction.STOP;
+    }
+
+    /**
+     * 撞击后复位
+     */
+    public void changeToOldDirection(){
+        this.x = oldX;
+        this.y = oldY;
+    }
+
+    /**
+     * 判断坦克是否相撞
+     * @param tankPlayer2 玩家二的坦克
+     */
+    public void collideWithTank(TankPlayer2 tankPlayer2){
+        if(this.alive&&tankPlayer2.isAlive()&&this.getRect().intersects(tankPlayer2.getRect())){
+            this.changeToOldDirection();
+        }
+    }
+
+    public void eat(Supply supply){
+        if(this.alive&&this.getRect().intersects(supply.getRect())){
+            if(this.life<=100){
+                this.life += 100; //吃下补给，增加100生命点
+            }
+            else{
+                this.life = 200;
+            }
+            new Thread(new MusicUtils(MusicUtils.PLAY_EAT)).start();
+            MissilePlayer1.setHurt(40);//增加导弹威力
+            Random random = new Random();
+            Supply.setSupplyPosition(random.nextInt(300)+200,random.nextInt(300)+200);
+        }
+    }
+
+    /**
+     * 为玩家一坦克绑定键盘键位
+     * @param e KeyEvent类设置键位
+     */
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch ((e.getKeyCode())){
+            case KeyEvent.VK_W:
+                bU = true;
+                break;
+            case KeyEvent.VK_S:
+                bD = true;
+                break;
+            case KeyEvent.VK_A:
+                bL = true;
+                break;
+            case KeyEvent.VK_D:
+                bR = true;
+                break;
+            case KeyEvent.VK_P:
+                fire();
+                new Thread(new MusicUtils(MusicUtils.PLAY_FIRE)).start();// 开火的音效
+                break;
+            case KeyEvent.VK_R:
+                if (alive)
+                    setLife(100);
+                break;
+        }
+        setDirection();
+    }
+
+    /**
+     * 键盘键位被弹起后的行为
+     * @param e KeyEvent类设置键位
+     */
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+                bU = false;
+                break;
+            case KeyEvent.VK_S:
+                bD = false;
+                break;
+            case KeyEvent.VK_A:
+                bL = false;
+                break;
+            case KeyEvent.VK_D:
+                bR = false;
+                break;
+        }
+        setDirection();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //TODO
+    }
 
 }

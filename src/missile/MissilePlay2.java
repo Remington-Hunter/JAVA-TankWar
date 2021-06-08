@@ -6,7 +6,7 @@ import utils.MusicUtils;
 
 import java.awt.*;
 
-public class MissilePlayer1 {
+public class MissilePlayer2 {
     //子导弹大小
     public static final int WIDTH = 5;
     public static final int HEIGHT = 5;
@@ -30,7 +30,7 @@ public class MissilePlayer1 {
     }
 
     public static void setHurt(int hurt) {
-        MissilePlayer1.hurt = hurt;
+        MissilePlayer2.hurt = hurt;
     }
 
     /**
@@ -39,7 +39,7 @@ public class MissilePlayer1 {
      * @param y 导弹纵坐标
      * @param towardDirection 导弹方向
      */
-    public MissilePlayer1(int x, int y, TankPlayer1.Direction towardDirection){
+    public MissilePlayer2(int x, int y, TankPlayer1.Direction towardDirection){
         this.x = x;
         this.y = y;
         this.towardDirection = towardDirection;
@@ -100,17 +100,17 @@ public class MissilePlayer1 {
 
     /**
      * 判断导弹击中对方玩家
-     * @param tp2 对方坦克
+     * @param tankPlayer1 对方坦克
      * @return 返回是否击中
      */
-    public boolean hitTank(TankPlayer1 tp2){//由于没有构建玩家二类，先用玩家一类代替
-        if(this.alive&&this.getRect().intersects(tp2.getRect())&&tp2.isAlive()){
+    public boolean hitTank(TankPlayer1 tankPlayer1){//由于没有构建玩家二类，先用玩家一类代替
+        if(this.alive&&this.getRect().intersects(tankPlayer1.getRect())&&tankPlayer1.isAlive()){
             this.alive = false;//击中后导弹消失
             new Thread(new MusicUtils(MusicUtils.PLAY_EXPLODE)).start();
-            tp2.setLife(tp2.getLife()-getHurt());
-            if(tp2.getLife()<=0){
-                tp2.setLife(0);
-                tp2.setAlive(false);
+            tankPlayer1.setLife(tankPlayer1.getLife()-getHurt());
+            if(tankPlayer1.getLife()<=0){
+                tankPlayer1.setLife(0);
+                tankPlayer1.setAlive(false);
             }
             Explode explode = new Explode(x,y);
             //DoubleFrame.explodeList.add(explode)这里没有创建双人对战界面

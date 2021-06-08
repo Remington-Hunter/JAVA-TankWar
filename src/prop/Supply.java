@@ -23,7 +23,7 @@ public class Supply {
      * @param x 传递构造的横坐标参数
      * @param y 传递构造的纵坐标参数
      */
-    public static void SetSupplyPosition(int x,int y){
+    public static void setSupplyPosition(int x,int y){
         Supply.x = x;
         Supply.y = y;
     }
