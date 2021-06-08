@@ -15,7 +15,7 @@ public class TankPlayer1 implements KeyListener {
     static int speed = 4;//坦克初始速度
     boolean bU = false, bD = false, bL = false, bR = false;
     private int x;
-    private int y;//坦卡坐标
+    private int y;//坦克坐标
     private int oldX;
     private int oldY;//坦克上一步坐标
     private int life = 200;//坦克生命值
@@ -153,7 +153,7 @@ public class TankPlayer1 implements KeyListener {
         int x = this.x + 15;
         int y = this.y + 15;
         MissilePlayer1 missilePlayer1 = new MissilePlayer1(x,y,towardDirection);
-        DoubleFrame.missilePlayer1List1.add(missilePlayer1);
+        DoubleFrame.missilePlayer1List.add(missilePlayer1);
     }
 
     /**
@@ -219,13 +219,12 @@ public class TankPlayer1 implements KeyListener {
             case KeyEvent.VK_D:
                 bR = true;
                 break;
-            case KeyEvent.VK_P:
+            case KeyEvent.VK_J:
+                if(!alive) return;
                 fire();
                 new Thread(new MusicUtils(MusicUtils.PLAY_FIRE)).start();// 开火的音效
                 break;
             case KeyEvent.VK_R:
-                if (alive)
-                    setLife(100);
                 break;
         }
         setDirection();

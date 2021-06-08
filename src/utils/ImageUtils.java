@@ -8,10 +8,17 @@ import java.awt.*;
 public class ImageUtils {
     private ImageUtils() {}
 
+    //玩家一坦克
     public static final Image TANK_U = new ImageIcon("images/tankU.gif").getImage();
     public static final Image TANK_D = new ImageIcon("images/tankD.gif").getImage();
     public static final Image TANK_L = new ImageIcon("images/tankL.gif").getImage();
     public static final Image TANK_R = new ImageIcon("images/tankR.gif").getImage();
+
+    //玩家二坦克二
+    public static final Image WTANK_U = new ImageIcon("images/WtankU.gif").getImage();
+    public static final Image WTANK_D = new ImageIcon("images/WtankD.gif").getImage();
+    public static final Image WTANK_L = new ImageIcon("images/WtankL.gif").getImage();
+    public static final Image WTANK_R = new ImageIcon("images/WtankR.gif").getImage();
 
     // 敌方坦克
     public static final Image E_TANK_U = new ImageIcon("images/EtankU.png").getImage();

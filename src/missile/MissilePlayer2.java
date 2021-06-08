@@ -1,6 +1,7 @@
 package missile;
 
 import tank.TankPlayer1;
+import tank.TankPlayer2;
 import ui.Explode;
 import utils.MusicUtils;
 
@@ -14,7 +15,7 @@ public class MissilePlayer2 {
     private static int speed = 5;
     // 导弹伤害
     private static int hurt = 20;
-    TankPlayer1.Direction towardDirection;
+    TankPlayer2.Direction towardDirection;
     //导弹坐标
     private int x;
     private int y;
@@ -39,7 +40,7 @@ public class MissilePlayer2 {
      * @param y 导弹纵坐标
      * @param towardDirection 导弹方向
      */
-    public MissilePlayer2(int x, int y, TankPlayer1.Direction towardDirection){
+    public MissilePlayer2(int x, int y, TankPlayer2.Direction towardDirection){
         this.x = x;
         this.y = y;
         this.towardDirection = towardDirection;
