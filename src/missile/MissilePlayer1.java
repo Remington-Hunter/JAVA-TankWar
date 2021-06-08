@@ -1,6 +1,8 @@
 package missile;
 
 import tank.TankPlayer1;
+import tank.TankPlayer2;
+import ui.DoubleFrame;
 import ui.Explode;
 import utils.MusicUtils;
 
@@ -100,21 +102,19 @@ public class MissilePlayer1 {
 
     /**
      * 判断导弹击中对方玩家
-     * @param tp2 对方坦克
-     * @return 返回是否击中
+     * @param tankPlayer2 对方坦克
      */
-    public boolean hitTank(TankPlayer1 tp2){//由于没有构建玩家二类，先用玩家一类代替
-        if(this.alive&&this.getRect().intersects(tp2.getRect())&&tp2.isAlive()){
+    public void hitTank(TankPlayer2 tankPlayer2){
+        if(this.alive&&this.getRect().intersects(tankPlayer2.getRect())&&tankPlayer2.isAlive()){
             this.alive = false;//击中后导弹消失
             new Thread(new MusicUtils(MusicUtils.PLAY_EXPLODE)).start();
-            tp2.setLife(tp2.getLife()-getHurt());
-            if(tp2.getLife()<=0){
-                tp2.setLife(0);
-                tp2.setAlive(false);
+            tankPlayer2.setLife(tankPlayer2.getLife()-getHurt());
+            if(tankPlayer2.getLife()<=0){
+                tankPlayer2.setLife(0);
+                tankPlayer2.setAlive(false);
             }
             Explode explode = new Explode(x,y);
-            //DoubleFrame.explodeList.add(explode)这里没有创建双人对战界面
+            DoubleFrame.explodeList.add(explode);
         }
-        return false;
     }
 }

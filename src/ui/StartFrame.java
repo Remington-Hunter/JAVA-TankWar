@@ -69,7 +69,7 @@ public class StartFrame extends JFrame implements KeyListener {
             public void mousePressed(MouseEvent e){
                 dispose();
                 MusicUtils.stopMusic();
-                //new DoubleFrame
+                new DoubleFrame();
             }
         });
 
@@ -162,7 +162,7 @@ public class StartFrame extends JFrame implements KeyListener {
         if(e.getKeyCode()==KeyEvent.VK_ENTER && choose==2){
             dispose();
             MusicUtils.stopMusic();
-            //new DoubleFrame();
+            new DoubleFrame();
         }
     }
     @Override

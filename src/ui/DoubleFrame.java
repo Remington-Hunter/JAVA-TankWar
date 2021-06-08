@@ -1,12 +1,15 @@
 package ui;
 
+import missile.Missile;
 import missile.MissilePlayer1;
 import missile.MissilePlayer2;
 import prop.Supply;
 import tank.TankPlayer1;
 import tank.TankPlayer2;
+import utils.MusicUtils;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -38,7 +41,65 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
         setVisible(true);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//添加关闭操作
-        
+        setLocationRelativeTo(null);//将此窗口将置于屏幕的中央
+
+        JPanel jPanel = new JPanel(){
+            {
+                setBackground(Color.gray);//设置背景颜色
+            }
+
+            /**
+             * 绘制双人对战界面
+             * @param g
+             */
+            public void paint(Graphics g){
+                super.paint(g);
+                g.drawString("玩家一的攻击力："+ MissilePlayer1.getHurt(),10,30);
+                g.drawString("玩家一的血量："+tankPlayer1.getLife(),10,60);//玩家一属性
+                //绘制玩家一血量条
+                g.drawRect(10,80,200,15);
+                g.fillRect(10,80,tankPlayer1.getLife(),15);
+
+                g.drawString("玩家二的攻击力："+ MissilePlayer2.getHurt(),10,30);
+                g.drawString("玩家二的血量："+tankPlayer2.getLife(),10,60);//玩家二属性
+                //绘制玩家二血量条
+                g.drawRect(580,80,200,15);
+                g.fillRect(580+(200-tankPlayer2.getLife()),80,tankPlayer2.getLife(),15);
+
+                tankPlayer1.draw(g);//绘制玩家一
+                tankPlayer1.eat(supply);//玩家一吃到补给
+                tankPlayer1.collideWithTank(tankPlayer2);//玩家一撞到玩家二
+
+                tankPlayer2.draw(g);//绘制玩家二
+                tankPlayer2.eat(supply);//玩家二吃到补给
+                tankPlayer2.collideWithTank(tankPlayer1);//玩家二撞到玩家一
+
+                supply.draw(g);//绘制补给
+
+                //绘制坦克一的子弹
+                for(int i=0;i<missilePlayer1List.size();i++){
+                    MissilePlayer1 missilePlayer1 = missilePlayer1List.get(i);
+                    missilePlayer1.draw(g);
+                    missilePlayer1.hitTank(tankPlayer2);
+                }
+
+                //绘制坦克二的子弹
+                for(int i=0;i<missilePlayer2List.size();i++){
+                    MissilePlayer2 missilePlayer2 = missilePlayer2List.get(i);
+                    missilePlayer2.draw(g);
+                    missilePlayer2.hitTank(tankPlayer1);
+                }
+
+            }
+        };
+
+        add(jPanel);
+        Thread thread = new Thread(this);
+        thread.start();
+    }
+
+    public static void main(String[] args) {
+        new DoubleFrame();
     }
 
     /**
@@ -80,13 +141,45 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        //TODO
-    }
-
+    /**
+     * 启动线程
+     */
     @Override
     public void run() {
-        //TODO
+        while(true){
+            try{
+                Thread.sleep(20);
+                repaint();
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 为菜单栏添加事件函数功能
+     * @param e ActionEvent类添加函数功能
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals("music")){
+            if(!musicSwitch){
+                MusicUtils.playMusic();
+            }else{
+                MusicUtils.stopMusic();
+            }
+            musicSwitch = !musicSwitch;
+        }
+        if(e.getActionCommand().equals("help")){
+            JOptionPane.showMessageDialog(null,"玩家1操作：W、向上，A、向下，S、向下，D、向上，J、发射炮弹"+"\n"+"玩家2操作：↑、向上，↓、向下，←、向左，→、向右，P、发射炮弹"+"","提示",JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(e.getActionCommand().equals("back")){
+            Object[] options = {"确定","取消"};
+            int response = JOptionPane.showOptionDialog(this,"您确认要返回到主界面！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,options, options[0]);
+            if(response==0){
+                this.dispose();
+                new StartFrame();
+            }
+        }
     }
 }

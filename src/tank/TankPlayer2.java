@@ -178,10 +178,10 @@ public class TankPlayer2 implements KeyListener {
 
     /**
      * 判断坦克是否相撞
-     * @param tankPlayer2 玩家二的坦克
+     * @param tankPlayer1 玩家一的坦克
      */
-    public void collideWithTank(TankPlayer2 tankPlayer2){
-        if(this.alive&&tankPlayer2.isAlive()&&this.getRect().intersects(tankPlayer2.getRect())){
+    public void collideWithTank(TankPlayer1 tankPlayer1){
+        if(this.alive&&tankPlayer1.isAlive()&&this.getRect().intersects(tankPlayer1.getRect())){
             this.changeToOldDirection();
         }
     }
