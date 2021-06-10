@@ -14,26 +14,15 @@ import java.awt.event.MouseEvent;
 public class StartFrame extends JFrame implements KeyListener {
 
 
+    private static int choose;//选择模式属性
+    private static String userName;//用户名
     //创建标签存放图片
     JLabel jlBack = new JLabel(ImageUtils.IMAGE_BACKGROUND);//背景
     JLabel jlSelect = new JLabel(ImageUtils.IMAGE_SELECT);//鼠标选择
     JLabel jlButton1 = new JLabel(ImageUtils.IMAGE_BUTTON_1);//开始游戏
     JLabel jlButton2 = new JLabel(ImageUtils.IMAGE_BUTTON_2);//双人模式
-
     JLabel jlRunTank1 = new JLabel(ImageUtils.RUN_TANK_1);
     JLabel jlRunTank2 = new JLabel(ImageUtils.RUN_Tank_2);
-
-    private static int choose;//选择模式属性
-    private static String userName;//用户名
-
-    /**
-     * get方法获取用户名
-     *
-     * @return 返回用户名
-     */
-    public static String getUserName() {
-        return userName;
-    }
 
     public StartFrame() {
         jlSelect.setFocusable(true);//控制键盘可以获得按钮的焦点
@@ -47,8 +36,10 @@ public class StartFrame extends JFrame implements KeyListener {
                 jlSelect.setBounds(260, 368, 70, 40);
             }
 
+
             public void mousePressed(MouseEvent e) {
-                String username = JOptionPane.showInputDialog("请输入玩家姓名：");
+                String username = JEnhancedOptionPane.showInputDialog("您的姓名是:", java.util.Optional.of(new Object[]{"确认", "匿名开始"}));
+
                 if ("".equals(username) || username == null) {
                     userName = "匿名玩家";
                 } else {
@@ -71,6 +62,7 @@ public class StartFrame extends JFrame implements KeyListener {
                 dispose();
                 MusicUtils.stopMusic();
                 EventQueue.invokeLater(DoubleFrame::new);
+                DoubleFrame.isRunning = true;
             }
         });
 
@@ -99,10 +91,10 @@ public class StartFrame extends JFrame implements KeyListener {
         this.setIconImage(ImageUtils.ICON);
 
         Thread tankRun = new Thread(new Runnable() {
-            int xLeft = -481;
             final int yLeft = 5; //向左滚动条的初始位置
-            int xRight = 800;
             final int yRight = 5;//向右滚动条的初始位置
+            int xLeft = -481;
+            int xRight = 800;
             boolean dir = true;//决定方向
 
             @Override
@@ -134,6 +126,15 @@ public class StartFrame extends JFrame implements KeyListener {
             }
         });
         tankRun.start();
+    }
+
+    /**
+     * get方法获取用户名
+     *
+     * @return 返回用户名
+     */
+    public static String getUserName() {
+        return userName;
     }
 
     public static void main(String[] args) {
@@ -169,11 +170,29 @@ public class StartFrame extends JFrame implements KeyListener {
             dispose();
             MusicUtils.stopMusic();
             EventQueue.invokeLater(DoubleFrame::new);
+            DoubleFrame.isRunning = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         //TODO
+    }
+}
+
+class JEnhancedOptionPane extends JOptionPane {
+    public static String showInputDialog(final Object message, final Object[] options)
+            throws HeadlessException {
+        final JOptionPane pane = new JOptionPane(message, QUESTION_MESSAGE, OK_CANCEL_OPTION, null, options, null);
+        pane.setWantsInput(true);
+        pane.setComponentOrientation((getRootFrame()).getComponentOrientation());
+        pane.setMessageType(QUESTION_MESSAGE);
+        pane.selectInitialValue();
+        final String title = UIManager.getString("OptionPane.inputDialogTitle", null);
+        final JDialog dialog = pane.createDialog(null, title);
+        dialog.setVisible(true);
+        dialog.dispose();
+        final Object value = pane.getInputValue();
+        return (value == UNINITIALIZED_VALUE) ? null : (String) value;
     }
 }

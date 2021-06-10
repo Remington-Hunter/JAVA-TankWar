@@ -20,6 +20,8 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
     public static final int DOUBLE_FRAME_WIDTH = 800;
     public static final int DOUBLE_FRAME_HEIGHT = 600;
 
+    public static boolean isRunning = false;
+
     public static TankPlayer1 tankPlayer1 = new TankPlayer1(150, 200, TankPlayer1.Direction.STOP);
     public static TankPlayer2 tankPlayer2 = new TankPlayer2(590, 200, TankPlayer2.Direction.STOP);
 
@@ -76,7 +78,6 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
                 tankPlayer2.collideWithTank(tankPlayer1);//玩家二撞到玩家一
 
                 supply.draw(g);//绘制补给
-
 
                 //绘制坦克一的子弹
                 for (int i = 0; i < missilePlayer1List.size(); i++) {
@@ -139,6 +140,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
         jMenuItem3.setActionCommand("back");
 
         this.setJMenuBar(jMenuBar);//添加菜单栏
+        System.out.println(isRunning);
     }
 
     /**
@@ -149,6 +151,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
         while (true) {
             try {
                 Thread.sleep(20);
+                new Thread(new Supply()).start();
                 repaint();
             } catch (InterruptedException e) {
                 e.printStackTrace();

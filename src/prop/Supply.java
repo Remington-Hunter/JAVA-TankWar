@@ -1,12 +1,11 @@
 package prop;
 
+import ui.DoubleFrame;
 import utils.ImageUtils;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-public class Supply {
+public class Supply implements Runnable {
     /**
      * 补给图标的宽度与长度
      */
@@ -31,7 +30,6 @@ public class Supply {
         Supply.y = y;
     }
 
-
     /**
      * 补给图标的绘制
      *
@@ -48,5 +46,17 @@ public class Supply {
      */
     public Rectangle getRect() {
         return new Rectangle(x, y, SUPPLY_WIDTH, SUPPLY_LENGTH);
+    }
+
+    @Override
+    public void run() {
+        while(DoubleFrame.isRunning){
+            try {
+                Thread.sleep(5000);
+                new Thread(new Supply()).start();
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
     }
 }
