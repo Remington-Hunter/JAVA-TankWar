@@ -1,7 +1,7 @@
 package player2;
 
-import palyer1.MissilePlayer1;
-import palyer1.TankPlayer1;
+import player1.MissilePlayer1;
+import player1.TankPlayer1;
 import prop.Supply;
 import ui.DoubleFrame;
 import utils.ImageUtils;

@@ -306,7 +306,8 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                     }
                     if (!hero.isAlive()||!home.isAlive()) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
-                        JOptionPane.showMessageDialog(null, "游戏结束！");
+                        //JOptionPane.showMessageDialog(null, "游戏结束！");
+                        new EndFrame();
                         maxScore();
                     }
                     try {
@@ -398,7 +399,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 new Thread(this).start();
             }
         }
-        if (e.getActionCommand().equals("commit")) {
+        if (e.getActionCommand().equals("continue")) {
             if (!threadSwitch) {
                 threadSwitch = true;
                 //线程启动

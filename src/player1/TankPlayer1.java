@@ -1,4 +1,4 @@
-package palyer1;
+package player1;
 
 import prop.Supply;
 import player2.TankPlayer2;

@@ -1,9 +1,9 @@
 package ui;
 
-import palyer1.MissilePlayer1;
+import player1.MissilePlayer1;
 import player2.MissilePlayer2;
 import prop.Supply;
-import palyer1.TankPlayer1;
+import player1.TankPlayer1;
 import player2.TankPlayer2;
 import utils.MusicUtils;
 
@@ -136,8 +136,6 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
         jMenuItem3.setActionCommand("back");
 
         this.setJMenuBar(jMenuBar);//添加菜单栏
-
-
     }
 
     /**

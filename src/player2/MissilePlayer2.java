@@ -1,6 +1,6 @@
 package player2;
 
-import palyer1.TankPlayer1;
+import player1.TankPlayer1;
 import ui.DoubleFrame;
 import ui.Explode;
 import utils.MusicUtils;

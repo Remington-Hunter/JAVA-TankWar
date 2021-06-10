@@ -7,10 +7,10 @@ import java.awt.*;
 
 public class ImageUtils {
     //玩家一坦克
-    public static final Image TANK_U = new ImageIcon("images/tankU.gif").getImage();
-    public static final Image TANK_D = new ImageIcon("images/tankD.gif").getImage();
-    public static final Image TANK_L = new ImageIcon("images/tankL.gif").getImage();
-    public static final Image TANK_R = new ImageIcon("images/tankR.gif").getImage();
+    public static final Image TANK_U = new ImageIcon("images/Tank_U.png").getImage();
+    public static final Image TANK_D = new ImageIcon("images/Tank_D.png").getImage();
+    public static final Image TANK_L = new ImageIcon("images/Tank_L.png").getImage();
+    public static final Image TANK_R = new ImageIcon("images/Tank_R.png").getImage();
     //玩家二坦克二
     public static final Image W_TANK_U = new ImageIcon("images/WtankU.gif").getImage();
     public static final Image W_TANK_D = new ImageIcon("images/WtankD.gif").getImage();
@@ -57,6 +57,9 @@ public class ImageUtils {
     public static final ImageIcon IMAGE_BUTTON_2 = new ImageIcon("images/bf2.jpg");
     public static final ImageIcon RUN_TANK_1 = new ImageIcon("images/runTank11.png");
     public static final ImageIcon RUN_Tank_2 = new ImageIcon("images/runTank12.png");
+
+    //游戏失败图片
+    public static final Image GAME_OVER = new ImageIcon("images/GameOver.png").getImage();
 
     private ImageUtils() {
     }
