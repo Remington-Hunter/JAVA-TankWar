@@ -118,9 +118,12 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 g.drawString("你的生命值：" + hero.getLife(), 10, 40);
                 g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
                 g.drawString("第" + round + " 轮战斗" + "，敌人总数：" + tankList.size(), 10, 80);
-                g.drawRect(45, 515, 700, 15);
-                g.fillRect(45, 515, hero.getLife() * 7, 15);
-
+                g.drawRect(45, 515, 200, 15);
+                g.fillRect(45, 515, hero.getLife() * 2, 15);
+                if(hero2!=null&&hero2.isAlive()){
+                    g.drawRect(555, 515, 200, 15);
+                    g.fillRect(555, 515, hero2.getLife() * 2, 15);
+                }
                 hero.draw(g);//画出英雄坦克
                 if (hero2 != null) {
                     hero2.draw(g); // 玩家2
@@ -337,7 +340,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                         maxScore();
                         EndFrame endFrame = new EndFrame();
                         this.dispose();
-                        Thread.sleep(1000);
+                        Thread.sleep(1500);
                         endFrame.dispose();
                         initVariable(0,2);
                     }
@@ -576,7 +579,6 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        System.out.println("tank2");
         if (key == KeyEvent.VK_F3 && (hero2 == null || !hero2.isAlive())) {
             hero2 = new TankPlayer2(580, 480, true, Tank.Direction.STOP);
             addKeyListener(hero2);
