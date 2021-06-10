@@ -307,8 +307,11 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                     if (!hero.isAlive()||!home.isAlive()) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
                         //JOptionPane.showMessageDialog(null, "游戏结束！");
-                        EventQueue.invokeLater(EndFrame::new);
-                        repaint();
+                        EndFrame endFrame = new EndFrame();
+                        this.dispose();
+                        Thread.sleep(1000);
+                        endFrame.dispose();
+                        EventQueue.invokeLater(StartFrame::new);
                         maxScore();
                     }
                     try {
