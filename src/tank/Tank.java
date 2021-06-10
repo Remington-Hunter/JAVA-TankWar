@@ -231,6 +231,7 @@ public class Tank implements KeyListener {
 
     /**
      * 绘制坦克
+     *
      * @param g Graphics类用于绘图
      */
     public void draw(Graphics g) {
@@ -365,6 +366,7 @@ public class Tank implements KeyListener {
 
     /**
      * 发射一枚导弹
+     *
      * @return 返回产生的导弹
      */
     public Missile fire() {
@@ -396,6 +398,7 @@ public class Tank implements KeyListener {
 
     /**
      * 判断坦克是否撞击普通墙
+     *
      * @param w 判定的墙体
      * @return 返回判定结果
      */
@@ -409,6 +412,7 @@ public class Tank implements KeyListener {
 
     /**
      * 判断坦克是否撞击基地
+     *
      * @param home 基地
      * @return 返回判定结果
      */
@@ -422,6 +426,7 @@ public class Tank implements KeyListener {
 
     /**
      * 判断坦克是否撞击金属墙
+     *
      * @param hw 需要判定的金属墙
      * @return 返回判定结果
      */
@@ -435,6 +440,7 @@ public class Tank implements KeyListener {
 
     /**
      * 判断坦克是否撞击河流
+     *
      * @param river 需要判定的河流
      * @return 返回判定结果
      */
@@ -448,6 +454,7 @@ public class Tank implements KeyListener {
 
     /**
      * 判断坦克是否撞击坦克
+     *
      * @param tanks 需要判定的坦克
      * @return 返回判定结果
      */

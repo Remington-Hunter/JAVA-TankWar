@@ -21,9 +21,9 @@ public class River {
     private final int y;
 
 
-
     /**
      * 河流图标的构造方法
+     *
      * @param x 传递构造的横坐标参数
      * @param y 传递构造的纵坐标参数
      */
@@ -32,16 +32,18 @@ public class River {
         this.y = y;
     }
 
-     /**
+    /**
      * 绘制画出河流图标
+     *
      * @param g 传入Graphics实例对象进行绘图
      */
-    public void draw(Graphics g){
-        g.drawImage(ImageUtils.RIVER_IMAGE,x,y,null);
+    public void draw(Graphics g) {
+        g.drawImage(ImageUtils.RIVER_IMAGE, x, y, null);
     }
 
     /**
      * 为河流图标绘制一片区域
+     *
      * @return 返回指定参数的长方形实例对象
      */
     public Rectangle getRect() {

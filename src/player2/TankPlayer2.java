@@ -65,16 +65,17 @@ public class TankPlayer2 implements KeyListener {
     /**
      * 判断子弹是否进入坦克范围
      */
-    public Rectangle getRect(){
-        return new Rectangle(x,y,TANK1_WIDTH,TANK1_HEIGHT);
+    public Rectangle getRect() {
+        return new Rectangle(x, y, TANK1_WIDTH, TANK1_HEIGHT);
     }
 
     /**
      * 玩家二坦克的构造方法
+     *
      * @param x 初始横坐标参数
      * @param y 初始纵坐标位置
      */
-    public TankPlayer2(int x,int y){
+    public TankPlayer2(int x, int y) {
         this.x = x;
         this.y = y;
         this.oldX = x;
@@ -83,22 +84,24 @@ public class TankPlayer2 implements KeyListener {
 
     /**
      * 玩家二坦克的构造方法
-     * @param x 初始横坐标参数
-     * @param y 初始纵坐标位置
+     *
+     * @param x         初始横坐标参数
+     * @param y         初始纵坐标位置
      * @param direction 初始坦克方向
      */
-    public TankPlayer2(int x, int y, Direction direction){
-        this(x,y);
+    public TankPlayer2(int x, int y, Direction direction) {
+        this(x, y);
         this.direction = direction;
     }
 
     /**
      * 绘制玩家二的坦克
+     *
      * @param g Graphics类用于绘图
      */
-    public void draw(Graphics g){
-        if(alive){
-            switch (towardDirection){
+    public void draw(Graphics g) {
+        if (alive) {
+            switch (towardDirection) {
                 case U:
                     g.drawImage(ImageUtils.W_TANK_U, x, y, null);
                     break;
@@ -119,7 +122,7 @@ public class TankPlayer2 implements KeyListener {
     /**
      * 坦克移动
      */
-    public void move(){
+    public void move() {
         this.oldX = x;
         this.oldY = y;
         switch (direction) {
@@ -149,17 +152,17 @@ public class TankPlayer2 implements KeyListener {
     /**
      * 玩家发射子弹方法，并将子弹加入玩家一子弹列表中
      */
-    public void fire(){
+    public void fire() {
         int x = this.x + 15;
         int y = this.y + 15;
-        MissilePlayer2 missilePlayer2 = new MissilePlayer2(x,y,towardDirection);
+        MissilePlayer2 missilePlayer2 = new MissilePlayer2(x, y, towardDirection);
         DoubleFrame.missilePlayer2List.add(missilePlayer2);
     }
 
     /**
      * 玩家一坦克移动方向
      */
-    public void setDirection(){
+    public void setDirection() {
         if (bL && !bU && !bR && !bD) direction = Direction.L;
         else if (!bL && bU && !bR && !bD) direction = Direction.U;
         else if (!bL && !bU && bR && !bD) direction = Direction.R;
@@ -170,43 +173,44 @@ public class TankPlayer2 implements KeyListener {
     /**
      * 撞击后复位
      */
-    public void changeToOldDirection(){
+    public void changeToOldDirection() {
         this.x = oldX;
         this.y = oldY;
     }
 
     /**
      * 判断坦克是否相撞
+     *
      * @param tankPlayer1 玩家一的坦克
      */
-    public void collideWithTank(TankPlayer1 tankPlayer1){
-        if(this.alive&&tankPlayer1.isAlive()&&this.getRect().intersects(tankPlayer1.getRect())){
+    public void collideWithTank(TankPlayer1 tankPlayer1) {
+        if (this.alive && tankPlayer1.isAlive() && this.getRect().intersects(tankPlayer1.getRect())) {
             this.changeToOldDirection();
         }
     }
 
-    public void eat(Supply supply){
-        if(this.alive&&this.getRect().intersects(supply.getRect())){
-            if(this.life<=100){
+    public void eat(Supply supply) {
+        if (this.alive && this.getRect().intersects(supply.getRect())) {
+            if (this.life <= 100) {
                 this.life += 100; //吃下补给，增加100生命点
-            }
-            else{
+            } else {
                 this.life = 200;
             }
             new Thread(new MusicUtils(MusicUtils.PLAY_EAT)).start();
             MissilePlayer1.setHurt(40);//增加导弹威力
             Random random = new Random();
-            Supply.setSupplyPosition(random.nextInt(300)+200,random.nextInt(300)+200);
+            Supply.setSupplyPosition(random.nextInt(300) + 200, random.nextInt(300) + 200);
         }
     }
 
     /**
      * 为玩家一坦克绑定键盘键位
+     *
      * @param e KeyEvent类设置键位
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        switch ((e.getKeyCode())){
+        switch ((e.getKeyCode())) {
             case KeyEvent.VK_UP:
                 bU = true;
                 break;
@@ -220,7 +224,7 @@ public class TankPlayer2 implements KeyListener {
                 bR = true;
                 break;
             case KeyEvent.VK_P:
-                if(!alive) return;
+                if (!alive) return;
                 fire();
                 new Thread(new MusicUtils(MusicUtils.PLAY_FIRE)).start();// 开火的音效
                 break;
@@ -232,6 +236,7 @@ public class TankPlayer2 implements KeyListener {
 
     /**
      * 键盘键位被弹起后的行为
+     *
      * @param e KeyEvent类设置键位
      */
     @Override

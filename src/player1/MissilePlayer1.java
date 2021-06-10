@@ -36,11 +36,12 @@ public class MissilePlayer1 {
 
     /**
      * 玩家一坦克导弹构造方法
-     * @param x 导弹横坐标
-     * @param y 导弹纵坐标
+     *
+     * @param x               导弹横坐标
+     * @param y               导弹纵坐标
      * @param towardDirection 导弹方向
      */
-    public MissilePlayer1(int x, int y, TankPlayer1.Direction towardDirection){
+    public MissilePlayer1(int x, int y, TankPlayer1.Direction towardDirection) {
         this.x = x;
         this.y = y;
         this.towardDirection = towardDirection;
@@ -48,19 +49,19 @@ public class MissilePlayer1 {
 
     /**
      * 绘制玩家一的导弹
+     *
      * @param g Graphics类绘制导弹
      */
-    public void draw(Graphics g){
-        if(!alive){
+    public void draw(Graphics g) {
+        if (!alive) {
             return;
         }
-        if(hurt==20){
+        if (hurt == 20) {
             g.setColor(Color.white);
-            g.fillOval(x,y,WIDTH,HEIGHT);
-        }
-        else{
+            g.fillOval(x, y, WIDTH, HEIGHT);
+        } else {
             g.setColor(Color.pink);
-            g.fillOval(x-1,y-2,WIDTH+2,HEIGHT+2);
+            g.fillOval(x - 1, y - 2, WIDTH + 2, HEIGHT + 2);
         }
         move();
     }
@@ -68,7 +69,7 @@ public class MissilePlayer1 {
     /**
      * 导弹移动
      */
-    public void move(){
+    public void move() {
         switch (towardDirection) {
             case U:
                 y -= speed;
@@ -93,26 +94,28 @@ public class MissilePlayer1 {
 
     /**
      * 获得导弹的轮廓
+     *
      * @return 返回导弹的轮廓
      */
-    public Rectangle getRect(){
-        return new Rectangle(x,y,WIDTH,HEIGHT);
+    public Rectangle getRect() {
+        return new Rectangle(x, y, WIDTH, HEIGHT);
     }
 
     /**
      * 判断导弹击中对方玩家
+     *
      * @param tankPlayer2 对方坦克
      */
-    public void hitTank(TankPlayer2 tankPlayer2){
-        if(this.alive&&this.getRect().intersects(tankPlayer2.getRect())&&tankPlayer2.isAlive()){
+    public void hitTank(TankPlayer2 tankPlayer2) {
+        if (this.alive && this.getRect().intersects(tankPlayer2.getRect()) && tankPlayer2.isAlive()) {
             this.alive = false;//击中后导弹消失
             new Thread(new MusicUtils(MusicUtils.PLAY_EXPLODE)).start();
-            tankPlayer2.setLife(tankPlayer2.getLife()-getHurt());
-            if(tankPlayer2.getLife()<=0){
+            tankPlayer2.setLife(tankPlayer2.getLife() - getHurt());
+            if (tankPlayer2.getLife() <= 0) {
                 tankPlayer2.setLife(0);
                 tankPlayer2.setAlive(false);
             }
-            Explode explode = new Explode(x,y);
+            Explode explode = new Explode(x, y);
             DoubleFrame.explodeList.add(explode);
         }
     }

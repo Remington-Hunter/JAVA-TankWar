@@ -89,7 +89,6 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 
-
         Thread thread = new Thread(this);
         thread.start();
 
@@ -105,7 +104,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
              */
             public void paint(Graphics g) {
                 super.paint(g);
-                g.drawImage(ImageUtils.BACKGROUND_MAP,0,0,null);
+                g.drawImage(ImageUtils.BACKGROUND_MAP, 0, 0, null);
                 g.drawString("你的分数：" + Missile.getCount(), 10, 20);
                 g.drawString("你的生命值：" + hero.getLife(), 10, 40);
                 g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
@@ -167,7 +166,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 }
 
                 //绘制出所有爆炸
-                for (int j=0;j<explodeList.size();j++) {
+                for (int j = 0; j < explodeList.size(); j++) {
                     Explode explode = explodeList.get(j);
                     explode.draw(g);
                 }
@@ -296,7 +295,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         //每隔20毫秒重新画图
         while (threadSwitch) {
             try {
-                if (Missile.getCount() == 31 || !hero.isAlive()||!home.isAlive()) {
+                if (Missile.getCount() == 31 || !hero.isAlive() || !home.isAlive()) {
                     threadSwitch = false;
                     if (Missile.getCount() == 31) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_WIN)).start();
@@ -304,7 +303,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                         //判断是否是最高分
                         maxScore();
                     }
-                    if (!hero.isAlive()||!home.isAlive()) {
+                    if (!hero.isAlive() || !home.isAlive()) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
                         //JOptionPane.showMessageDialog(null, "游戏结束！");
                         new EndFrame();
@@ -351,7 +350,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
      *
      * @param response 传入是否需要初始化变量的参数
      */
-    public void initVariable(int response,int option) {
+    public void initVariable(int response, int option) {
         if (response == 0) {
             threadSwitch = true;
             Home.setAlive(true);//重新激活基地
@@ -375,10 +374,9 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             treeList.clear();//丛林清空
             setDifficulty(0);//重置地图难度
             this.dispose();
-            if(option==1){
+            if (option == 1) {
                 new GameFrame();
-            }
-            else{
+            } else {
                 new StartFrame();
             }
         } else {
@@ -419,14 +417,14 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             option = 1;
             Object[] options = {"确定", "取消"};
             int response = JOptionPane.showOptionDialog(this, "您确认要开始游戏！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            initVariable(response,option);
+            initVariable(response, option);
         }
         if (e.getActionCommand().equals("back")) {
             threadSwitch = false;
             option = 2;
             Object[] options = {"确定", "取消"};
             int response = JOptionPane.showOptionDialog(this, "您确认要返回到主界面！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            initVariable(response,option);
+            initVariable(response, option);
         }
         if (e.getActionCommand().equals("difficulty1")) {
             tankList.clear();

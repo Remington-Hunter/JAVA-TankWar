@@ -25,16 +25,18 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
     /**
      * 默认坦克的初始位置
      */
-    Tank tank = new Tank(350,230,true,Tank.Direction.STOP);
+    Tank tank = new Tank(350, 230, true, Tank.Direction.STOP);
     Home home = new Home();
+
     //默认家的位置
     {
-        Home.setHomeLocation(-50,-50);
+        Home.setHomeLocation(-50, -50);
     }
+
     //判断能否添加地形
     boolean press = true;
     //判断坦克是否进入地形
-    boolean enterWall = true,enterHardWall=true,enterRiver=true,enterTree=true,enterHome=true;
+    boolean enterWall = true, enterHardWall = true, enterRiver = true, enterTree = true, enterHome = true;
     Clear clear = new Clear();
 
     JMenuBar jMenuBar = new JMenuBar();
@@ -44,7 +46,7 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
     JMenuItem jMenuItem2 = new JMenuItem("关于自定义");
     JMenuItem jMenuItem3 = new JMenuItem("返回游戏");
 
-    public DiyMapUtils(){
+    public DiyMapUtils() {
         setJMenuBar(jMenuBar);
         jMenu1.add(jMenuItem1);
         jMenu1.add(jMenuItem3);
@@ -67,99 +69,95 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
         addKeyListener(tank);
         addKeyListener(this);
         setTitle("自定义地图");
-        setSize(DIY_MAP_WIDTH,DIY_MAP_HEIGHT);
+        setSize(DIY_MAP_WIDTH, DIY_MAP_HEIGHT);
         setVisible(true);
         setLocationRelativeTo(null);
         Thread thread = new Thread(this);
         thread.start();
-        JPanel jPanel = new JPanel(){
+        JPanel jPanel = new JPanel() {
             {
                 setBackground(Color.gray);//设置背景
             }
-            public void paint(Graphics g){
+
+            public void paint(Graphics g) {
                 super.paint(g);
-                g.drawString("普通墙的个数："+ GameFrame.wallList.size(),10,20);
-                g.drawString("金属墙的个数："+ GameFrame.hardWallList.size(),10,40);
-                g.drawString("河流的个数："+ GameFrame.riverList.size(),10,60);
-                g.drawString("草丛的个数："+ GameFrame.treeList.size(),10,80);
+                g.drawString("普通墙的个数：" + GameFrame.wallList.size(), 10, 20);
+                g.drawString("金属墙的个数：" + GameFrame.hardWallList.size(), 10, 40);
+                g.drawString("河流的个数：" + GameFrame.riverList.size(), 10, 60);
+                g.drawString("草丛的个数：" + GameFrame.treeList.size(), 10, 80);
                 //画普通墙
-                for(Wall wall:GameFrame.wallList){
+                for (Wall wall : GameFrame.wallList) {
                     wall.draw(g);
                 }
-                for(Wall wall:GameFrame.wallList){
-                    if(tank.getRect().intersects(wall.getRect())){
+                for (Wall wall : GameFrame.wallList) {
+                    if (tank.getRect().intersects(wall.getRect())) {
                         enterWall = false;
-                        clear.type(1,wall);
+                        clear.type(1, wall);
                         break;
-                    }
-                    else{
+                    } else {
                         enterWall = true;
                     }
                 }
-                if(!enterWall &&GameFrame.wallList.size()==0){
-                    enterWall=  true;
+                if (!enterWall && GameFrame.wallList.size() == 0) {
+                    enterWall = true;
                 }
 
                 //画金属墙
-                for(HardWall hardWall:GameFrame.hardWallList){
+                for (HardWall hardWall : GameFrame.hardWallList) {
                     hardWall.draw(g);
                 }
-                for(HardWall hardWall:GameFrame.hardWallList){
-                    if(tank.getRect().intersects(hardWall.getRect())){
+                for (HardWall hardWall : GameFrame.hardWallList) {
+                    if (tank.getRect().intersects(hardWall.getRect())) {
                         enterHardWall = false;
-                        clear.type(2,hardWall);
+                        clear.type(2, hardWall);
                         break;
-                    }
-                    else{
+                    } else {
                         enterHardWall = true;
                     }
                 }
-                if(!enterHardWall&&GameFrame.hardWallList.size()==0){
+                if (!enterHardWall && GameFrame.hardWallList.size() == 0) {
                     enterHardWall = true;
                 }
 
                 //画出河流
-                for(River river:GameFrame.riverList){
+                for (River river : GameFrame.riverList) {
                     river.draw(g);
                 }
-                for(River river:GameFrame.riverList){
-                    if(tank.getRect().intersects(river.getRect())){
+                for (River river : GameFrame.riverList) {
+                    if (tank.getRect().intersects(river.getRect())) {
                         enterRiver = false;
-                        clear.type(3,river);
+                        clear.type(3, river);
                         break;
-                    }
-                    else{
+                    } else {
                         enterRiver = true;
                     }
                 }
-                if(!enterRiver&&GameFrame.riverList.size()==0){
+                if (!enterRiver && GameFrame.riverList.size() == 0) {
                     enterRiver = true;
                 }
 
                 //画出丛林
-                for(Tree tree:GameFrame.treeList){
+                for (Tree tree : GameFrame.treeList) {
                     tree.draw(g);
                 }
-                for(Tree tree:GameFrame.treeList){
-                    if(tank.getRect().intersects(tree.getRect())){
+                for (Tree tree : GameFrame.treeList) {
+                    if (tank.getRect().intersects(tree.getRect())) {
                         enterTree = false;
-                        clear.type(4,tree);
+                        clear.type(4, tree);
                         break;
-                    }
-                    else{
+                    } else {
                         enterTree = true;
                     }
                 }
-                if(!enterTree&&GameFrame.treeList.size()==0){
+                if (!enterTree && GameFrame.treeList.size() == 0) {
                     enterTree = true;
                 }
 
                 //判断坦克是否进入家
-                if(tank.getRect().intersects(home.getRect())){
+                if (tank.getRect().intersects(home.getRect())) {
                     enterHome = false;
-                    clear.type(5,home);
-                }
-                else{
+                    clear.type(5, home);
+                } else {
                     enterHome = true;
                 }
                 press = enterWall && enterHardWall && enterRiver && enterTree && enterHome;
@@ -171,49 +169,49 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
         add(jPanel);
     }
 
-    public void run(){
-        while (true){
-            try{
+    public void run() {
+        while (true) {
+            try {
                 Thread.sleep(20);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             repaint();
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new DiyMapUtils();
     }
 
     @Override
-    public void keyTyped(KeyEvent e){
+    public void keyTyped(KeyEvent e) {
         //TODO
     }
 
     @Override
-    public void keyPressed(KeyEvent e){
-        if(e.getKeyCode()==KeyEvent.VK_H && press){
-            GameFrame.wallList.add(new Wall(tank.getX(),tank.getY()));
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_H && press) {
+            GameFrame.wallList.add(new Wall(tank.getX(), tank.getY()));
             new Thread(new MusicUtils(MusicUtils.PLAY_SET)).start();
         }
-        if(e.getKeyCode()==KeyEvent.VK_J&&press){
-            GameFrame.hardWallList.add(new HardWall(tank.getX(),tank.getY()));
+        if (e.getKeyCode() == KeyEvent.VK_J && press) {
+            GameFrame.hardWallList.add(new HardWall(tank.getX(), tank.getY()));
             new Thread(new MusicUtils(MusicUtils.PLAY_SET)).start();
         }
-        if(e.getKeyCode()==KeyEvent.VK_K && press){
-            GameFrame.riverList.add(new River(tank.getX(),tank.getY()));
+        if (e.getKeyCode() == KeyEvent.VK_K && press) {
+            GameFrame.riverList.add(new River(tank.getX(), tank.getY()));
             new Thread(new MusicUtils(MusicUtils.PLAY_SET)).start();
         }
-        if(e.getKeyCode()==KeyEvent.VK_L && press){
-            GameFrame.treeList.add(new Tree(tank.getX(),tank.getY()));
+        if (e.getKeyCode() == KeyEvent.VK_L && press) {
+            GameFrame.treeList.add(new Tree(tank.getX(), tank.getY()));
             new Thread(new MusicUtils(MusicUtils.PLAY_SET)).start();
         }
-        if(e.getKeyCode()==KeyEvent.VK_G && press){
-            Home.setHomeLocation(tank.getX(),tank.getY());
+        if (e.getKeyCode() == KeyEvent.VK_G && press) {
+            Home.setHomeLocation(tank.getX(), tank.getY());
             new Thread(new MusicUtils(MusicUtils.PLAY_SET)).start();
         }
-        if(e.getKeyCode()==KeyEvent.VK_SPACE){
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             new Thread(new MusicUtils(MusicUtils.PLAY_SET)).start();
             clear.removeTrash();
         }
@@ -223,9 +221,10 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
     public void keyReleased(KeyEvent e) {
         // TODO Auto-generated method stub
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("start")){
+        if (e.getActionCommand().equals("start")) {
             this.dispose();
             GameFrame.setDifficulty(4);
             //如果玩家在自定义地图前死亡需要重置以下属性
@@ -234,34 +233,46 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
             GameFrame.threadSwitch = true;
             new GameFrame();
         }
-        if(e.getActionCommand().equals("back")){
+        if (e.getActionCommand().equals("back")) {
             this.dispose();
             Home.setHomeLocation(290, 250);// 重置老家位置
             new GameFrame();
         }
-        if(e.getActionCommand().equals("diy")){
-            JOptionPane.showMessageDialog(null, "G、家，H、普通墙，J、金属墙，K、河流，L、草地，空格清除","提示",JOptionPane.INFORMATION_MESSAGE);
+        if (e.getActionCommand().equals("diy")) {
+            JOptionPane.showMessageDialog(null, "G、家，H、普通墙，J、金属墙，K、河流，L、草地，空格清除", "提示", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
 }
 
-class Clear{
+class Clear {
     int type;
     Object object;
-    public void type(int type,Object object){
+
+    public void type(int type, Object object) {
         this.type = type;
         this.object = object;
     }
 
-    public void removeTrash(){
-        switch (type){
-            case 1:GameFrame.wallList.remove(object);break;
-            case 2:GameFrame.hardWallList.remove(object);break;
-            case 3:GameFrame.riverList.remove(object);break;
-            case 4:GameFrame.treeList.remove(object);break;
-            case 5:Home.setHomeLocation(-50,-50);break;
-            default:break;
+    public void removeTrash() {
+        switch (type) {
+            case 1:
+                GameFrame.wallList.remove(object);
+                break;
+            case 2:
+                GameFrame.hardWallList.remove(object);
+                break;
+            case 3:
+                GameFrame.riverList.remove(object);
+                break;
+            case 4:
+                GameFrame.treeList.remove(object);
+                break;
+            case 5:
+                Home.setHomeLocation(-50, -50);
+                break;
+            default:
+                break;
         }
     }
 }

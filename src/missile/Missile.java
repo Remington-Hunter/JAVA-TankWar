@@ -202,6 +202,7 @@ public class Missile {
 
     /**
      * 击中墙壁
+     *
      * @param w 击中的墙壁
      */
     public void hitWalls(Wall w) { // 子弹打到普通墙上
@@ -213,6 +214,7 @@ public class Missile {
 
     /**
      * 击中金属墙
+     *
      * @param hw 击中的金属墙
      */
     public void hitWalls(HardWall hw) {

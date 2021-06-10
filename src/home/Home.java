@@ -19,9 +19,9 @@ public class Home {
     static boolean alive = true;
 
 
-
     /**
      * 判断是否游戏失败
+     *
      * @return 返回基地是否存活
      */
     public boolean isAlive() {
@@ -48,6 +48,7 @@ public class Home {
 
     /**
      * 绘制基地图形
+     *
      * @param g 定义Graphics对象进行绘图
      */
     public void draw(Graphics g) {
@@ -59,9 +60,10 @@ public class Home {
 
     /**
      * 绘制基地长方形
+     *
      * @return 返回一个长方形对象
      */
     public Rectangle getRect() {
-        return new Rectangle(x,y,HOME_WIDTH,HOME_LENGTH);
+        return new Rectangle(x, y, HOME_WIDTH, HOME_LENGTH);
     }
 }
