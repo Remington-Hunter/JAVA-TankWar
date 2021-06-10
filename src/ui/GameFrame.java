@@ -118,10 +118,14 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 g.drawString("你的生命值：" + hero.getLife(), 10, 40);
                 g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
                 g.drawString("第" + round + " 轮战斗" + "，敌人总数：" + tankList.size(), 10, 80);
+                g.setColor(Color.BLACK);
                 g.drawRect(45, 515, 200, 15);
+                g.setColor(Color.RED);
                 g.fillRect(45, 515, hero.getLife() * 2, 15);
                 if(hero2!=null&&hero2.isAlive()){
+                    g.setColor(Color.BLACK);
                     g.drawRect(555, 515, 200, 15);
+                    g.setColor(Color.RED);
                     g.fillRect(555, 515, hero2.getLife() * 2, 15);
                 }
                 hero.draw(g);//画出英雄坦克
@@ -544,8 +548,8 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
         }
         if (e.getActionCommand().equals("help")) {
             threadSwitch = false;//停止线程
-            JOptionPane.showMessageDialog(null, "玩家一 W、向上，A、向左，S、向下，D、向右，G、发射炮弹，R、加血" + "\n玩家二（F3出生" +
-                    "） 方向键控制 P、发射炮弹，O、加血", "提示", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "玩家一（F4复活）W、向上，A、向左，S、向下，D、向右，G、发射炮弹，R、加血" + "\n玩家二（F3出生/复活" +
+                    "） ↑、向上，↓、向下，←、向左，→、向右 P、发射炮弹，O、加血", "提示", JOptionPane.INFORMATION_MESSAGE);
             threadSwitch = true;
             new Thread(this).start();//线程启动
         }

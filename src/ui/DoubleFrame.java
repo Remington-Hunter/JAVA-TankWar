@@ -60,13 +60,17 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
                 g.drawString("玩家一的攻击力：" + MissilePlayer1.getHurt(), 10, 30);
                 g.drawString("玩家一的血量：" + tankPlayer1.getLife(), 10, 60);//玩家一属性
                 //绘制玩家一血量条
+                g.setColor(Color.BLACK);
                 g.drawRect(10, 80, 200, 15);
+                g.setColor(Color.RED);
                 g.fillRect(10, 80, tankPlayer1.getLife(), 15);
 
                 g.drawString("玩家二的攻击力：" + MissilePlayer2.getHurt(), 675, 30);
                 g.drawString("玩家二的血量：" + tankPlayer2.getLife(), 680, 60);//玩家二属性
                 //绘制玩家二血量条
+                g.setColor(Color.BLACK);
                 g.drawRect(580, 80, 200, 15);
+                g.setColor(Color.RED);
                 g.fillRect(580 + (200 - tankPlayer2.getLife()), 80, tankPlayer2.getLife(), 15);
 
                 tankPlayer1.draw(g);//绘制玩家一
@@ -175,7 +179,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
             musicSwitch = !musicSwitch;
         }
         if (e.getActionCommand().equals("help")) {
-            JOptionPane.showMessageDialog(null, "玩家1操作：W、向上，A、向下，S、向下，D、向上，J、发射炮弹" + "\n" + "玩家2操作：↑、向上，↓、向下，←、向左，→、向右，P、发射炮弹" + "", "提示", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "玩家1操作：W、向上，A、向下，S、向下，D、向上，G、发射炮弹" + "\n" + "玩家2操作：↑、向上，↓、向下，←、向左，→、向右，P、发射炮弹" + "", "提示", JOptionPane.INFORMATION_MESSAGE);
         }
         if (e.getActionCommand().equals("back")) {
             Object[] options = {"确定", "取消"};
