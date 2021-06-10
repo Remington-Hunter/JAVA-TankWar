@@ -53,7 +53,7 @@ public class StartFrame extends JFrame implements KeyListener {
                 }
                 dispose();
                 MusicUtils.stopMusic();
-                new GameFrame();
+                EventQueue.invokeLater(GameFrame::new);
             }
         });
 
@@ -66,7 +66,7 @@ public class StartFrame extends JFrame implements KeyListener {
             public void mousePressed(MouseEvent e){
                 dispose();
                 MusicUtils.stopMusic();
-                new DoubleFrame();
+                EventQueue.invokeLater(DoubleFrame::new);
             }
         });
 
@@ -132,7 +132,7 @@ public class StartFrame extends JFrame implements KeyListener {
 
     public static void main(String[] args) {
         MusicUtils.playMusic();
-        new StartFrame();
+        EventQueue.invokeLater(StartFrame::new);
     }
 
     @Override
@@ -156,12 +156,12 @@ public class StartFrame extends JFrame implements KeyListener {
             userName = JOptionPane.showInputDialog("请输入玩家姓名：");
             dispose();
             MusicUtils.stopMusic();
-            new GameFrame();
+            EventQueue.invokeLater(GameFrame::new);
         }
         if(e.getKeyCode()==KeyEvent.VK_ENTER && choose==2){
             dispose();
             MusicUtils.stopMusic();
-            new DoubleFrame();
+            EventQueue.invokeLater(DoubleFrame::new);
         }
     }
     @Override

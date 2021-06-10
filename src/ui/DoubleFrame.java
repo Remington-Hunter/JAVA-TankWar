@@ -175,7 +175,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
             int response = JOptionPane.showOptionDialog(this,"您确认要返回到主界面！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,options, options[0]);
             if(response==0){
                 this.dispose();
-                new StartFrame();
+                EventQueue.invokeLater(StartFrame::new);
             }
         }
     }

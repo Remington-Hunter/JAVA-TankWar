@@ -81,7 +81,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         addKeyListener(hero);
         createMenu();//创建菜单
 
-        setTitle("坦克大战");
+        this.setTitle("坦克大战");
         setVisible(true);
         setSize(800, 600);
         setResizable(false);
@@ -203,7 +203,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
     }
 
     public static void main(String[] args) {
-        new GameFrame();
+        EventQueue.invokeLater(GameFrame::new);
     }
 
     public void createMenu() {
@@ -307,7 +307,8 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                     if (!hero.isAlive()||!home.isAlive()) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
                         //JOptionPane.showMessageDialog(null, "游戏结束！");
-                        new EndFrame();
+                        EventQueue.invokeLater(EndFrame::new);
+                        repaint();
                         maxScore();
                     }
                     try {
@@ -376,10 +377,10 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             setDifficulty(0);//重置地图难度
             this.dispose();
             if(option==1){
-                new GameFrame();
+                EventQueue.invokeLater(GameFrame::new);
             }
             else{
-                new StartFrame();
+                EventQueue.invokeLater(StartFrame::new);
             }
         } else {
             threadSwitch = true;
@@ -440,7 +441,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             Home.setHomeLocation(370, 500);//重置基地位置
             hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             this.dispose();
-            new GameFrame();
+            EventQueue.invokeLater(GameFrame::new);
         }
         if (e.getActionCommand().equals("difficulty2")) {
             tankList.clear();
@@ -455,7 +456,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             Home.setHomeLocation(370, 250);//重置基地位置
             hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             this.dispose();
-            new GameFrame();
+            EventQueue.invokeLater(GameFrame::new);
         }
         if (e.getActionCommand().equals("difficulty3")) {
             tankList.clear();
@@ -469,7 +470,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             Home.setHomeLocation(390, 250);//重置基地位置
             hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             this.dispose();
-            new GameFrame();
+            EventQueue.invokeLater(GameFrame::new);
         }
         if (e.getActionCommand().equals("history")) {
             try {
