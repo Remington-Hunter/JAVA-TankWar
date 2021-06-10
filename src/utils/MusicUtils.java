@@ -63,6 +63,21 @@ public class MusicUtils implements Runnable {
      */
     public final static String PLAY_SET_MOVE = "music/setMove.wav";
 
+    /**
+     * 导弹击中金属墙文件地址
+     */
+    public final static String PLAY_HIT_STONE = "music/hitStone.wav";
+
+    /**
+     * 导弹击中墙文件地址
+     */
+    public final static String PLAY_HIT_WALL = "music/breakWall.wav";
+
+    /**
+     * 玩家中弹文件地址
+     */
+    public final static String PLAY_HURT = "music/hurt.wav";
+
     // 音乐文件的路径
     private final String url;
 
