@@ -166,8 +166,7 @@ public class Missile {
     }
 
     /**
-     * 击中坦克
-     *
+     * 击中玩家一坦克
      * @param t 需要击中的坦克
      * @return 返回是否击毁
      */
