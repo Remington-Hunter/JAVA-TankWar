@@ -45,16 +45,19 @@ public class ImageUtils {
     //河流图片
     public static final Image RIVER_IMAGE = new ImageIcon("images/river.gif").getImage();
     //丛林图片
-    public static final Image TREE_IMAGE = new ImageIcon("images/tree.gif").getImage();
+    public static final Image TREE_IMAGE = new ImageIcon("images/BG10.jpg").getImage();
     //补给图片
     public static final Image SUPPLY_IMAGE = new ImageIcon("images/arm1.png").getImage();
+    //背景图片
+    public static final Image BACKGROUND_MAP = new ImageIcon("images/BG03.jpg").getImage();
     //创建开始游戏的一些图片对象
-    public static final ImageIcon IMAGE_BACK = new ImageIcon("images/back.jpg");
+    public static final ImageIcon IMAGE_BACKGROUND = new ImageIcon("images/back.jpg");
     public static final ImageIcon IMAGE_SELECT = new ImageIcon("images/select.jpg");
     public static final ImageIcon IMAGE_BUTTON_1 = new ImageIcon("images/bf1.jpg");
     public static final ImageIcon IMAGE_BUTTON_2 = new ImageIcon("images/bf2.jpg");
     public static final ImageIcon RUN_TANK_1 = new ImageIcon("images/runTank11.png");
     public static final ImageIcon RUN_Tank_2 = new ImageIcon("images/runTank12.png");
+
     private ImageUtils() {
     }
 }

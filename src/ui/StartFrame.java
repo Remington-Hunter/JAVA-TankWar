@@ -14,7 +14,7 @@ public class StartFrame extends JFrame implements KeyListener {
 
 
     //创建标签存放图片
-    JLabel jlBack = new JLabel(ImageUtils.IMAGE_BACK);//背景
+    JLabel jlBack = new JLabel(ImageUtils.IMAGE_BACKGROUND);//背景
     JLabel jlSelect = new JLabel(ImageUtils.IMAGE_SELECT);//鼠标选择
     JLabel jlButton1 = new JLabel(ImageUtils.IMAGE_BUTTON_1);//开始游戏
     JLabel jlButton2 = new JLabel(ImageUtils.IMAGE_BUTTON_2);//双人模式
@@ -78,7 +78,7 @@ public class StartFrame extends JFrame implements KeyListener {
         add(jlRunTank2);
         //设置图片铺满整个面板
         this.getContentPane().add(jlBack);
-        jlBack.setBounds(60,20,ImageUtils.IMAGE_BACK.getIconWidth(),ImageUtils.IMAGE_BACK.getIconHeight());
+        jlBack.setBounds(60,20,ImageUtils.IMAGE_BACKGROUND.getIconWidth(),ImageUtils.IMAGE_BACKGROUND.getIconHeight());
         //把内容窗格转化为JPanel，否则不能用方法setOpaque()来使内容窗格透明
         ((JPanel)this.getContentPane()).setOpaque(false);
         // 把背景图片添加到分层窗格的最底作为背景

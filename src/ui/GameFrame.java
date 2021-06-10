@@ -74,6 +74,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
     {
         tankList.add(new Tank(80, 50, false, Tank.Direction.D));
     }
+
     public GameFrame() {
         //为英雄坦克注册键盘监听事件
         addKeyListener(hero);
@@ -85,6 +86,8 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
 
         Thread thread = new Thread(this);
         thread.start();
@@ -101,6 +104,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
              */
             public void paint(Graphics g) {
                 super.paint(g);
+                g.drawImage(ImageUtils.BACKGROUND_MAP,0,0,null);
                 g.drawString("你的分数：" + Missile.getCount(), 10, 20);
                 g.drawString("你的生命值：" + hero.getLife(), 10, 40);
                 g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
