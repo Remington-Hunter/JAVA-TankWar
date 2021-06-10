@@ -61,6 +61,19 @@ public class ImageUtils {
     //游戏失败图片
     public static final Image GAME_OVER = new ImageIcon("images/GameOver.png").getImage();
 
+    //坦克爆炸图片
+    public static final Image BOOM_1 = new ImageIcon("images/1.gif").getImage();
+    public static final Image BOOM_2 = new ImageIcon("images/2.gif").getImage();
+    public static final Image BOOM_3 = new ImageIcon("images/3.gif").getImage();
+    public static final Image BOOM_4 = new ImageIcon("images/4.gif").getImage();
+    public static final Image BOOM_5 = new ImageIcon("images/5.gif").getImage();
+    public static final Image BOOM_6 = new ImageIcon("images/6.gif").getImage();
+    public static final Image BOOM_7 = new ImageIcon("images/7.gif").getImage();
+    public static final Image BOOM_8 = new ImageIcon("images/8.gif").getImage();
+    public static final Image BOOM_9 = new ImageIcon("images/9.gif").getImage();
+    public static final Image BOOM_10 = new ImageIcon("images/10.gif").getImage();
+
+
     private ImageUtils() {
     }
 }

@@ -88,8 +88,6 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
-
         Thread thread = new Thread(this);
         thread.start();
 
@@ -307,12 +305,12 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                     if (!hero.isAlive()||!home.isAlive()) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
                         //JOptionPane.showMessageDialog(null, "游戏结束！");
+                        maxScore();
                         EndFrame endFrame = new EndFrame();
                         this.dispose();
                         Thread.sleep(1000);
                         endFrame.dispose();
-                        EventQueue.invokeLater(StartFrame::new);
-                        maxScore();
+                        initVariable(0,2);
                     }
                     try {
                         FileWriter fileWriter = new FileWriter("txt/score.txt");
@@ -417,6 +415,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 MusicUtils.stopMusic();
             }
             musicSwitch = !musicSwitch;
+            System.out.println(musicSwitch);
         }
         if (e.getActionCommand().equals("restart")) {
             threadSwitch = false;

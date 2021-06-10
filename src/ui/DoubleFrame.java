@@ -26,7 +26,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
 
     public static List<Explode> explodeList = new ArrayList<Explode>(0);
     public static Boolean musicSwitch = false;//决定音乐开启与关闭
-    Supply supply = new Supply();//实例化一个对象补给
+    Supply supply = new Supply();//实例化一个补给对象
 
     public DoubleFrame() {
         createMenu();

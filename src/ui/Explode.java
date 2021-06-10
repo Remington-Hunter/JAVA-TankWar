@@ -1,5 +1,7 @@
 package ui;
 
+import utils.ImageUtils;
+
 import java.awt.*;
 
 public class Explode {
@@ -19,11 +21,17 @@ public class Explode {
     /**
      * 爆炸事件控制
      */
-    int Step = 0;
+    int step = 0;
     /**
      * 爆炸范围
      */
-    public static final int [] DIAMETER = new int[]{4,7,12,18,26,32,49,56,65,77,80,50,40,30,14,6};
+    public static final Image [] DIAMETER = new Image[]{
+            ImageUtils.BOOM_1,ImageUtils.BOOM_2,ImageUtils.BOOM_3,
+            ImageUtils.BOOM_4,ImageUtils.BOOM_5,ImageUtils.BOOM_6,
+            ImageUtils.BOOM_7,ImageUtils.BOOM_8,ImageUtils.BOOM_9,
+            ImageUtils.BOOM_10,ImageUtils.BOOM_8,ImageUtils.BOOM_6,
+            ImageUtils.BOOM_4,ImageUtils.BOOM_2,ImageUtils.BOOM_1,
+    };
 
     /**
      * 爆炸构造方法
@@ -42,17 +50,14 @@ public class Explode {
     public void draw(Graphics g){
         if(!alive) return;
 
-        if(Step==DIAMETER.length){
+        if(step==DIAMETER.length){
             alive = false;
-            Step = 0;
+            step = 0;
             GameFrame.explodeList.remove(this);
             return;
         }
-
-        Color color = g.getColor();
-        g.setColor(Color.red);
-        g.fillOval(x,y,DIAMETER[Step],DIAMETER[Step]);
-        g.setColor(color);
-        Step++;
+        g.drawImage(DIAMETER[step],x,y,null);
+        //g.fillOval(x,y,DIAMETER[step].getWidth(null),DIAMETER[step].getHeight(null));
+        step++;
     }
 }
