@@ -1,7 +1,7 @@
-package player1;
+package pvp;
 
 import prop.Supply;
-import player2.TankPlayer2;
+import tank.Tank;
 import ui.DoubleFrame;
 import utils.ImageUtils;
 import utils.MusicUtils;
@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
-public class TankPlayer1 implements KeyListener {
+public class TankPlayer1 extends Tank implements KeyListener {
     static int speed = 4;//坦克初始速度
     boolean bU = false, bD = false, bL = false, bR = false;
     private int x;
@@ -57,10 +57,6 @@ public class TankPlayer1 implements KeyListener {
         this.alive = alive;
     }
 
-
-    public enum Direction {
-        U, D, L, R, STOP
-    }
 
     /**
      * 判断子弹是否进入坦克范围

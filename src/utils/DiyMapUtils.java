@@ -5,7 +5,7 @@ import land.HardWall;
 import land.River;
 import land.Tree;
 import land.Wall;
-import tank.Tank;
+import pve.TankPlayer1;
 import ui.GameFrame;
 
 import javax.swing.*;
@@ -25,7 +25,7 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
     /**
      * 默认坦克的初始位置
      */
-    Tank tank = new Tank(350, 230, true, Tank.Direction.STOP);
+    TankPlayer1 tank = new TankPlayer1(350, 230, true, TankPlayer1.Direction.STOP);
     Home home = new Home();
 
     //默认家的位置

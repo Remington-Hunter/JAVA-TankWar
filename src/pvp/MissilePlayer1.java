@@ -1,13 +1,12 @@
-package player2;
+package pvp;
 
-import player1.TankPlayer1;
 import ui.DoubleFrame;
 import ui.Explode;
 import utils.MusicUtils;
 
 import java.awt.*;
 
-public class MissilePlayer2 {
+public class MissilePlayer1 {
     //子导弹大小
     public static final int WIDTH = 5;
     public static final int HEIGHT = 5;
@@ -15,7 +14,7 @@ public class MissilePlayer2 {
     private static int speed = 5;
     // 导弹伤害
     private static int hurt = 20;
-    TankPlayer2.Direction towardDirection;
+    TankPlayer1.Direction towardDirection;
     //导弹坐标
     private int x;
     private int y;
@@ -31,7 +30,7 @@ public class MissilePlayer2 {
     }
 
     public static void setHurt(int hurt) {
-        MissilePlayer2.hurt = hurt;
+        MissilePlayer1.hurt = hurt;
     }
 
     /**
@@ -41,7 +40,7 @@ public class MissilePlayer2 {
      * @param y               导弹纵坐标
      * @param towardDirection 导弹方向
      */
-    public MissilePlayer2(int x, int y, TankPlayer2.Direction towardDirection) {
+    public MissilePlayer1(int x, int y, TankPlayer1.Direction towardDirection) {
         this.x = x;
         this.y = y;
         this.towardDirection = towardDirection;
@@ -104,16 +103,16 @@ public class MissilePlayer2 {
     /**
      * 判断导弹击中对方玩家
      *
-     * @param tankPlayer1 对方坦克
+     * @param tankPlayer2 对方坦克
      */
-    public void hitTank(TankPlayer1 tankPlayer1) {//由于没有构建玩家二类，先用玩家一类代替
-        if (this.alive && this.getRect().intersects(tankPlayer1.getRect()) && tankPlayer1.isAlive()) {
+    public void hitTank(TankPlayer2 tankPlayer2) {
+        if (this.alive && this.getRect().intersects(tankPlayer2.getRect()) && tankPlayer2.isAlive()) {
             this.alive = false;//击中后导弹消失
             new Thread(new MusicUtils(MusicUtils.PLAY_EXPLODE)).start();
-            tankPlayer1.setLife(tankPlayer1.getLife() - getHurt());
-            if (tankPlayer1.getLife() <= 0) {
-                tankPlayer1.setLife(0);
-                tankPlayer1.setAlive(false);
+            tankPlayer2.setLife(tankPlayer2.getLife() - getHurt());
+            if (tankPlayer2.getLife() <= 0) {
+                tankPlayer2.setLife(0);
+                tankPlayer2.setAlive(false);
             }
             Explode explode = new Explode(x, y);
             DoubleFrame.explodeList.add(explode);

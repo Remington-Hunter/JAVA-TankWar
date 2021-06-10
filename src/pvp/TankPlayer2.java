@@ -1,8 +1,7 @@
-package player2;
+package pvp;
 
-import player1.MissilePlayer1;
-import player1.TankPlayer1;
 import prop.Supply;
+import tank.Tank;
 import ui.DoubleFrame;
 import utils.ImageUtils;
 import utils.MusicUtils;
@@ -12,7 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
-public class TankPlayer2 implements KeyListener {
+public class TankPlayer2 extends Tank implements KeyListener {
     static int speed = 4;//坦克初始速度
     boolean bU = false, bD = false, bL = false, bR = false;
     private int x;
@@ -56,10 +55,6 @@ public class TankPlayer2 implements KeyListener {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
-    }
-
-    public enum Direction {
-        U, D, L, R, STOP
     }
 
     /**
@@ -204,7 +199,7 @@ public class TankPlayer2 implements KeyListener {
     }
 
     /**
-     * 为玩家一坦克绑定键盘键位
+     * 为玩家二坦克绑定键盘键位
      *
      * @param e KeyEvent类设置键位
      */

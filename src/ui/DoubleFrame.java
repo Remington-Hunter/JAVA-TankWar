@@ -1,10 +1,10 @@
 package ui;
 
-import player1.MissilePlayer1;
-import player2.MissilePlayer2;
+import pvp.MissilePlayer1;
+import pvp.MissilePlayer2;
 import prop.Supply;
-import player1.TankPlayer1;
-import player2.TankPlayer2;
+import pvp.TankPlayer1;
+import pvp.TankPlayer2;
 import utils.MusicUtils;
 
 import javax.swing.*;

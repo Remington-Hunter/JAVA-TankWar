@@ -1,7 +1,5 @@
 package utils;
 
-import tank.Tank;
-
 import javax.swing.*;
 import java.awt.*;
 
