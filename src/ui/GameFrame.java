@@ -175,7 +175,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 //没关卡敌人的设置
                 if (tankList.size() == 0 && round < 6) {
                     for (int i = 0; i < enemyCount * 2; i++) {
-                        Tank t = null;
+                        Tank t;
                         if (i < 2) {
                             t = new Tank(100 + 70 * i, 50, false, Tank.Direction.L);
                         } else if (i > 3) {
