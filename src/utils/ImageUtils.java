@@ -37,15 +37,15 @@ public class ImageUtils {
     public static final Image E3_TANK_L = new ImageIcon("images/E3tankL.png").getImage();
     public static final Image E3_TANK_R = new ImageIcon("images/E3tankR.png").getImage();
     //基地图片
-    public static final Image HOME_IMAGE = new ImageIcon("images/home.gif").getImage();
+    public static final Image HOME_IMAGE = new ImageIcon("images/home.png").getImage();
     //普通墙图片
-    public static final Image WALL_IMAGE = new ImageIcon("images/wall.gif").getImage();
+    public static final Image WALL_IMAGE = new ImageIcon("images/wall.png").getImage();
     //金属墙图片
-    public static final Image HARD_WALL_IMAGE = new ImageIcon("images/hWall.gif").getImage();
+    public static final Image HARD_WALL_IMAGE = new ImageIcon("images/hWall.png").getImage();
     //河流图片
-    public static final Image RIVER_IMAGE = new ImageIcon("images/river.gif").getImage();
+    public static final Image RIVER_IMAGE = new ImageIcon("images/river.png").getImage();
     //丛林图片
-    public static final Image TREE_IMAGE = new ImageIcon("images/BG10.jpg").getImage();
+    public static final Image TREE_IMAGE = new ImageIcon("images/tree.png").getImage();
     //补给图片
     public static final Image SUPPLY_IMAGE = new ImageIcon("images/arm1.png").getImage();
     //背景图片
