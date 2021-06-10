@@ -25,20 +25,6 @@ public class TankPlayer2 extends Tank implements KeyListener {
     private int oldX; // 原来的坐标
     private int oldY;
 
-    /**
-     * 坦克初始速度
-     */
-    public static final int TANK_SPEED = 3;
-
-    /**
-     * 坦克的宽度
-     */
-    public static final int TANK_WIDTH = 35;
-
-    /**
-     * 坦克的高度
-     */
-    public static final int TANK_HEIGHT = 35;
 
     private static int speed = TANK_SPEED;
     private static int botSpeed = TANK_SPEED;

@@ -175,16 +175,21 @@ public class Missile {
         if (this.alive && this.getRect().intersects(t.getRect()) && t.isAlive() && this.good != t.isGood()) {
             if (t.isGood()) {//玩家被击中减血
                 t.setLife(t.getLife() - hurt);
+
                 if (t.getLife() <= 0) {
                     t.setLife(0);
                     t.setAlive(false);
+                    new Thread(new MusicUtils(MusicUtils.PLAY_EXPLODE)).start();
+                } else {
+                    new Thread(new MusicUtils(MusicUtils.PLAY_HURT)).start();
                 }
             } else {//敌方直接死
                 t.setAlive(false);
                 count++;
+                new Thread(new MusicUtils(MusicUtils.PLAY_EXPLODE)).start();
             }
             this.alive = false;
-            new Thread(new MusicUtils(MusicUtils.PLAY_EXPLODE)).start();
+
             Explode e = new Explode(x, y);
             GameFrame.explodeList.add(e);
             return true;
@@ -236,6 +241,7 @@ public class Missile {
         if (this.alive && this.getRect().intersects(w.getRect())) {
             this.alive = false;//子弹消失
             GameFrame.wallList.remove(w); // 子弹打到墙上时则移除此击中墙
+            new Thread(new MusicUtils(MusicUtils.PLAY_HIT_WALL)).start();
         }
     }
 
@@ -247,6 +253,7 @@ public class Missile {
     public void hitWalls(HardWall hw) {
         if (this.alive && this.getRect().intersects(hw.getRect())) {
             this.alive = false;//子弹消失
+            new Thread(new MusicUtils(MusicUtils.PLAY_HIT_STONE)).start();
         }
     }
 

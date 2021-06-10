@@ -26,4 +26,19 @@ public abstract class Tank {
     public abstract boolean collideWithRiver(River r);
     public abstract boolean collideWithTanks(List<Tank> l);
     public abstract boolean collideWithHome(Home h);
+
+    /**
+     * 坦克初始速度
+     */
+    public static final int TANK_SPEED = 3;
+
+    /**
+     * 坦克的宽度
+     */
+    public static final int TANK_WIDTH = 40;
+
+    /**
+     * 坦克的高度
+     */
+    public static final int TANK_HEIGHT = 40;
 }

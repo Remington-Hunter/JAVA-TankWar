@@ -583,5 +583,8 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             hero2 = new TankPlayer2(580, 480, true, Tank.Direction.STOP);
             addKeyListener(hero2);
         }
+        if (key == KeyEvent.VK_F4 && !hero.isAlive()) {
+            hero= new TankPlayer1(220, 480, true, Tank.Direction.STOP);
+        }
     }
 }
