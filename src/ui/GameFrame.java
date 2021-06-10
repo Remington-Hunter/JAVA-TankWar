@@ -89,7 +89,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
         addKeyListener(this);
         createMenu();//创建菜单
 
-        setTitle("坦克大战");
+        this.setTitle("坦克大战");
         setVisible(true);
         setSize(800, 600);
         setResizable(false);
@@ -220,7 +220,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
     }
 
     public static void main(String[] args) {
-        new GameFrame();
+        EventQueue.invokeLater(GameFrame::new);
     }
 
     public void createMenu() {
@@ -324,7 +324,11 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                     if ((!hero.isAlive() && (hero2 != null && !hero2.isAlive())) || !home.isAlive()) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
                         //JOptionPane.showMessageDialog(null, "游戏结束！");
-                        new EndFrame();
+                        EndFrame endFrame = new EndFrame();
+                        this.dispose();
+                        Thread.sleep(1000);
+                        endFrame.dispose();
+                        EventQueue.invokeLater(StartFrame::new);
                         maxScore();
                     }
                     try {
@@ -402,10 +406,11 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             treeList.clear();//丛林清空
             setDifficulty(0);//重置地图难度
             this.dispose();
-            if (option == 1) {
-                new GameFrame();
-            } else {
-                new StartFrame();
+            if(option==1){
+                EventQueue.invokeLater(GameFrame::new);
+            }
+            else{
+                EventQueue.invokeLater(StartFrame::new);
             }
         } else {
             threadSwitch = true;
@@ -469,7 +474,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
             }
             this.dispose();
-            new GameFrame();
+            EventQueue.invokeLater(GameFrame::new);
         }
         if (e.getActionCommand().equals("difficulty2")) {
             tankList.clear();
@@ -487,7 +492,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
             }
             this.dispose();
-            new GameFrame();
+            EventQueue.invokeLater(GameFrame::new);
         }
         if (e.getActionCommand().equals("difficulty3")) {
             tankList.clear();
@@ -504,7 +509,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
             }
             this.dispose();
-            new GameFrame();
+            EventQueue.invokeLater(GameFrame::new);
         }
         if (e.getActionCommand().equals("history")) {
             try {

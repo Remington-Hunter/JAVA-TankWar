@@ -25,10 +25,8 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
     public static List<MissilePlayer2> missilePlayer2List = new ArrayList<MissilePlayer2>(0);
 
     public static List<Explode> explodeList = new ArrayList<Explode>(0);
-
-    Supply supply = new Supply();//实例化一个对象补给
-
     public static Boolean musicSwitch = false;//决定音乐开启与关闭
+    Supply supply = new Supply();//实例化一个对象补给
 
     public DoubleFrame() {
         createMenu();
@@ -74,6 +72,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
                 tankPlayer2.collideWithTank(tankPlayer1);//玩家二撞到玩家一
 
                 supply.draw(g);//绘制补给
+
 
                 //绘制坦克一的子弹
                 for (int i = 0; i < missilePlayer1List.size(); i++) {
@@ -176,7 +175,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
             int response = JOptionPane.showOptionDialog(this, "您确认要返回到主界面！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             if (response == 0) {
                 this.dispose();
-                new StartFrame();
+                EventQueue.invokeLater(StartFrame::new);
             }
         }
     }

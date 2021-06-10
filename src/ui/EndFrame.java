@@ -7,19 +7,20 @@ import java.awt.*;
 
 public class EndFrame extends JFrame implements Runnable {
 
-    public EndFrame() {
-        setTitle("坦克大战");
-        setVisible(true);
-        setSize(800, 600);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        JPanel jPanel = new JPanel() {
-            public void paint(Graphics g) {
-                super.paint(g);
-                g.drawImage(ImageUtils.GAME_OVER, 0, 0, null);
-            }
+
+    public EndFrame(){
+        this.setTitle("坦克大战");
+        this.setVisible(true);
+        this.setSize(800, 600);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        JPanel jPanel = new JPanel(){
+          public void paint(Graphics g){
+              super.paint(g);
+              g.drawImage(ImageUtils.GAME_OVER,0,0,null);
+          }
         };
-        add(jPanel);
+        this.add(jPanel);
     }
 
     /**

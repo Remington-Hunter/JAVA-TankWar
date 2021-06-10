@@ -180,8 +180,8 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
         }
     }
 
-    public static void main(String[] args) {
-        new DiyMapUtils();
+    public static void main(String[] args){
+        EventQueue.invokeLater(DiyMapUtils::new);
     }
 
     @Override
@@ -231,12 +231,12 @@ public class DiyMapUtils extends JFrame implements Runnable, KeyListener, Action
             GameFrame.hero.setAlive(true);
             GameFrame.hero.setLife(100);
             GameFrame.threadSwitch = true;
-            new GameFrame();
+            EventQueue.invokeLater(GameFrame::new);
         }
         if (e.getActionCommand().equals("back")) {
             this.dispose();
             Home.setHomeLocation(290, 250);// 重置老家位置
-            new GameFrame();
+            EventQueue.invokeLater(GameFrame::new);
         }
         if (e.getActionCommand().equals("diy")) {
             JOptionPane.showMessageDialog(null, "G、家，H、普通墙，J、金属墙，K、河流，L、草地，空格清除", "提示", JOptionPane.INFORMATION_MESSAGE);
