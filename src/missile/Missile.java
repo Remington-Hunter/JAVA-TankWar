@@ -4,6 +4,7 @@ import home.Home;
 import land.HardWall;
 import land.Wall;
 import pve.TankPlayer1;
+import pve.TankPlayer2;
 import tank.Tank;
 import explode.Explode;
 import ui.GameFrame;
@@ -170,7 +171,33 @@ public class Missile {
      * @param t 需要击中的坦克
      * @return 返回是否击毁
      */
-    public boolean hitTank(TankPlayer1 t) {
+    public boolean hitTank(Tank t) {
+        if (this.alive && this.getRect().intersects(t.getRect()) && t.isAlive() && this.good != t.isGood()) {
+            if (t.isGood()) {//玩家被击中减血
+                t.setLife(t.getLife() - hurt);
+                if (t.getLife() <= 0) {
+                    t.setLife(0);
+                    t.setAlive(false);
+                }
+            } else {//敌方直接死
+                t.setAlive(false);
+                count++;
+            }
+            this.alive = false;
+            new Thread(new MusicUtils(MusicUtils.PLAY_EXPLODE)).start();
+            Explode e = new Explode(x, y);
+            GameFrame.explodeList.add(e);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 击中玩家二坦克
+     * @param t 需要击中的坦克
+     * @return 返回是否击毁
+     */
+    public boolean hitTank2(TankPlayer2 t) {
         if (this.alive && this.getRect().intersects(t.getRect()) && t.isAlive() && this.good != t.isGood()) {
             if (t.isGood()) {//玩家被击中减血
                 t.setLife(t.getLife() - hurt);
@@ -196,7 +223,7 @@ public class Missile {
      *
      * @param tanks 坦克集合
      */
-    public void hitTanks(List<TankPlayer1> tanks) {
+    public void hitTanks(List<Tank> tanks) {
         tanks.removeIf(this::hitTank);
     }
 

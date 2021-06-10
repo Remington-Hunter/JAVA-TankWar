@@ -389,7 +389,7 @@ public class TankPlayer1 extends Tank implements KeyListener {
     /**
      * 存放撞击前的坐标
      */
-    private void changToOldDirection() {
+    public void changToOldDirection() {
         this.x = oldX;
         this.y = oldY;
     }
@@ -456,8 +456,8 @@ public class TankPlayer1 extends Tank implements KeyListener {
      * @param tanks 需要判定的坦克
      * @return 返回判定结果
      */
-    public boolean collideWithTanks(List<TankPlayer1> tanks) {
-        for (TankPlayer1 t : tanks) {
+    public boolean collideWithTanks(List<Tank> tanks) {
+        for (Tank t : tanks) {
             if (this != t) {
                 if (this.alive && t.isAlive() && this.getRect().intersects(t.getRect())) {
                     this.changToOldDirection();

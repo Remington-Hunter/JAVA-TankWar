@@ -1,5 +1,9 @@
 package pvp;
 
+import home.Home;
+import land.HardWall;
+import land.River;
+import land.Wall;
 import prop.Supply;
 import tank.Tank;
 import ui.DoubleFrame;
@@ -9,6 +13,7 @@ import utils.MusicUtils;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 import java.util.Random;
 
 public class TankPlayer2 extends Tank implements KeyListener {
@@ -53,8 +58,18 @@ public class TankPlayer2 extends Tank implements KeyListener {
         return alive;
     }
 
+    @Override
+    public boolean isGood() {
+        return false;
+    }
+
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    @Override
+    public void changToOldDirection() {
+
     }
 
     /**
@@ -112,6 +127,31 @@ public class TankPlayer2 extends Tank implements KeyListener {
             }
         }
         move();
+    }
+
+    @Override
+    public boolean collideWithWall(Wall w) {
+        return false;
+    }
+
+    @Override
+    public boolean collideWithHardWall(HardWall w) {
+        return false;
+    }
+
+    @Override
+    public boolean collideWithRiver(River r) {
+        return false;
+    }
+
+    @Override
+    public boolean collideWithTanks(List<Tank> l) {
+        return false;
+    }
+
+    @Override
+    public boolean collideWithHome(Home h) {
+        return false;
     }
 
     /**

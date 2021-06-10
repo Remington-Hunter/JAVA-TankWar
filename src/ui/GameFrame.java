@@ -27,7 +27,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
     /**
      * 存储坦克的列表
      */
-    public static List<TankPlayer1> tankList = new ArrayList<TankPlayer1>(0);
+    public static List<Tank> tankList = new ArrayList<Tank>(0);
     /**
      * 存储子弹的列表
      */
@@ -127,6 +127,9 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 }
                 home.draw(g);//画出自己的基地
                 hero.collideWithTanks(tankList);//玩家撞上敌方坦克
+                if(hero2 != null) {
+                    hero2.collideWithTanks(tankList);
+                }
 //                if (hero2)
                 hero.collideWithHome(home);//玩家撞上自己的基地
                 if (hero2 != null) {
@@ -139,7 +142,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                     missile.hitTanks(tankList);//玩家子弹攻击地方
                     missile.hitTank(hero);//敌方子弹攻击玩家
                     if (hero2 != null) {
-                        missile.hitTank(hero2);
+                        missile.hitTank2(hero2);
                     }
                     missile.hitHome();//敌方子弹攻击我方基地
 
@@ -153,7 +156,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 }
 
                 //绘制出坦克列表中的坦克
-                for (TankPlayer1 tank : tankList) {
+                for (Tank tank : tankList) {
                     tank.draw(g);
 
                     //绘制普通墙
