@@ -57,6 +57,8 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
              */
             public void paint(Graphics g) {
                 super.paint(g);
+                g.drawImage(ImageUtils.DOUBLE_BACKGROUND,0,0,null);
+                g.setColor(Color.BLACK);
                 g.drawString("玩家一的攻击力：" + MissilePlayer1.getHurt(), 10, 30);
                 g.drawString("玩家一的血量：" + tankPlayer1.getLife(), 10, 60);//玩家一属性
                 //绘制玩家一血量条
@@ -65,10 +67,11 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
                 g.setColor(Color.RED);
                 g.fillRect(10, 80, tankPlayer1.getLife(), 15);
 
+                g.setColor(Color.BLACK);
                 g.drawString("玩家二的攻击力：" + MissilePlayer2.getHurt(), 675, 30);
                 g.drawString("玩家二的血量：" + tankPlayer2.getLife(), 680, 60);//玩家二属性
                 //绘制玩家二血量条
-                g.setColor(Color.BLACK);
+
                 g.drawRect(580, 80, 200, 15);
                 g.setColor(Color.RED);
                 g.fillRect(580 + (200 - tankPlayer2.getLife()), 80, tankPlayer2.getLife(), 15);

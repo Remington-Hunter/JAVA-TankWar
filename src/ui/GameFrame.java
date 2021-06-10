@@ -113,7 +113,19 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
              */
             public void paint(Graphics g) {
                 super.paint(g);
-                g.drawImage(ImageUtils.BACKGROUND_MAP, 0, 0, null);
+                //为不同模式绘画不同的背景
+                if(difficulty==0){
+                    g.drawImage(ImageUtils.BACKGROUND_MAP, 0, 0, null);
+                }
+                else if(difficulty==1){
+                    g.drawImage(ImageUtils.BACKGROUND_MAP_1, 0, 0, null);
+                }
+                else if(difficulty==2){
+                    g.drawImage(ImageUtils.BACKGROUND_MAP_2, 0, 0, null);
+                }
+                else {
+                    g.drawImage(ImageUtils.BACKGROUND_MAP_3, 0, 0, null);
+                }
                 g.drawString("你的分数：" + Missile.getCount(), 10, 20);
                 g.drawString("你的生命值：" + hero.getLife(), 10, 40);
                 g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
@@ -488,6 +500,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             setDifficulty(1);//改变地图难度
             Home.setHomeLocation(370, 500);//重置基地位置
             hero.setTankLocation(220, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+
             if (hero2 != null) {
                 hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
             }

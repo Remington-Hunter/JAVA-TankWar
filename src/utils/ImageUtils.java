@@ -48,6 +48,12 @@ public class ImageUtils {
     public static final Image SUPPLY_IMAGE = new ImageIcon("images/arm1.png").getImage();
     //游戏背景图片
     public static final Image BACKGROUND_MAP = new ImageIcon("images/BG03.jpg").getImage();
+    public static final Image BACKGROUND_MAP_1 = new ImageIcon("images/BG04.jpg").getImage();
+    public static final Image BACKGROUND_MAP_2 = new ImageIcon("images/BG05.jpg").getImage();
+    public static final Image BACKGROUND_MAP_3 = new ImageIcon("images/BG06.jpg").getImage();
+
+    //双人对战模式背景图片
+    public static final Image DOUBLE_BACKGROUND = new ImageIcon("images/BackGround.jpg").getImage();
     //创建开始游戏的一些图片对象
     public static final ImageIcon IMAGE_BACKGROUND = new ImageIcon("images/back.jpg");
     public static final ImageIcon IMAGE_SELECT = new ImageIcon("images/select.gif");
@@ -73,8 +79,6 @@ public class ImageUtils {
 
     //修改窗口图标
     public static final Image ICON = new ImageIcon("images/icon.png").getImage();
-
-
 
     private ImageUtils() {
     }

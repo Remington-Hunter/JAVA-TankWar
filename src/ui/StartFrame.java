@@ -38,7 +38,7 @@ public class StartFrame extends JFrame implements KeyListener {
 
 
             public void mousePressed(MouseEvent e) {
-                String username = JEnhancedOptionPane.showInputDialog("您的姓名是:", java.util.Optional.of(new Object[]{"确认", "匿名开始"}));
+                String username = JEnhancedOptionPane.showInputDialog("您的姓名是:", new Object[]{"确认", "匿名开始"});
 
                 if ("".equals(username) || username == null) {
                     userName = "匿名玩家";
