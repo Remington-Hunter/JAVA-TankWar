@@ -22,7 +22,7 @@ public class MapUtils {
                 }
                 for(int i=0;i<6;i++){
                     GameFrame.hardWallList.add(new HardWall(340,240+30*i));
-                    GameFrame.hardWallList.add(new HardWall(20+30*i,200));
+                    GameFrame.hardWallList.add(new HardWall(220+30*i,200));
                 }
                 break;
             case 1:

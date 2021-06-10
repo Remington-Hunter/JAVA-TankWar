@@ -7,15 +7,15 @@ import java.awt.*;
 
 public class ImageUtils {
     //玩家一坦克
-    public static final Image TANK_U = new ImageIcon("images/tankU.gif").getImage();
-    public static final Image TANK_D = new ImageIcon("images/tankD.gif").getImage();
-    public static final Image TANK_L = new ImageIcon("images/tankL.gif").getImage();
-    public static final Image TANK_R = new ImageIcon("images/tankR.gif").getImage();
+    public static final Image TANK_U = new ImageIcon("images/pl1_u.gif").getImage();
+    public static final Image TANK_D = new ImageIcon("images/pl1_d.gif").getImage();
+    public static final Image TANK_L = new ImageIcon("images/pl1_l.gif").getImage();
+    public static final Image TANK_R = new ImageIcon("images/pl1_r.gif").getImage();
     //玩家二坦克二
-    public static final Image W_TANK_U = new ImageIcon("images/WtankU.gif").getImage();
-    public static final Image W_TANK_D = new ImageIcon("images/WtankD.gif").getImage();
-    public static final Image W_TANK_L = new ImageIcon("images/WtankL.gif").getImage();
-    public static final Image W_TANK_R = new ImageIcon("images/WtankR.gif").getImage();
+    public static final Image W_TANK_U = new ImageIcon("images/pl2_u.gif").getImage();
+    public static final Image W_TANK_D = new ImageIcon("images/pl2_d.gif").getImage();
+    public static final Image W_TANK_L = new ImageIcon("images/pl2_l.gif").getImage();
+    public static final Image W_TANK_R = new ImageIcon("images/pl2_r.gif").getImage();
     // 敌方坦克
     public static final Image E_TANK_U = new ImageIcon("images/EtankU.png").getImage();
     public static final Image E_TANK_D = new ImageIcon("images/EtankD.png").getImage();
@@ -52,7 +52,7 @@ public class ImageUtils {
     public static final Image BACKGROUND_MAP = new ImageIcon("images/BG03.jpg").getImage();
     //创建开始游戏的一些图片对象
     public static final ImageIcon IMAGE_BACKGROUND = new ImageIcon("images/back.jpg");
-    public static final ImageIcon IMAGE_SELECT = new ImageIcon("images/select.jpg");
+    public static final ImageIcon IMAGE_SELECT = new ImageIcon("images/select.gif");
     public static final ImageIcon IMAGE_BUTTON_1 = new ImageIcon("images/bf1.jpg");
     public static final ImageIcon IMAGE_BUTTON_2 = new ImageIcon("images/bf2.jpg");
     public static final ImageIcon RUN_TANK_1 = new ImageIcon("images/runTank11.png");
