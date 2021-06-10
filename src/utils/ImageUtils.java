@@ -7,10 +7,10 @@ import java.awt.*;
 
 public class ImageUtils {
     //玩家一坦克
-    public static final Image TANK_U = new ImageIcon("images/Tank_U.png").getImage();
-    public static final Image TANK_D = new ImageIcon("images/Tank_D.png").getImage();
-    public static final Image TANK_L = new ImageIcon("images/Tank_L.png").getImage();
-    public static final Image TANK_R = new ImageIcon("images/Tank_R.png").getImage();
+    public static final Image TANK_U = new ImageIcon("images/tankU.gif").getImage();
+    public static final Image TANK_D = new ImageIcon("images/tankD.gif").getImage();
+    public static final Image TANK_L = new ImageIcon("images/tankL.gif").getImage();
+    public static final Image TANK_R = new ImageIcon("images/tankR.gif").getImage();
     //玩家二坦克二
     public static final Image W_TANK_U = new ImageIcon("images/WtankU.gif").getImage();
     public static final Image W_TANK_D = new ImageIcon("images/WtankD.gif").getImage();
