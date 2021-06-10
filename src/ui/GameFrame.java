@@ -118,10 +118,14 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 g.drawString("你的生命值：" + hero.getLife(), 10, 40);
                 g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
                 g.drawString("第" + round + " 轮战斗" + "，敌人总数：" + tankList.size(), 10, 80);
+                g.setColor(Color.BLACK);
                 g.drawRect(45, 515, 200, 15);
+                g.setColor(Color.RED);
                 g.fillRect(45, 515, hero.getLife() * 2, 15);
                 if(hero2!=null&&hero2.isAlive()){
+                    g.setColor(Color.BLACK);
                     g.drawRect(555, 515, 200, 15);
+                    g.setColor(Color.RED);
                     g.fillRect(555, 515, hero2.getLife() * 2, 15);
                 }
                 hero.draw(g);//画出英雄坦克
