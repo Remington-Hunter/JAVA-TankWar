@@ -1,7 +1,5 @@
 package utils;
 
-import tank.Tank;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -48,7 +46,7 @@ public class ImageUtils {
     public static final Image TREE_IMAGE = new ImageIcon("images/tree.png").getImage();
     //补给图片
     public static final Image SUPPLY_IMAGE = new ImageIcon("images/arm1.png").getImage();
-    //背景图片
+    //游戏背景图片
     public static final Image BACKGROUND_MAP = new ImageIcon("images/BG03.jpg").getImage();
     //创建开始游戏的一些图片对象
     public static final ImageIcon IMAGE_BACKGROUND = new ImageIcon("images/back.jpg");
@@ -72,6 +70,10 @@ public class ImageUtils {
     public static final Image BOOM_8 = new ImageIcon("images/8.gif").getImage();
     public static final Image BOOM_9 = new ImageIcon("images/9.gif").getImage();
     public static final Image BOOM_10 = new ImageIcon("images/10.gif").getImage();
+
+    //修改窗口图标
+    public static final Image ICON = new ImageIcon("images/icon.png").getImage();
+
 
 
     private ImageUtils() {

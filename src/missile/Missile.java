@@ -3,8 +3,9 @@ package missile;
 import home.Home;
 import land.HardWall;
 import land.Wall;
+import pve.TankPlayer1;
 import tank.Tank;
-import ui.Explode;
+import explode.Explode;
 import ui.GameFrame;
 import utils.MusicUtils;
 
@@ -170,7 +171,7 @@ public class Missile {
      * @param t 需要击中的坦克
      * @return 返回是否击毁
      */
-    public boolean hitTank(Tank t) {
+    public boolean hitTank(TankPlayer1 t) {
         if (this.alive && this.getRect().intersects(t.getRect()) && t.isAlive() && this.good != t.isGood()) {
             if (t.isGood()) {//玩家被击中减血
                 t.setLife(t.getLife() - hurt);
@@ -196,12 +197,13 @@ public class Missile {
      *
      * @param tanks 坦克集合
      */
-    public void hitTanks(List<Tank> tanks) {
+    public void hitTanks(List<TankPlayer1> tanks) {
         tanks.removeIf(this::hitTank);
     }
 
     /**
      * 击中墙壁
+     *
      * @param w 击中的墙壁
      */
     public void hitWalls(Wall w) { // 子弹打到普通墙上
@@ -213,6 +215,7 @@ public class Missile {
 
     /**
      * 击中金属墙
+     *
      * @param hw 击中的金属墙
      */
     public void hitWalls(HardWall hw) {

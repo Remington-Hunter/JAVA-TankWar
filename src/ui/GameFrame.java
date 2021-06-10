@@ -1,9 +1,12 @@
 package ui;
 
+import explode.Explode;
 import home.Home;
 import land.*;
 import missile.Missile;
+import pve.TankPlayer2;
 import score.*;
+import pve.TankPlayer1;
 import tank.Tank;
 import utils.*;
 
@@ -11,18 +14,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameFrame extends JFrame implements ActionListener, Runnable {
+public class GameFrame extends JFrame implements KeyListener, ActionListener, Runnable {
     public static int option = 1;//选择退出还是重新开始
     /**
      * 存储坦克的列表
      */
-    public static List<Tank> tankList = new ArrayList<Tank>(0);
+    public static List<TankPlayer1> tankList = new ArrayList<TankPlayer1>(0);
     /**
      * 存储子弹的列表
      */
@@ -49,7 +54,10 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
     public static List<Explode> explodeList = new ArrayList<Explode>(0);
     //实例化一个基地对象
     public static Home home = new Home();
-    public static Tank hero = new Tank(220, 480, true, Tank.Direction.STOP);
+    // 玩家1
+    public static TankPlayer1 hero = new TankPlayer1(220, 480, true, Tank.Direction.STOP);
+    // 玩家2
+    public static TankPlayer2 hero2 = null;
     //决定音乐的开关
     public static boolean musicSwitch = false;
     //决定线程的开启与关闭
@@ -73,20 +81,22 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
 
     //初始化一个坦克
     {
-        tankList.add(new Tank(80, 50, false, Tank.Direction.D));
+        tankList.add(new TankPlayer1(80, 50, false, Tank.Direction.D));
     }
 
     public GameFrame() {
         //为英雄坦克注册键盘监听事件
-        addKeyListener(hero);
-        createMenu();//创建菜单
+        this.addKeyListener(hero);
+        this.addKeyListener(this);
+        this.createMenu();//创建菜单
 
         this.setTitle("坦克大战");
-        setVisible(true);
-        setSize(800, 600);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setVisible(true);
+        this.setSize(800, 600);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setIconImage(ImageUtils.ICON);
 
         Thread thread = new Thread(this);
         thread.start();
@@ -103,7 +113,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
              */
             public void paint(Graphics g) {
                 super.paint(g);
-                g.drawImage(ImageUtils.BACKGROUND_MAP,0,0,null);
+                g.drawImage(ImageUtils.BACKGROUND_MAP, 0, 0, null);
                 g.drawString("你的分数：" + Missile.getCount(), 10, 20);
                 g.drawString("你的生命值：" + hero.getLife(), 10, 40);
                 g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
@@ -112,8 +122,12 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 g.fillRect(45, 515, hero.getLife() * 7, 15);
 
                 hero.draw(g);//画出英雄坦克
+                if (hero2 != null) {
+                    hero2.draw(g); // 玩家2
+                }
                 home.draw(g);//画出自己的基地
                 hero.collideWithTanks(tankList);//玩家撞上敌方坦克
+//                if (hero2)
                 hero.collideWithHome(home);//玩家撞上自己的基地
 
                 //把子弹列表中的子弹绘制出来
@@ -133,7 +147,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 }
 
                 //绘制出坦克列表中的坦克
-                for (Tank tank : tankList) {
+                for (TankPlayer1 tank : tankList) {
                     tank.draw(g);
 
                     //绘制普通墙
@@ -141,6 +155,9 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                         w.draw(g);
                         tank.collideWithWall(w);//每个坦克撞到普通墙上
                         hero.collideWithWall(w);//玩家撞到普通墙上
+                        if (hero2 != null) {
+                            hero2.collideWithWall(w);
+                        }
                     }
 
                     //绘制金属墙
@@ -148,6 +165,9 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                         hw.draw(g);
                         tank.collideWithHardWall(hw);//每个坦克撞到金属墙上
                         hero.collideWithHardWall(hw);//玩家撞到金属墙上
+                        if (hero2 != null) {
+                            hero2.collideWithHardWall(hw);
+                        }
                     }
 
                     //绘制河流
@@ -165,7 +185,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 }
 
                 //绘制出所有爆炸
-                for (int j=0;j<explodeList.size();j++) {
+                for (int j = 0; j < explodeList.size(); j++) {
                     Explode explode = explodeList.get(j);
                     explode.draw(g);
                 }
@@ -173,13 +193,13 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 //没关卡敌人的设置
                 if (tankList.size() == 0 && round < 6) {
                     for (int i = 0; i < enemyCount * 2; i++) {
-                        Tank t;
+                        TankPlayer1 t;
                         if (i < 2) {
-                            t = new Tank(100 + 70 * i, 50, false, Tank.Direction.L);
+                            t = new TankPlayer1(100 + 70 * i, 50, false, TankPlayer1.Direction.L);
                         } else if (i > 3) {
-                            t = new Tank(510, i * 50 + 20, false, Tank.Direction.R);
+                            t = new TankPlayer1(510, i * 50 + 20, false, TankPlayer1.Direction.R);
                         } else {
-                            t = new Tank(50 + 50 * i, 500, false, Tank.Direction.D);
+                            t = new TankPlayer1(50 + 50 * i, 500, false, TankPlayer1.Direction.D);
                         }
                         tankList.add(t);
                     }
@@ -294,7 +314,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         //每隔20毫秒重新画图
         while (threadSwitch) {
             try {
-                if (Missile.getCount() == 31 || !hero.isAlive()||!home.isAlive()) {
+                if (Missile.getCount() == 31 || (!hero.isAlive() && (hero2 != null && !hero2.isAlive())) || !home.isAlive()) {
                     threadSwitch = false;
                     if (Missile.getCount() == 31) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_WIN)).start();
@@ -302,7 +322,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                         //判断是否是最高分
                         maxScore();
                     }
-                    if (!hero.isAlive()||!home.isAlive()) {
+                    if ((!hero.isAlive() && (hero2 != null && !hero2.isAlive())) || !home.isAlive()) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
                         //JOptionPane.showMessageDialog(null, "游戏结束！");
                         maxScore();
@@ -330,6 +350,7 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         }
     }
 
+
     /**
      * 最高分判定与写入
      */
@@ -353,18 +374,27 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
      *
      * @param response 传入是否需要初始化变量的参数
      */
-    public void initVariable(int response,int option) {
+    public void initVariable(int response, int option) {
         if (response == 0) {
             threadSwitch = true;
             Home.setAlive(true);//重新激活基地
             Home.setHomeLocation(290, 250);//重置基地位置
             hero.setLife(100);//重新设置英雄坦克血量
+            if (hero2 != null) {
+                hero2.setLife(100);
+            }
             hero.setAlive(true);//冲洗激活英雄坦克
+            if (hero2 != null) {
+                hero2.setAlive(true);
+            }
             hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
+            if (hero2 != null) {
+                hero2.setTankLocation(580, 480, Tank.Direction.STOP); // 重置玩家2的位置
+            }
             round = 1;//重置战斗轮数
             enemyCount = 1;//重置地方坦克数量
-            Tank.setBotSpeed(3);//重置地方坦克速度
-            Tank.setTankColor(0);//重置坦克颜色
+            TankPlayer1.setBotSpeed(3);//重置地方坦克速度
+            TankPlayer1.setTankColor(0);//重置坦克颜色
             Missile.setCount(0);//重置得分
             Missile.setMissileColor(0);//重置子弹颜色
             Missile.setBotSpeed(20);//设置地方坦克子弹速度
@@ -422,26 +452,29 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             option = 1;
             Object[] options = {"确定", "取消"};
             int response = JOptionPane.showOptionDialog(this, "您确认要开始游戏！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            initVariable(response,option);
+            initVariable(response, option);
         }
         if (e.getActionCommand().equals("back")) {
             threadSwitch = false;
             option = 2;
             Object[] options = {"确定", "取消"};
             int response = JOptionPane.showOptionDialog(this, "您确认要返回到主界面！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            initVariable(response,option);
+            initVariable(response, option);
         }
         if (e.getActionCommand().equals("difficulty1")) {
             tankList.clear();
             missileList.clear();
             wallList.clear();
-            Tank.setBotSpeed(7);//改变地方坦克速度
-            Tank.setTankColor(1);//改变地方坦克颜色
+            TankPlayer1.setBotSpeed(7);//改变地方坦克速度
+            TankPlayer1.setTankColor(1);//改变地方坦克颜色
             Missile.setBotSpeed(8);//改变地方子弹速度
             Missile.setMissileColor(1);//改变地方坦克颜色
             setDifficulty(1);//改变地图难度
             Home.setHomeLocation(370, 500);//重置基地位置
-            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
+            hero.setTankLocation(220, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+            if (hero2 != null) {
+                hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+            }
             this.dispose();
             EventQueue.invokeLater(GameFrame::new);
         }
@@ -449,28 +482,34 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             tankList.clear();
             missileList.clear();
             wallList.clear();
-            Tank.setBotSpeed(9);//改变地方坦克速度
-            Tank.setTankColor(2);//改变地方坦克颜色
+            TankPlayer1.setBotSpeed(9);//改变地方坦克速度
+            TankPlayer1.setTankColor(2);//改变地方坦克颜色
             Missile.setBotSpeed(10);//改变地方子弹速度
             Missile.setMissileColor(2);//改变地方坦克颜色
             Missile.setHurt(30);//设置敌人坦克伤害
             setDifficulty(2);//改变地图难度
             Home.setHomeLocation(370, 250);//重置基地位置
-            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
+            hero.setTankLocation(220, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+            if (hero2 != null) {
+                hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+            }
             this.dispose();
             EventQueue.invokeLater(GameFrame::new);
         }
         if (e.getActionCommand().equals("difficulty3")) {
             tankList.clear();
             missileList.clear();
-            Tank.setBotSpeed(11);//改变地方坦克速度
-            Tank.setTankColor(3);//改变地方坦克颜色
+            TankPlayer1.setBotSpeed(11);//改变地方坦克速度
+            TankPlayer1.setTankColor(3);//改变地方坦克颜色
             Missile.setBotSpeed(12);//改变地方子弹速度
             Missile.setMissileColor(3);//改变地方坦克颜色
             Missile.setHurt(40);//设置敌人坦克伤害
             setDifficulty(3);//改变地图难度
             Home.setHomeLocation(390, 250);//重置基地位置
-            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
+            hero.setTankLocation(220, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+            if (hero2 != null) {
+                hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+            }
             this.dispose();
             EventQueue.invokeLater(GameFrame::new);
         }
@@ -493,7 +532,8 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
         }
         if (e.getActionCommand().equals("help")) {
             threadSwitch = false;//停止线程
-            JOptionPane.showMessageDialog(null, "W、向上，A、向左，S、向下，D、向右，P、发射炮弹，R、加血" + "\n", "提示", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "玩家一 W、向上，A、向左，S、向下，D、向右，G、发射炮弹，R、加血" + "\n玩家二（F3出生" +
+                    "） 方向键控制 P、发射炮弹，O、加血", "提示", JOptionPane.INFORMATION_MESSAGE);
             threadSwitch = true;
             new Thread(this).start();//线程启动
         }
@@ -506,8 +546,31 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
             treeList.clear();
             Home.setAlive(true);
             hero.setAlive(true);
+            if (hero2 != null) {
+                hero2.setAlive(true);
+            }
             this.dispose();
-            new DiyMapUtils();
+            EventQueue.invokeLater(DiyMapFrame::new);
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+        System.out.println("tank2");
+        if (key == KeyEvent.VK_F3 && (hero2 == null || !hero2.isAlive())) {
+            hero2 = new TankPlayer2(580, 480, true, Tank.Direction.STOP);
+            addKeyListener(hero2);
         }
     }
 }

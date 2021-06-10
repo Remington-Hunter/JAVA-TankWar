@@ -5,7 +5,8 @@ import utils.ImageUtils;
 import javax.swing.*;
 import java.awt.*;
 
-public class EndFrame extends JFrame implements Runnable{
+public class EndFrame extends JFrame implements Runnable {
+
 
     public EndFrame(){
         this.setTitle("坦克大战");
@@ -13,6 +14,7 @@ public class EndFrame extends JFrame implements Runnable{
         this.setSize(800, 600);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setIconImage(ImageUtils.ICON);
         JPanel jPanel = new JPanel(){
           public void paint(Graphics g){
               super.paint(g);
@@ -27,11 +29,11 @@ public class EndFrame extends JFrame implements Runnable{
      */
     @Override
     public void run() {
-        while(true){
-            try{
+        while (true) {
+            try {
                 Thread.sleep(20);
                 repaint();
-            }catch(InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

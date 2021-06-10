@@ -1,10 +1,12 @@
 package ui;
 
-import player1.MissilePlayer1;
-import player2.MissilePlayer2;
+import explode.Explode;
+import pvp.MissilePlayer1;
+import pvp.MissilePlayer2;
 import prop.Supply;
-import player1.TankPlayer1;
-import player2.TankPlayer2;
+import pvp.TankPlayer1;
+import pvp.TankPlayer2;
+import utils.ImageUtils;
 import utils.MusicUtils;
 
 import javax.swing.*;
@@ -29,16 +31,18 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
     Supply supply = new Supply();//实例化一个补给对象
 
     public DoubleFrame() {
-        createMenu();
+        this.createMenu();
 
-        addKeyListener(tankPlayer1);
-        addKeyListener(tankPlayer2);
+        this.addKeyListener(tankPlayer1);
+        this.addKeyListener(tankPlayer2);
 
-        setSize(DOUBLE_FRAME_WIDTH, DOUBLE_FRAME_HEIGHT);
-        setVisible(true);
-        setResizable(false);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//添加关闭操作
-        setLocationRelativeTo(null);//将此窗口将置于屏幕的中央
+        this.setTitle("坦克大战");
+        this.setSize(DOUBLE_FRAME_WIDTH, DOUBLE_FRAME_HEIGHT);
+        this.setVisible(true);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//添加关闭操作
+        this.setLocationRelativeTo(null);//将此窗口将置于屏幕的中央
+        this.setIconImage(ImageUtils.ICON);
 
         JPanel jPanel = new JPanel() {
             {
