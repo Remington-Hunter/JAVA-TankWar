@@ -128,12 +128,18 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 hero.collideWithTanks(tankList);//玩家撞上敌方坦克
 //                if (hero2)
                 hero.collideWithHome(home);//玩家撞上自己的基地
+                if (hero2 != null) {
+                    hero2.collideWithHome(home);
+                }
 
                 //把子弹列表中的子弹绘制出来
                 for (Missile missile : missileList) {
                     missile.draw(g);
                     missile.hitTanks(tankList);//玩家子弹攻击地方
                     missile.hitTank(hero);//敌方子弹攻击玩家
+                    if (hero2 != null) {
+                        missile.hitTank(hero2);
+                    }
                     missile.hitHome();//敌方子弹攻击我方基地
 
                     for (int j = 0; j < wallList.size(); j++) {
