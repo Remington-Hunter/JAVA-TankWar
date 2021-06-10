@@ -1,7 +1,7 @@
-package tank;
+package palyer1;
 
-import missile.MissilePlayer1;
 import prop.Supply;
+import player2.TankPlayer2;
 import ui.DoubleFrame;
 import utils.ImageUtils;
 import utils.MusicUtils;

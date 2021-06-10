@@ -1,7 +1,6 @@
-package missile;
+package player2;
 
-import tank.TankPlayer1;
-import tank.TankPlayer2;
+import palyer1.TankPlayer1;
 import ui.DoubleFrame;
 import ui.Explode;
 import utils.MusicUtils;

@@ -1,5 +1,7 @@
 package home;
 
+import utils.ImageUtils;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,7 +18,7 @@ public class Home {
     public static final int HOME_LENGTH = 35;
     static boolean alive = true;
 
-    Image homeImage = new ImageIcon("images/home.gif").getImage();
+
 
     /**
      * 判断是否游戏失败
@@ -50,7 +52,7 @@ public class Home {
      */
     public void draw(Graphics g) {
         if (alive) {
-            g.drawImage(homeImage, x, y, null);
+            g.drawImage(ImageUtils.HOME_IMAGE, x, y, null);
         }
         //这里要加else，由于GameFrame没编写完，先留在这里
     }

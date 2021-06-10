@@ -1,5 +1,7 @@
 package land;
 
+import utils.ImageUtils;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -20,10 +22,10 @@ public class Tree {
     private final int x;
     private final int y;
 
-    Image treeImag = new ImageIcon("images/tree.gif").getImage();
 
     /**
      * 丛林图标图标的构造方法
+     *
      * @param x 传递要构造的横坐标
      * @param y 传递要构造的纵坐标
      */
@@ -34,14 +36,16 @@ public class Tree {
 
     /**
      * 绘画丛林图标
+     *
      * @param g 传入Graphics对象进行绘图
      */
     public void draw(Graphics g) {
-        g.drawImage(treeImag, x, y, null);
+        g.drawImage(ImageUtils.TREE_IMAGE, x, y, null);
     }
 
     /**
      * 为丛林图标绘制一片区域
+     *
      * @return 返回指定参数的长方形实例对象
      */
     public Rectangle getRect() {

@@ -1,7 +1,7 @@
-package tank;
+package player2;
 
-import missile.MissilePlayer1;
-import missile.MissilePlayer2;
+import palyer1.MissilePlayer1;
+import palyer1.TankPlayer1;
 import prop.Supply;
 import ui.DoubleFrame;
 import utils.ImageUtils;
@@ -13,7 +13,6 @@ import java.awt.event.KeyListener;
 import java.util.Random;
 
 public class TankPlayer2 implements KeyListener {
-    public static boolean player = false;//玩家二
     static int speed = 4;//坦克初始速度
     boolean bU = false, bD = false, bL = false, bR = false;
     private int x;
@@ -101,16 +100,16 @@ public class TankPlayer2 implements KeyListener {
         if(alive){
             switch (towardDirection){
                 case U:
-                    g.drawImage(ImageUtils.WTANK_U, x, y, null);
+                    g.drawImage(ImageUtils.W_TANK_U, x, y, null);
                     break;
                 case D:
-                    g.drawImage(ImageUtils.WTANK_D, x, y, null);
+                    g.drawImage(ImageUtils.W_TANK_D, x, y, null);
                     break;
                 case L:
-                    g.drawImage(ImageUtils.WTANK_L, x, y, null);
+                    g.drawImage(ImageUtils.W_TANK_L, x, y, null);
                     break;
                 case R:
-                    g.drawImage(ImageUtils.WTANK_R, x, y, null);
+                    g.drawImage(ImageUtils.W_TANK_R, x, y, null);
                     break;
             }
         }

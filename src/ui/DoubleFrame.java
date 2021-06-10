@@ -1,11 +1,10 @@
 package ui;
 
-import missile.Missile;
-import missile.MissilePlayer1;
-import missile.MissilePlayer2;
+import palyer1.MissilePlayer1;
+import player2.MissilePlayer2;
 import prop.Supply;
-import tank.TankPlayer1;
-import tank.TankPlayer2;
+import palyer1.TankPlayer1;
+import player2.TankPlayer2;
 import utils.MusicUtils;
 
 import javax.swing.*;
@@ -60,8 +59,8 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
                 g.drawRect(10,80,200,15);
                 g.fillRect(10,80,tankPlayer1.getLife(),15);
 
-                g.drawString("玩家二的攻击力："+ MissilePlayer2.getHurt(),10,30);
-                g.drawString("玩家二的血量："+tankPlayer2.getLife(),10,60);//玩家二属性
+                g.drawString("玩家二的攻击力："+ MissilePlayer2.getHurt(),675,30);
+                g.drawString("玩家二的血量："+tankPlayer2.getLife(),680,60);//玩家二属性
                 //绘制玩家二血量条
                 g.drawRect(580,80,200,15);
                 g.fillRect(580+(200-tankPlayer2.getLife()),80,tankPlayer2.getLife(),15);

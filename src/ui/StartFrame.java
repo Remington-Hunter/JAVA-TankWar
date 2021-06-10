@@ -1,5 +1,6 @@
 package ui;
 
+import utils.ImageUtils;
 import utils.MusicUtils;
 
 import javax.swing.*;
@@ -10,21 +11,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class StartFrame extends JFrame implements KeyListener {
-    //创建开始游戏的一些图片对象
-    ImageIcon imageBack = new ImageIcon("images/back.jpg");
-    ImageIcon imageSelect = new ImageIcon("images/select.jpg");
-    ImageIcon imageButton1 = new ImageIcon("images/bf1.jpg");
-    ImageIcon imageButton2 = new ImageIcon("images/bf2.jpg");
-    ImageIcon runTank1 = new ImageIcon("images/runTank11.png");
-    ImageIcon runTank2 = new ImageIcon("images/runTank12.png");
+
 
     //创建标签存放图片
-    JLabel jlBack = new JLabel(imageBack);//背景
-    JLabel jlSelect = new JLabel(imageSelect);//鼠标选择
-    JLabel jlButton1 = new JLabel(imageButton1);//开始游戏
-    JLabel jlButton2 = new JLabel(imageButton2);//双人模式
-    JLabel jlRunTank1 = new JLabel(runTank1);
-    JLabel jlRunTank2 = new JLabel(runTank2);
+    JLabel jlBack = new JLabel(ImageUtils.IMAGE_BACK);//背景
+    JLabel jlSelect = new JLabel(ImageUtils.IMAGE_SELECT);//鼠标选择
+    JLabel jlButton1 = new JLabel(ImageUtils.IMAGE_BUTTON_1);//开始游戏
+    JLabel jlButton2 = new JLabel(ImageUtils.IMAGE_BUTTON_2);//双人模式
+
+    JLabel jlRunTank1 = new JLabel(ImageUtils.RUN_TANK_1);
+    JLabel jlRunTank2 = new JLabel(ImageUtils.RUN_Tank_2);
 
     private static int choose;//选择模式属性
     private static String userName;//用户名
@@ -35,7 +31,7 @@ public class StartFrame extends JFrame implements KeyListener {
     public static String getUserName() {
         return userName;
     }
-    JButton jButton = new JButton(imageButton1);
+
     public StartFrame(){
         jlSelect.setFocusable(true);//控制键盘可以获得按钮的焦点
         jlSelect.addKeyListener(this);//添加键盘监听事件
@@ -65,6 +61,7 @@ public class StartFrame extends JFrame implements KeyListener {
         jlButton2.addMouseListener(new MouseAdapter(){
             public void mouseEntered(MouseEvent e){
                 new Thread(new MusicUtils(MusicUtils.PLAY_CHOOSE)).start();
+                jlSelect.setBounds(260,448,70,40);
             }
             public void mousePressed(MouseEvent e){
                 dispose();
@@ -81,7 +78,7 @@ public class StartFrame extends JFrame implements KeyListener {
         add(jlRunTank2);
         //设置图片铺满整个面板
         this.getContentPane().add(jlBack);
-        jlBack.setBounds(60,20,imageBack.getIconWidth(),imageBack.getIconHeight());
+        jlBack.setBounds(60,20,ImageUtils.IMAGE_BACK.getIconWidth(),ImageUtils.IMAGE_BACK.getIconHeight());
         //把内容窗格转化为JPanel，否则不能用方法setOpaque()来使内容窗格透明
         ((JPanel)this.getContentPane()).setOpaque(false);
         // 把背景图片添加到分层窗格的最底作为背景
@@ -97,8 +94,10 @@ public class StartFrame extends JFrame implements KeyListener {
         setVisible(true);
 
         Thread tankRun = new Thread(new Runnable() {
-            int xLeft = -481,yLeft = 5; //向左滚动条的初始位置
-            int xRight = 800,yRight = 5;//向右滚动条的初始位置
+            int xLeft = -481;
+            final int yLeft = 5; //向左滚动条的初始位置
+            int xRight = 800;
+            final int yRight = 5;//向右滚动条的初始位置
             boolean dir = true;//决定方向
             @Override
             public void run() {

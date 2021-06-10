@@ -202,44 +202,32 @@ public class Missile {
 
     /**
      * 击中墙壁
-     *
      * @param w 击中的墙壁
-     * @return 返回是否击毁
      */
-    public boolean hitWalls(Wall w) { // 子弹打到普通墙上
+    public void hitWalls(Wall w) { // 子弹打到普通墙上
         if (this.alive && this.getRect().intersects(w.getRect())) {
             this.alive = false;//子弹消失
             GameFrame.wallList.remove(w); // 子弹打到墙上时则移除此击中墙
-            return true;
         }
-        return false;
     }
 
     /**
      * 击中金属墙
-     *
      * @param hw 击中的金属墙
-     * @return 返回是否击中
      */
-    public boolean hitWalls(HardWall hw) {
+    public void hitWalls(HardWall hw) {
         if (this.alive && this.getRect().intersects(hw.getRect())) {
             this.alive = false;//子弹消失
-            return true;
         }
-        return false;
     }
 
     /**
      * 击中基地
-     *
-     * @return 返回是否击中
      */
-    public boolean hitHome() { // 当子弹打到家时
+    public void hitHome() { // 当子弹打到家时
         if (this.alive && this.getRect().intersects(GameFrame.home.getRect())) {
             this.alive = false;
-            Home.setAlive(false); // 玩家接受一枪就死亡
-            return true;
+            Home.setAlive(false); // 基地接受一枪就死亡
         }
-        return false;
     }
 }

@@ -1,5 +1,7 @@
 package land;
 
+import utils.ImageUtils;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,11 +12,11 @@ public class Wall {
     public static final int WALL_WIDTH = 33;
     public static final int WALL_LENGTH = 33;
 
-     /**
+    /**
      * 普通墙图标的横坐标与纵坐标
      */
     int x, y;
-    Image wallImag = new ImageIcon("images/wall.gif").getImage();
+
 
     /**
      * 普通墙图标的构造方法
@@ -29,14 +31,16 @@ public class Wall {
 
     /**
      * 绘制普通墙图标
+     *
      * @param g 传入Graphics实例对象进行绘图
      */
     public void draw(Graphics g) {
-        g.drawImage(wallImag, x, y, null);
+        g.drawImage(ImageUtils.WALL_IMAGE, x, y, null);
     }
 
     /**
      * 为普通墙图标绘制一片区域
+     *
      * @return 返回指定参数长方形实例对象
      */
     public Rectangle getRect() {

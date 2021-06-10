@@ -1,5 +1,7 @@
 package land;
 
+import utils.ImageUtils;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,7 +20,7 @@ public class River {
     private final int x;
     private final int y;
 
-    Image riverImag = new ImageIcon("images/river.gif").getImage();
+
 
     /**
      * 河流图标的构造方法
@@ -35,7 +37,7 @@ public class River {
      * @param g 传入Graphics实例对象进行绘图
      */
     public void draw(Graphics g){
-        g.drawImage(riverImag,x,y,null);
+        g.drawImage(ImageUtils.RIVER_IMAGE,x,y,null);
     }
 
     /**

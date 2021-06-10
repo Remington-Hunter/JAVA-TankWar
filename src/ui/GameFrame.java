@@ -103,8 +103,8 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 super.paint(g);
                 g.drawString("你的分数：" + Missile.getCount(), 10, 20);
                 g.drawString("你的生命值：" + hero.getLife(), 10, 40);
-                g.drawString("敌人对你的上海:" + Missile.getHurt(), 10, 60);
-                g.drawString("第：" + round + " 轮战斗" + "，敌人总数：" + tankList.size(), 10, 80);
+                g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
+                g.drawString("第" + round + " 轮战斗" + "，敌人总数：" + tankList.size(), 10, 80);
                 g.drawRect(45, 515, 700, 15);
                 g.fillRect(45, 515, hero.getLife() * 7, 15);
 
@@ -114,19 +114,18 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 hero.collideWithHome(home);//玩家撞上自己的基地
 
                 //把子弹列表中的子弹绘制出来
-                for (int i=0;i<missileList.size();i++) {
-                    Missile missile = missileList.get(i);
+                for (Missile missile : missileList) {
                     missile.draw(g);
                     missile.hitTanks(tankList);//玩家子弹攻击地方
                     missile.hitTank(hero);//敌方子弹攻击玩家
                     missile.hitHome();//敌方子弹攻击我方基地
 
-                    for (int j=0;j<wallList.size();j++) {
+                    for (int j = 0; j < wallList.size(); j++) {
                         Wall w = wallList.get(j);
                         missile.hitWalls(w);//子弹攻击到普通墙上
                     }
                     for (HardWall hw : hardWallList) {
-                        missile.hitWalls(hw);//子弹攻击到金属墙上
+                        missile.hitWalls(hw);
                     }
                 }
 
@@ -163,7 +162,8 @@ public class GameFrame extends JFrame implements ActionListener, Runnable {
                 }
 
                 //绘制出所有爆炸
-                for (Explode explode : explodeList) {
+                for (int j=0;j<explodeList.size();j++) {
+                    Explode explode = explodeList.get(j);
                     explode.draw(g);
                 }
 
