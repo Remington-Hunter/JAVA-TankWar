@@ -172,7 +172,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
             musicSwitch = !musicSwitch;
         }
         if (e.getActionCommand().equals("help")) {
-            JOptionPane.showMessageDialog(null, "玩家1操作：W、向上，A、向下，S、向下，D、向上，J、发射炮弹" + "\n" + "玩家2操作：↑、向上，↓、向下，←、向左，→、向右，P、发射炮弹" + "", "提示", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "玩家1操作：W、向上，A、向下，S、向下，D、向上，G、发射炮弹" + "\n" + "玩家2操作：↑、向上，↓、向下，←、向左，→、向右，P、发射炮弹" + "", "提示", JOptionPane.INFORMATION_MESSAGE);
         }
         if (e.getActionCommand().equals("back")) {
             Object[] options = {"确定", "取消"};

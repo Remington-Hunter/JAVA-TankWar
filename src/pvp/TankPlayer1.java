@@ -259,7 +259,7 @@ public class TankPlayer1 extends Tank implements KeyListener {
             case KeyEvent.VK_D:
                 bR = true;
                 break;
-            case KeyEvent.VK_J:
+            case KeyEvent.VK_G:
                 if (!alive) return;
                 fire();
                 new Thread(new MusicUtils(MusicUtils.PLAY_FIRE)).start();// 开火的音效

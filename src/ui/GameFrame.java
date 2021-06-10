@@ -544,8 +544,8 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
         }
         if (e.getActionCommand().equals("help")) {
             threadSwitch = false;//停止线程
-            JOptionPane.showMessageDialog(null, "玩家一 W、向上，A、向左，S、向下，D、向右，G、发射炮弹，R、加血" + "\n玩家二（F3出生" +
-                    "） 方向键控制 P、发射炮弹，O、加血", "提示", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "玩家一（F4复活）W、向上，A、向左，S、向下，D、向右，G、发射炮弹，R、加血" + "\n玩家二（F3出生/复活" +
+                    "） ↑、向上，↓、向下，←、向左，→、向右 P、发射炮弹，O、加血", "提示", JOptionPane.INFORMATION_MESSAGE);
             threadSwitch = true;
             new Thread(this).start();//线程启动
         }
