@@ -153,6 +153,7 @@ public class Missile {
                 x += speed;
                 break;
             case STOP:
+            default:
                 break;
         }
         // 飞出屏幕就消失
