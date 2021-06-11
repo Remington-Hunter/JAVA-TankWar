@@ -126,7 +126,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 else if(difficulty==2){
                     g.drawImage(ImageUtils.BACKGROUND_MAP_2, 0, 0, null);
                 }
-                else {
+                else if(difficulty==3){
                     g.drawImage(ImageUtils.BACKGROUND_MAP_3, 0, 0, null);
                 }
                 g.drawString("你的分数：" + Missile.getCount(), 10, 20);
@@ -344,8 +344,9 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
     public void run() {
         //每隔20毫秒重新画图
         while (threadSwitch) {
+//            System.out.println(home.isAlive());
             try {
-                if (Missile.getCount() == 31 || (!hero.isAlive() && (hero2 != null && !hero2.isAlive())) || !home.isAlive()) {
+                if (Missile.getCount() == 31 ||(!hero.isAlive()&&hero2==null)||(!hero.isAlive() && hero2 != null && !hero2.isAlive())) {
                     threadSwitch = false;
                     if (Missile.getCount() == 31) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_WIN)).start();
@@ -353,7 +354,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                         //判断是否是最高分
                         maxScore();
                     }
-                    if ((!hero.isAlive() && (hero2 != null && !hero2.isAlive())) || !home.isAlive()) {
+                    if ((!hero.isAlive()&&hero2==null)||(!hero.isAlive() && hero2 != null && !hero2.isAlive())) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
                         //JOptionPane.showMessageDialog(null, "游戏结束！");
                         maxScore();
@@ -411,17 +412,9 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             Home.setAlive(true);//重新激活基地
             Home.setHomeLocation(290, 250);//重置基地位置
             hero.setLife(100);//重新设置英雄坦克血量
-            if (hero2 != null) {
-                hero2.setLife(100);
-            }
             hero.setAlive(true);//冲洗激活英雄坦克
-            if (hero2 != null) {
-                hero2.setAlive(true);
-            }
             hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
-            if (hero2 != null) {
-                hero2.setTankLocation(580, 480, Tank.Direction.STOP); // 重置玩家2的位置
-            }
+            hero2 = null;//初始化玩家二坦克重置为没有
             round = 1;//重置战斗轮数
             enemyCount = 1;//重置地方坦克数量
             TankPlayer1.setBotSpeed(3);//重置地方坦克速度
@@ -578,9 +571,8 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             treeList.clear();
             Home.setAlive(true);
             hero.setAlive(true);
-            if (hero2 != null) {
-                hero2.setAlive(true);
-            }
+            threadSwitch = false;
+            hero2 = null;
             this.dispose();
             EventQueue.invokeLater(DiyMapFrame::new);
         }

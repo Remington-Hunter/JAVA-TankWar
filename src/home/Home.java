@@ -1,5 +1,6 @@
 package home;
 
+import ui.GameFrame;
 import utils.ImageUtils;
 import java.awt.*;
 
@@ -56,7 +57,14 @@ public class Home {
         if (alive) {
             g.drawImage(ImageUtils.HOME_IMAGE, x, y, null);
         }
-        //这里要加else，由于GameFrame没编写完，先留在这里
+        else{
+            GameFrame.hero.setLife(0);
+            GameFrame.hero.setAlive(false);
+            if(GameFrame.hero2!=null){
+                GameFrame.hero2.setLife(0);
+                GameFrame.hero2.setAlive(false);
+            }
+        }
     }
 
     /**

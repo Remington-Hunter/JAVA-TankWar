@@ -236,7 +236,7 @@ public class DiyMapFrame extends JFrame implements Runnable, KeyListener, Action
             GameFrame.hero.setAlive(true);
             GameFrame.hero.setLife(100);
             GameFrame.threadSwitch = true;
-            EventQueue.invokeLater(GameFrame::new);
+            new GameFrame();
         }
         if (e.getActionCommand().equals("back")) {
             this.dispose();
