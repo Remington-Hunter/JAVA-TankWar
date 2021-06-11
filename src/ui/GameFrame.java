@@ -422,7 +422,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             TankPlayer1.setTankColor(0);//重置坦克颜色
             Missile.setCount(0);//重置得分
             Missile.setMissileColor(0);//重置子弹颜色
-            Missile.setBotSpeed(20);//设置地方坦克子弹速度
+            Missile.setBotSpeed(4);//设置地方坦克子弹速度
             Missile.setHurt(20);//设置地方坦克伤害
             tankList.clear();//坦克清空
             missileList.clear();//子弹清空

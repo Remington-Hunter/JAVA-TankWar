@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="OOPTankWar:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/OOPTankWar_jar</output-path>
+    <root id="archive" name="OOPTankWar.jar">
+      <element id="module-output" name="OOPTankWar" />
+    </root>
+  </artifact>
+</component>
