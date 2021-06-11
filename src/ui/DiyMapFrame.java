@@ -241,7 +241,8 @@ public class DiyMapFrame extends JFrame implements Runnable, KeyListener, Action
         if (e.getActionCommand().equals("back")) {
             this.dispose();
             Home.setHomeLocation(290, 250);// 重置老家位置
-            EventQueue.invokeLater(GameFrame::new);
+            GameFrame gameFrame = new GameFrame();
+            gameFrame.initVariable(0,1);
         }
         if (e.getActionCommand().equals("diy")) {
             JOptionPane.showMessageDialog(null, "G、家，H、普通墙，J、金属墙，K、河流，L、草地，空格清除", "提示", JOptionPane.INFORMATION_MESSAGE);
