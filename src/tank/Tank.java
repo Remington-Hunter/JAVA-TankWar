@@ -8,7 +8,9 @@ import land.Wall;
 import java.awt.*;
 import java.util.List;
 
-// Tank类
+/**
+ * 坦克类
+ */
 public abstract class Tank {
     public enum Direction { // 方向的枚举
         U, D, L, R, STOP

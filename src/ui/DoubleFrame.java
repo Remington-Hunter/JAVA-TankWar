@@ -6,6 +6,7 @@ import pvp.MissilePlayer2;
 import prop.Supply;
 import pvp.TankPlayer1;
 import pvp.TankPlayer2;
+import tank.Tank;
 import utils.ImageUtils;
 import utils.MusicUtils;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 双人对战窗口
+ * 双人对战模式
  */
 public class DoubleFrame extends JFrame implements Runnable, ActionListener {
     public static final int DOUBLE_FRAME_WIDTH = 800;
@@ -33,6 +34,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
 
     public static List<Explode> explodeList = new ArrayList<Explode>(0);
     public static Boolean musicSwitch = false;//决定音乐开启与关闭
+    public static boolean threadSwitch = true;
     Supply supply = new Supply();//实例化一个补给对象
 
     public DoubleFrame() {
@@ -88,7 +90,6 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
                 tankPlayer2.collideWithTank(tankPlayer1);//玩家二撞到玩家一
 
                 supply.draw(g);//绘制补给
-
                 //绘制坦克一的子弹
                 for (int i = 0; i < missilePlayer1List.size(); i++) {
                     MissilePlayer1 missilePlayer1 = missilePlayer1List.get(i);
@@ -127,12 +128,14 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
         JMenuItem jMenuItem1 = new JMenuItem("背景音乐开/关");
         JMenuItem jMenuItem2 = new JMenuItem("关于游戏");
         JMenuItem jMenuItem3 = new JMenuItem("返回到主界面");
+        JMenuItem jMenuItem4 = new JMenuItem("重新开始");
 
         //添加菜单
         jMenuBar.add(jMenu1);
         jMenuBar.add(jMenu2);
 
         //添加菜单项
+        jMenu1.add(jMenuItem4);
         jMenu1.add(jMenuItem1);
         jMenu1.add(jMenuItem3);
         jMenu2.add(jMenuItem2);
@@ -149,6 +152,10 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
         jMenuItem3.addActionListener(this);
         jMenuItem3.setActionCommand("back");
 
+        //为重新开始游戏添加监听事件
+        jMenuItem4.addActionListener(this);
+        jMenuItem4.setActionCommand("restart");
+
         this.setJMenuBar(jMenuBar);//添加菜单栏
         //System.out.println(isRunning);
     }
@@ -158,13 +165,32 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
      */
     @Override
     public void run() {
-        while (true) {
+        while (threadSwitch) {
             try {
                 Thread.sleep(20);
                 repaint();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void initPlayer(int response){
+        if(response==0){
+            threadSwitch = true;
+            this.dispose();
+            tankPlayer1.setAlive(true);
+            tankPlayer1.setLife(200);
+            MissilePlayer1.setHurt(20);
+            tankPlayer1.setTankLocation(150,200,TankPlayer1.Direction.STOP);
+            tankPlayer2.setAlive(true);
+            tankPlayer2.setLife(200);
+            MissilePlayer2.setHurt(20);
+            tankPlayer2.setTankLocation(590,200,TankPlayer2.Direction.STOP);
+            EventQueue.invokeLater(DoubleFrame::new);
+        }else{
+            threadSwitch = true;
+            new Thread(this).start();
         }
     }
 
@@ -182,6 +208,12 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
                 MusicUtils.stopMusic();
             }
             musicSwitch = !musicSwitch;
+        }
+        if(e.getActionCommand().equals("restart")){
+            threadSwitch = false;
+            Object[] options = {"确定", "取消"};
+            int response = JOptionPane.showOptionDialog(this, "您确认要开始游戏！", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            initPlayer(response);
         }
         if (e.getActionCommand().equals("help")) {
             JOptionPane.showMessageDialog(null, "玩家1操作：W、向上，A、向下，S、向下，D、向上，G、发射炮弹" + "\n" + "玩家2操作：↑、向上，↓、向下，←、向左，→、向右，P、发射炮弹" + "", "提示", JOptionPane.INFORMATION_MESSAGE);

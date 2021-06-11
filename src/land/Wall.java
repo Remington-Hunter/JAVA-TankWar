@@ -1,10 +1,11 @@
 package land;
 
 import utils.ImageUtils;
-
-import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 普通墙，子弹可以打破
+ */
 public class Wall {
     /**
      * 普通墙图标的宽度与长度

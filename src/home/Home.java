@@ -1,10 +1,11 @@
 package home;
 
 import utils.ImageUtils;
-
-import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 基地类，玩家基地
+ */
 public class Home {
     /**
      * 设置坦克基地的默认位置

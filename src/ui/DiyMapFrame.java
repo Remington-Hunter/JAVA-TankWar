@@ -16,7 +16,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-
+/**
+ * 玩家自定义地图
+ */
 public class DiyMapFrame extends JFrame implements Runnable, KeyListener, ActionListener {
     /**
      * 默认地图大小

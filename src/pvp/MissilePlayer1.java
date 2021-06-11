@@ -6,6 +6,9 @@ import utils.MusicUtils;
 
 import java.awt.*;
 
+/**
+ * pvp模式下玩家一坦克的导弹类
+ */
 public class MissilePlayer1 {
     //子导弹大小
     public static final int WIDTH = 5;

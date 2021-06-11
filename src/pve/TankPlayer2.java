@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 坦克类
+ * pve模式下玩家二坦克
  */
 public class TankPlayer2 extends Tank implements KeyListener {
     private int x; // 坐标

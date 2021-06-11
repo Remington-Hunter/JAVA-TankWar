@@ -5,9 +5,10 @@ import utils.ImageUtils;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 玩家失败窗口类
+ */
 public class EndFrame extends JFrame implements Runnable {
-
-
     public EndFrame(){
         this.setTitle("坦克大战");
         this.setVisible(true);

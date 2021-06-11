@@ -16,6 +16,9 @@ import java.awt.event.KeyListener;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * pvp模式下玩家二坦克类
+ */
 public class TankPlayer2 extends Tank implements KeyListener {
     static int speed = 4;//坦克初始速度
     boolean bU = false, bD = false, bL = false, bR = false;
@@ -56,6 +59,19 @@ public class TankPlayer2 extends Tank implements KeyListener {
 
     public boolean isAlive() {
         return alive;
+    }
+
+    /**
+     * 设置坦克的位置和方向
+     *
+     * @param x         坦克的新x坐标
+     * @param y         坦克的新y坐标
+     * @param direction 坦克的新方向
+     */
+    public void setTankLocation(int x, int y, Direction direction) {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
     }
 
     @Override
@@ -232,7 +248,7 @@ public class TankPlayer2 extends Tank implements KeyListener {
                 this.life = 200;
             }
             new Thread(new MusicUtils(MusicUtils.PLAY_EAT)).start();
-            MissilePlayer1.setHurt(40);//增加导弹威力
+            MissilePlayer2.setHurt(40);//增加导弹威力
             Random random = new Random();
             Supply.setSupplyPosition(random.nextInt(300) + 200, random.nextInt(300) + 200);
         }

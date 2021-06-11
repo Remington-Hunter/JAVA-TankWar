@@ -9,6 +9,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * 记录玩家得分情况
+ */
 public class ScoreFrame extends JFrame {
     static JTextArea Jta = new JTextArea(11, 34);
     JPanel jPanel = new JPanel();

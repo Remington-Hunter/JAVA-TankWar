@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * 河流地形
+ * 河流地形，坦克不能跨河
  */
 public class River {
     /**

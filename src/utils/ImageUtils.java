@@ -3,6 +3,9 @@ package utils;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 图片类，存放所有的图片
+ */
 public class ImageUtils {
     //玩家一坦克
     public static final Image TANK_U = new ImageIcon("images/pl1_u.gif").getImage();

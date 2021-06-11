@@ -4,6 +4,9 @@ import utils.ImageUtils;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * 补给类，pvp模式下两个玩家对战模式补给
+ */
 public class Supply{
     /**
      * 补给图标的宽度与长度

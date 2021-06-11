@@ -6,10 +6,12 @@ import land.Tree;
 import land.Wall;
 import ui.GameFrame;
 
+/**
+ * 地图类，创建地图
+ */
 public class MapUtils {
     /**
      * 根据地图难度进行选择改变地图形状
-     *
      * @param difficulty 传入地图难度参数
      */
     public static void changeMap(int difficulty) {

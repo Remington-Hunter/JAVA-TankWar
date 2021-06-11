@@ -1,12 +1,10 @@
 package land;
 
 import utils.ImageUtils;
-
-import javax.swing.*;
 import java.awt.*;
 
 /**
- * 硬墙
+ * 金属墙，子弹不能打破
  */
 public class HardWall {
     /**

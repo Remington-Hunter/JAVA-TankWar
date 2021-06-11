@@ -5,6 +5,9 @@ import utils.ImageUtils;
 
 import java.awt.*;
 
+/**
+ * 爆炸类,显示坦克爆炸
+ */
 public class Explode {
     /**
      * 爆炸位置

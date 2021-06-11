@@ -4,6 +4,9 @@ import ui.StartFrame;
 
 import java.io.*;
 
+/**
+ * 记录玩家最高得分
+ */
 public class HighestScore {
     static String maxString;
     static String filename = "txt/maxScore.txt";

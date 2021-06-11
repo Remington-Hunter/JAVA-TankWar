@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 坦克类
+ * pve模式下玩家一坦克
  */
 public class TankPlayer1 extends Tank implements KeyListener {
     private int x; // 坐标
@@ -42,8 +42,6 @@ public class TankPlayer1 extends Tank implements KeyListener {
     private Tank.Direction direction = Tank.Direction.STOP;
     private Direction towardDirection = Direction.U;
 
-    enum SKILL{NO,WATER_WALK, SUPER_MISSILE, BOMB};
-    SKILL skill = SKILL.NO;
     /**
      * 设置x坐标
      *

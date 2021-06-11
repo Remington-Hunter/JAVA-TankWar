@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * pve模式窗口
+ */
 public class GameFrame extends JFrame implements KeyListener, ActionListener, Runnable {
     public static int option = 1;//选择退出还是重新开始
     /**

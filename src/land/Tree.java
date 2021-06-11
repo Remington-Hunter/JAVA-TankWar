@@ -3,12 +3,10 @@ package land;
 import utils.ImageUtils;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Rectangle;
-import javax.swing.ImageIcon;
 
 /**
- * 树木地形
+ * 树木地形，隐藏坦克
  */
 public class Tree {
     /**

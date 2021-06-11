@@ -6,6 +6,9 @@ import utils.MusicUtils;
 
 import java.awt.*;
 
+/**
+ * pvp模式下玩家二坦克的导弹类
+ */
 public class MissilePlayer2 {
     //子导弹大小
     public static final int WIDTH = 5;
@@ -59,7 +62,7 @@ public class MissilePlayer2 {
             g.setColor(Color.white);
             g.fillOval(x, y, WIDTH, HEIGHT);
         } else {
-            g.setColor(Color.pink);
+            g.setColor(Color.yellow);
             g.fillOval(x - 1, y - 2, WIDTH + 2, HEIGHT + 2);
         }
         move();

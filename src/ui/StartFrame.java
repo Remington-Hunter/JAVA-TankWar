@@ -1,6 +1,4 @@
 package ui;
-
-import land.Wall;
 import utils.ImageUtils;
 import utils.MusicUtils;
 
@@ -11,8 +9,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * 开始界面窗口类
+ */
 public class StartFrame extends JFrame implements KeyListener {
-
 
     private static int choose;//选择模式属性
     private static String userName;//用户名
@@ -61,7 +61,8 @@ public class StartFrame extends JFrame implements KeyListener {
             public void mousePressed(MouseEvent e) {
                 dispose();
                 MusicUtils.stopMusic();
-                EventQueue.invokeLater(DoubleFrame::new);
+                DoubleFrame doubleFrame = new DoubleFrame();
+                doubleFrame.initPlayer(0);
                 DoubleFrame.isRunning = true;
             }
         });

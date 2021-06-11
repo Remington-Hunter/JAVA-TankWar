@@ -16,6 +16,9 @@ import java.awt.event.KeyListener;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * pvp模式下玩家一坦克类
+ */
 public class TankPlayer1 extends Tank implements KeyListener {
     public static final int TANK1_WIDTH = 40;
     public static final int TANK1_HEIGHT = 40;
@@ -85,6 +88,19 @@ public class TankPlayer1 extends Tank implements KeyListener {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    /**
+     * 设置坦克的位置和方向
+     *
+     * @param x         坦克的新x坐标
+     * @param y         坦克的新y坐标
+     * @param direction 坦克的新方向
+     */
+    public void setTankLocation(int x, int y, Direction direction) {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
     }
 
     @Override
