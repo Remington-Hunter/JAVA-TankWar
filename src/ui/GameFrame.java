@@ -2,295 +2,295 @@ package ui;
 
 import explode.Explode;
 import home.Home;
-//import land.*;
-//import missile.Missile;
-//import pve.TankPlayer2;
-//import score.*;
-//import pve.TankPlayer1;
-//import tank.Tank;
-//import utils.*;
-//
-//import javax.swing.*;
-//import java.awt.*;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//import java.awt.event.KeyEvent;
-//import java.awt.event.KeyListener;
-//import java.io.BufferedWriter;
-//import java.io.FileWriter;
-//import java.io.IOException;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class GameFrame extends JFrame implements KeyListener, ActionListener, Runnable {
-//    public static int option = 1;//选择退出还是重新开始
-//    /**
-//     * 存储坦克的列表
-//     */
-//    public static List<Tank> tankList = new ArrayList<Tank>(0);
-//    /**
-//     * 存储子弹的列表
-//     */
-//    public static List<Missile> missileList = new ArrayList<Missile>(0);
-//    /**
-//     * 存储普通墙的列表
-//     */
-//    public static List<Wall> wallList = new ArrayList<Wall>(0);
-//    /**
-//     * 存储金属墙的列表
-//     */
-//    public static List<HardWall> hardWallList = new ArrayList<HardWall>(0);
-//    /**
-//     * 存储河流的列表
-//     */
-//    public static List<River> riverList = new ArrayList<River>(0);
-//    /**
-//     * 存储界面输的列表
-//     */
-//    public static List<Tree> treeList = new ArrayList<Tree>(0);
-//    /**
-//     * 存储爆炸的列表
-//     */
-//    public static List<Explode> explodeList = new ArrayList<Explode>(0);
-//    //实例化一个基地对象
-//    public static Home home = new Home();
-//    // 玩家1
-//    public static TankPlayer1 hero = new TankPlayer1(220, 480, true, Tank.Direction.STOP);
-//    // 玩家2
-//    public static TankPlayer2 hero2 = null;
-//    //决定音乐的开关
-//    public static boolean musicSwitch = false;
-//    //决定线程的开启与关闭
-//    public static boolean threadSwitch = true;
-//    /**
-//     * 敌人坦克初始数量
-//     */
-//    static int enemyCount = 1;
-//    /**
-//     * 战斗轮数
-//     */
-//    static int round = 1;
-//    /**
-//     * 默认地图难度
-//     */
-//    static int difficulty = 0;
-//
-//    {
-//        MapUtils.changeMap(difficulty);
-//    }
-//
-//    //初始化一个坦克
-//    {
-//        tankList.add(new TankPlayer1(80, 50, false, Tank.Direction.D));
-//    }
-//
-//    public GameFrame() {
-//        //为英雄坦克注册键盘监听事件
-//        this.addKeyListener(hero);
-//        this.addKeyListener(this);
-//        this.createMenu();//创建菜单
-//
-//        this.setTitle("坦克大战");
-//        this.setVisible(true);
-//        this.setSize(800, 600);
-//        this.setResizable(false);
-//        this.setLocationRelativeTo(null);
-//        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        this.setIconImage(ImageUtils.ICON);
-//
-//        Thread thread = new Thread(this);
-//        thread.start();
-//
-//        // 在面板上绘制坦克、子弹、墙、基地
-//        JPanel jPanel = new JPanel() {
-//            {
-//                setBackground(Color.gray);
-//            }
-//
-//            /**
-//             * 绘画游戏界面
-//             * @param g 传入Graphics参数绘制图像
-//             */
-//            public void paint(Graphics g) {
-//                super.paint(g);
-//                //为不同模式绘画不同的背景
-//                if(difficulty==0){
-//                    g.drawImage(ImageUtils.BACKGROUND_MAP, 0, 0, null);
-//                }
-//                else if(difficulty==1){
-//                    g.drawImage(ImageUtils.BACKGROUND_MAP_1, 0, 0, null);
-//                }
-//                else if(difficulty==2){
-//                    g.drawImage(ImageUtils.BACKGROUND_MAP_2, 0, 0, null);
-//                }
-//                else {
-//                    g.drawImage(ImageUtils.BACKGROUND_MAP_3, 0, 0, null);
-//                }
-//                g.drawString("你的分数：" + Missile.getCount(), 10, 20);
-//                g.drawString("你的生命值：" + hero.getLife(), 10, 40);
-//                g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
-//                g.drawString("第" + round + " 轮战斗" + "，敌人总数：" + tankList.size(), 10, 80);
-//                g.setColor(Color.BLACK);
-//                g.drawRect(45, 515, 200, 15);
-//                g.setColor(Color.RED);
-//                g.fillRect(45, 515, hero.getLife() * 2, 15);
-//                if(hero2!=null&&hero2.isAlive()){
-//                    g.setColor(Color.BLACK);
-//                    g.drawRect(555, 515, 200, 15);
-//                    g.setColor(Color.RED);
-//                    g.fillRect(555, 515, hero2.getLife() * 2, 15);
-//                }
-//                hero.draw(g);//画出英雄坦克
-//                if (hero2 != null) {
-//                    hero2.draw(g); // 玩家2
-//                }
-//                home.draw(g);//画出自己的基地
-//                hero.collideWithTanks(tankList);//玩家撞上敌方坦克
-//                if(hero2 != null) {
-//                    hero2.collideWithTanks(tankList);
-//                }
-////                if (hero2)
-//                hero.collideWithHome(home);//玩家撞上自己的基地
-//                if (hero2 != null) {
-//                    hero2.collideWithHome(home);
-//                }
-//
-//                //把子弹列表中的子弹绘制出来
-//                for (Missile missile : missileList) {
-//                    missile.draw(g);
-//                    missile.hitTanks(tankList);//玩家子弹攻击地方
-//                    missile.hitTank(hero);//敌方子弹攻击玩家
-//                    if (hero2 != null) {
-//                        missile.hitTank2(hero2);
-//                    }
-//                    missile.hitHome();//敌方子弹攻击我方基地
-//
-//                    for (int j = 0; j < wallList.size(); j++) {
-//                        Wall w = wallList.get(j);
-//                        missile.hitWalls(w);//子弹攻击到普通墙上
-//                    }
-//                    for (HardWall hw : hardWallList) {
-//                        missile.hitWalls(hw);
-//                    }
-//                }
-//
-//                //绘制出坦克列表中的坦克
-//                for (Tank tank : tankList) {
-//                    tank.draw(g);
-//
-//                    //绘制普通墙
-//                    for (Wall w : wallList) {
-//                        w.draw(g);
-//                        tank.collideWithWall(w);//每个坦克撞到普通墙上
-//                        hero.collideWithWall(w);//玩家撞到普通墙上
-//                        if (hero2 != null) {
-//                            hero2.collideWithWall(w);
-//                        }
-//                    }
-//
-//                    //绘制金属墙
-//                    for (HardWall hw : hardWallList) {
-//                        hw.draw(g);
-//                        tank.collideWithHardWall(hw);//每个坦克撞到金属墙上
-//                        hero.collideWithHardWall(hw);//玩家撞到金属墙上
-//                        if (hero2 != null) {
-//                            hero2.collideWithHardWall(hw);
-//                        }
-//                    }
-//
-//                    //绘制河流
-//                    for (River river : riverList) {
-//                        river.draw(g);
-//                        tank.collideWithRiver(river);//每个坦克撞到河流
-//                    }
-//                    //绘制丛林
-//                    for (Tree tree : treeList) {
-//                        tree.draw(g);
-//                    }
-//
-//                    tank.collideWithTanks(tankList);//敌方坦克撞到自己方坦克上
-//                    tank.collideWithHome(home);//地方坦克撞到我方基地
-//                }
-//
-//                //绘制出所有爆炸
-//                for (int j = 0; j < explodeList.size(); j++) {
-//                    Explode explode = explodeList.get(j);
-//                    explode.draw(g);
-//                }
-//
-//                //没关卡敌人的设置
-//                if (tankList.size() == 0 && round < 6) {
-//                    for (int i = 0; i < enemyCount * 2; i++) {
-//                        TankPlayer1 t;
-//                        if (i < 2) {
-//                            t = new TankPlayer1(100 + 70 * i, 50, false, TankPlayer1.Direction.L);
-//                        } else if (i > 3) {
-//                            t = new TankPlayer1(510, i * 50 + 20, false, TankPlayer1.Direction.R);
-//                        } else {
-//                            t = new TankPlayer1(50 + 50 * i, 500, false, TankPlayer1.Direction.D);
-//                        }
-//                        tankList.add(t);
-//                    }
-//                    enemyCount++;
-//                    round++;
-//                }
-//            }
-//        };
-//        add(jPanel);
-//    }
-//
-//    /**
-//     * 设置地图难度
-//     *
-//     * @param difficulty 传入地图难度参数
-//     */
-//    public static void setDifficulty(int difficulty) {
-//        GameFrame.difficulty = difficulty;
-//    }
-//
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(GameFrame::new);
-//    }
-//
-//    public void createMenu() {
-//        //菜单栏
-//        JMenuBar jMenuBar = new JMenuBar();
-//        //菜单项
-//        JMenu jMenu1 = new JMenu("游戏");
-//        JMenu jMenu2 = new JMenu("历史记录");
-//        JMenu jMenu3 = new JMenu("帮助");
-//        JMenu jMenu4 = new JMenu("游戏难度");
-//        //菜单项按钮
-//        JMenuItem jMenuItem1 = new JMenuItem("暂停/继续");
-//        JMenuItem jMenuItem2 = new JMenuItem("继续");
-//        JMenuItem jMenuItem3 = new JMenuItem("背景音乐开/关");
-//        JMenuItem jMenuItem4 = new JMenuItem("最高记录");
-//        JMenuItem jMenuItem5 = new JMenuItem("玩家得分记录");
-//        JMenuItem jMenuItem6 = new JMenuItem("关于游戏");
-//        JMenuItem jMenuItem7 = new JMenuItem("普通模式");
-//        JMenuItem jMenuItem8 = new JMenuItem("人间模式");
-//        JMenuItem jMenuItem9 = new JMenuItem("地狱模式");
-//        JMenuItem jMenuItem10 = new JMenuItem("重新开始");
-//        JMenuItem jMenuItem11 = new JMenuItem("返回到主界面");
-//        JMenuItem jMenuItem12 = new JMenuItem("自定义地图");
-//
-//        //添加菜单
-//        jMenuBar.add(jMenu1);
-//        jMenuBar.add(jMenu2);
-//        jMenuBar.add(jMenu4);
-//        jMenuBar.add(jMenu3);
-//
-//        //设置游戏菜单项
-//        jMenu1.add(jMenuItem1);
-//        jMenu1.add(jMenuItem10);
-//        jMenu1.add(jMenuItem3);
-//        jMenu1.add(jMenuItem11);
-//        jMenu2.add(jMenuItem4);
-//        jMenu2.add(jMenuItem5);
-//        jMenu3.add(jMenuItem6);
-//        jMenu3.add(jMenuItem12);
-//
-//        jMenu4.add(jMenuItem7);
+import land.*;
+import missile.Missile;
+import pve.TankPlayer2;
+import score.*;
+import pve.TankPlayer1;
+import tank.Tank;
+import utils.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class GameFrame extends JFrame implements KeyListener, ActionListener, Runnable {
+    public static int option = 1;//选择退出还是重新开始
+    /**
+     * 存储坦克的列表
+     */
+    public static List<Tank> tankList = new ArrayList<Tank>(0);
+    /**
+     * 存储子弹的列表
+     */
+    public static List<Missile> missileList = new ArrayList<Missile>(0);
+    /**
+     * 存储普通墙的列表
+     */
+    public static List<Wall> wallList = new ArrayList<Wall>(0);
+    /**
+     * 存储金属墙的列表
+     */
+    public static List<HardWall> hardWallList = new ArrayList<HardWall>(0);
+    /**
+     * 存储河流的列表
+     */
+    public static List<River> riverList = new ArrayList<River>(0);
+    /**
+     * 存储界面输的列表
+     */
+    public static List<Tree> treeList = new ArrayList<Tree>(0);
+    /**
+     * 存储爆炸的列表
+     */
+    public static List<Explode> explodeList = new ArrayList<Explode>(0);
+    //实例化一个基地对象
+    public static Home home = new Home();
+    // 玩家1
+    public static TankPlayer1 hero = new TankPlayer1(220, 480, true, Tank.Direction.STOP);
+    // 玩家2
+    public static TankPlayer2 hero2 = null;
+    //决定音乐的开关
+    public static boolean musicSwitch = false;
+    //决定线程的开启与关闭
+    public static boolean threadSwitch = true;
+    /**
+     * 敌人坦克初始数量
+     */
+    static int enemyCount = 1;
+    /**
+     * 战斗轮数
+     */
+    static int round = 1;
+    /**
+     * 默认地图难度
+     */
+    static int difficulty = 0;
+
+    {
+        MapUtils.changeMap(difficulty);
+    }
+
+    //初始化一个坦克
+    {
+        tankList.add(new TankPlayer1(80, 50, false, Tank.Direction.D));
+    }
+
+    public GameFrame() {
+        //为英雄坦克注册键盘监听事件
+        this.addKeyListener(hero);
+        this.addKeyListener(this);
+        this.createMenu();//创建菜单
+
+        this.setTitle("坦克大战");
+        this.setVisible(true);
+        this.setSize(800, 600);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setIconImage(ImageUtils.ICON);
+
+        Thread thread = new Thread(this);
+        thread.start();
+
+        // 在面板上绘制坦克、子弹、墙、基地
+        JPanel jPanel = new JPanel() {
+            {
+                setBackground(Color.gray);
+            }
+
+            /**
+             * 绘画游戏界面
+             * @param g 传入Graphics参数绘制图像
+             */
+            public void paint(Graphics g) {
+                super.paint(g);
+                //为不同模式绘画不同的背景
+                if(difficulty==0){
+                    g.drawImage(ImageUtils.BACKGROUND_MAP, 0, 0, null);
+                }
+                else if(difficulty==1){
+                    g.drawImage(ImageUtils.BACKGROUND_MAP_1, 0, 0, null);
+                }
+                else if(difficulty==2){
+                    g.drawImage(ImageUtils.BACKGROUND_MAP_2, 0, 0, null);
+                }
+                else {
+                    g.drawImage(ImageUtils.BACKGROUND_MAP_3, 0, 0, null);
+                }
+                g.drawString("你的分数：" + Missile.getCount(), 10, 20);
+                g.drawString("你的生命值：" + hero.getLife(), 10, 40);
+                g.drawString("敌人对你的伤害:" + Missile.getHurt(), 10, 60);
+                g.drawString("第" + round + " 轮战斗" + "，敌人总数：" + tankList.size(), 10, 80);
+                g.setColor(Color.BLACK);
+                g.drawRect(45, 515, 200, 15);
+                g.setColor(Color.RED);
+                g.fillRect(45, 515, hero.getLife() * 2, 15);
+                if(hero2!=null&&hero2.isAlive()){
+                    g.setColor(Color.BLACK);
+                    g.drawRect(555, 515, 200, 15);
+                    g.setColor(Color.RED);
+                    g.fillRect(555, 515, hero2.getLife() * 2, 15);
+                }
+                hero.draw(g);//画出英雄坦克
+                if (hero2 != null) {
+                    hero2.draw(g); // 玩家2
+                }
+                home.draw(g);//画出自己的基地
+                hero.collideWithTanks(tankList);//玩家撞上敌方坦克
+                if(hero2 != null) {
+                    hero2.collideWithTanks(tankList);
+                }
+//                if (hero2)
+                hero.collideWithHome(home);//玩家撞上自己的基地
+                if (hero2 != null) {
+                    hero2.collideWithHome(home);
+                }
+
+                //把子弹列表中的子弹绘制出来
+                for (Missile missile : missileList) {
+                    missile.draw(g);
+                    missile.hitTanks(tankList);//玩家子弹攻击地方
+                    missile.hitTank(hero);//敌方子弹攻击玩家
+                    if (hero2 != null) {
+                        missile.hitTank2(hero2);
+                    }
+                    missile.hitHome();//敌方子弹攻击我方基地
+
+                    for (int j = 0; j < wallList.size(); j++) {
+                        Wall w = wallList.get(j);
+                        missile.hitWalls(w);//子弹攻击到普通墙上
+                    }
+                    for (HardWall hw : hardWallList) {
+                        missile.hitWalls(hw);
+                    }
+                }
+
+                //绘制出坦克列表中的坦克
+                for (Tank tank : tankList) {
+                    tank.draw(g);
+
+                    //绘制普通墙
+                    for (Wall w : wallList) {
+                        w.draw(g);
+                        tank.collideWithWall(w);//每个坦克撞到普通墙上
+                        hero.collideWithWall(w);//玩家撞到普通墙上
+                        if (hero2 != null) {
+                            hero2.collideWithWall(w);
+                        }
+                    }
+
+                    //绘制金属墙
+                    for (HardWall hw : hardWallList) {
+                        hw.draw(g);
+                        tank.collideWithHardWall(hw);//每个坦克撞到金属墙上
+                        hero.collideWithHardWall(hw);//玩家撞到金属墙上
+                        if (hero2 != null) {
+                            hero2.collideWithHardWall(hw);
+                        }
+                    }
+
+                    //绘制河流
+                    for (River river : riverList) {
+                        river.draw(g);
+                        tank.collideWithRiver(river);//每个坦克撞到河流
+                    }
+                    //绘制丛林
+                    for (Tree tree : treeList) {
+                        tree.draw(g);
+                    }
+
+                    tank.collideWithTanks(tankList);//敌方坦克撞到自己方坦克上
+                    tank.collideWithHome(home);//地方坦克撞到我方基地
+                }
+
+                //绘制出所有爆炸
+                for (int j = 0; j < explodeList.size(); j++) {
+                    Explode explode = explodeList.get(j);
+                    explode.draw(g);
+                }
+
+                //没关卡敌人的设置
+                if (tankList.size() == 0 && round < 6) {
+                    for (int i = 0; i < enemyCount * 2; i++) {
+                        TankPlayer1 t;
+                        if (i < 2) {
+                            t = new TankPlayer1(100 + 70 * i, 50, false, TankPlayer1.Direction.L);
+                        } else if (i > 3) {
+                            t = new TankPlayer1(510, i * 50 + 20, false, TankPlayer1.Direction.R);
+                        } else {
+                            t = new TankPlayer1(50 + 50 * i, 500, false, TankPlayer1.Direction.D);
+                        }
+                        tankList.add(t);
+                    }
+                    enemyCount++;
+                    round++;
+                }
+            }
+        };
+        add(jPanel);
+    }
+
+    /**
+     * 设置地图难度
+     *
+     * @param difficulty 传入地图难度参数
+     */
+    public static void setDifficulty(int difficulty) {
+        GameFrame.difficulty = difficulty;
+    }
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(GameFrame::new);
+    }
+
+    public void createMenu() {
+        //菜单栏
+        JMenuBar jMenuBar = new JMenuBar();
+        //菜单项
+        JMenu jMenu1 = new JMenu("游戏");
+        JMenu jMenu2 = new JMenu("历史记录");
+        JMenu jMenu3 = new JMenu("帮助");
+        JMenu jMenu4 = new JMenu("游戏难度");
+        //菜单项按钮
+        JMenuItem jMenuItem1 = new JMenuItem("暂停/继续");
+        JMenuItem jMenuItem2 = new JMenuItem("继续");
+        JMenuItem jMenuItem3 = new JMenuItem("背景音乐开/关");
+        JMenuItem jMenuItem4 = new JMenuItem("最高记录");
+        JMenuItem jMenuItem5 = new JMenuItem("玩家得分记录");
+        JMenuItem jMenuItem6 = new JMenuItem("关于游戏");
+        JMenuItem jMenuItem7 = new JMenuItem("普通模式");
+        JMenuItem jMenuItem8 = new JMenuItem("人间模式");
+        JMenuItem jMenuItem9 = new JMenuItem("地狱模式");
+        JMenuItem jMenuItem10 = new JMenuItem("重新开始");
+        JMenuItem jMenuItem11 = new JMenuItem("返回到主界面");
+        JMenuItem jMenuItem12 = new JMenuItem("自定义地图");
+
+        //添加菜单
+        jMenuBar.add(jMenu1);
+        jMenuBar.add(jMenu2);
+        jMenuBar.add(jMenu4);
+        jMenuBar.add(jMenu3);
+
+        //设置游戏菜单项
+        jMenu1.add(jMenuItem1);
+        jMenu1.add(jMenuItem10);
+        jMenu1.add(jMenuItem3);
+        jMenu1.add(jMenuItem11);
+        jMenu2.add(jMenuItem4);
+        jMenu2.add(jMenuItem5);
+        jMenu3.add(jMenuItem6);
+        jMenu3.add(jMenuItem12);
+
+        jMenu4.add(jMenuItem7);
         jMenu4.add(jMenuItem8);
         jMenu4.add(jMenuItem9);
 
