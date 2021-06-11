@@ -161,7 +161,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                 //把子弹列表中的子弹绘制出来
                 for (Missile missile : missileList) {
                     missile.draw(g);
-                    missile.hitTanks(tankList);//玩家子弹攻击地方
+                    missile.hitTanks(tankList);//玩家子弹攻击敌方
                     missile.hitTank(hero);//敌方子弹攻击玩家
                     if (hero2 != null) {
                         missile.hitTank2(hero2);
@@ -212,7 +212,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                     }
 
                     tank.collideWithTanks(tankList);//敌方坦克撞到自己方坦克上
-                    tank.collideWithHome(home);//地方坦克撞到我方基地
+                    tank.collideWithHome(home);//敌方坦克撞到我方基地
                 }
 
                 //绘制出所有爆炸
@@ -417,13 +417,13 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             hero2 = null;//初始化玩家二坦克重置为没有
             round = 1;//重置战斗轮数
-            enemyCount = 1;//重置地方坦克数量
-            TankPlayer1.setBotSpeed(3);//重置地方坦克速度
+            enemyCount = 1;//重置敌方坦克数量
+            TankPlayer1.setBotSpeed(3);//重置敌方坦克速度
             TankPlayer1.setTankColor(0);//重置坦克颜色
             Missile.setCount(0);//重置得分
             Missile.setMissileColor(0);//重置子弹颜色
-            Missile.setBotSpeed(4);//设置地方坦克子弹速度
-            Missile.setHurt(20);//设置地方坦克伤害
+            Missile.setBotSpeed(4);//设置敌方坦克子弹速度
+            Missile.setHurt(20);//设置敌方坦克伤害
             tankList.clear();//坦克清空
             missileList.clear();//子弹清空
             wallList.clear();//普通墙清空
@@ -490,10 +490,10 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             tankList.clear();
             missileList.clear();
             wallList.clear();
-            TankPlayer1.setBotSpeed(7);//改变地方坦克速度
-            TankPlayer1.setTankColor(1);//改变地方坦克颜色
-            Missile.setBotSpeed(8);//改变地方子弹速度
-            Missile.setMissileColor(1);//改变地方坦克颜色
+            TankPlayer1.setBotSpeed(7);//改变敌方坦克速度
+            TankPlayer1.setTankColor(1);//改变敌方坦克颜色
+            Missile.setBotSpeed(8);//改变敌方子弹速度
+            Missile.setMissileColor(1);//改变敌方坦克颜色
             setDifficulty(1);//改变地图难度
             Home.setHomeLocation(370, 500);//重置基地位置
             hero.setTankLocation(220, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
@@ -508,10 +508,10 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             tankList.clear();
             missileList.clear();
             wallList.clear();
-            TankPlayer1.setBotSpeed(9);//改变地方坦克速度
-            TankPlayer1.setTankColor(2);//改变地方坦克颜色
-            Missile.setBotSpeed(10);//改变地方子弹速度
-            Missile.setMissileColor(2);//改变地方坦克颜色
+            TankPlayer1.setBotSpeed(9);//改变敌方坦克速度
+            TankPlayer1.setTankColor(2);//改变敌方坦克颜色
+            Missile.setBotSpeed(10);//改变敌方子弹速度
+            Missile.setMissileColor(2);//改变敌方坦克颜色
             Missile.setHurt(30);//设置敌人坦克伤害
             setDifficulty(2);//改变地图难度
             Home.setHomeLocation(370, 250);//重置基地位置
@@ -525,10 +525,10 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
         if (e.getActionCommand().equals("difficulty3")) {
             tankList.clear();
             missileList.clear();
-            TankPlayer1.setBotSpeed(11);//改变地方坦克速度
-            TankPlayer1.setTankColor(3);//改变地方坦克颜色
-            Missile.setBotSpeed(12);//改变地方子弹速度
-            Missile.setMissileColor(3);//改变地方坦克颜色
+            TankPlayer1.setBotSpeed(11);//改变敌方坦克速度
+            TankPlayer1.setTankColor(3);//改变敌方坦克颜色
+            Missile.setBotSpeed(12);//改变敌方子弹速度
+            Missile.setMissileColor(3);//改变敌方坦克颜色
             Missile.setHurt(40);//设置敌人坦克伤害
             setDifficulty(3);//改变地图难度
             Home.setHomeLocation(390, 250);//重置基地位置
