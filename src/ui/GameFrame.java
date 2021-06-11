@@ -404,7 +404,8 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
     /**
      * 初始化所有变量
      *
-     * @param response 传入是否需要初始化变量的参数
+     * @param response 0-确定，1-取消
+     * @param option 1-重新开始，2-退出到主界面
      */
     public void initVariable(int response, int option) {
         if (response == 0) {

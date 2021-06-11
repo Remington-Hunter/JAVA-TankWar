@@ -59,6 +59,7 @@ public class HighestScore {
     /**
      * 在文件中写入函数
      *
+     * @param username 玩家名称
      * @param score 传入分数参数
      */
     public static void write(String username, int score) {

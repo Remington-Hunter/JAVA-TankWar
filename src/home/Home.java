@@ -32,6 +32,8 @@ public class Home {
 
     /**
      * 设置基地存活，重新开始游戏
+     *
+     * @param alive 新的生命参数
      */
     public static void setAlive(boolean alive) {
         Home.alive = alive;
