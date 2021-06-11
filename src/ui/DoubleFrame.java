@@ -166,12 +166,26 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
     @Override
     public void run() {
         while (threadSwitch) {
-            try {
-                Thread.sleep(20);
-                repaint();
-            } catch (InterruptedException e) {
+            try{
+                if(tankPlayer1.isAlive()&&!tankPlayer2.isAlive()){
+                    threadSwitch = false;
+                    new Thread(new MusicUtils(MusicUtils.PLAY_WIN)).start();
+                    JOptionPane.showMessageDialog(null, "玩家一取得胜利！");
+                }
+                else if(!tankPlayer1.isAlive()&&tankPlayer2.isAlive()){
+                    threadSwitch = false;
+                    new Thread(new MusicUtils(MusicUtils.PLAY_WIN)).start();
+                    JOptionPane.showMessageDialog(null, "玩家二取得胜利！");
+                }
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }catch (Exception e){
                 e.printStackTrace();
             }
+            repaint();
         }
     }
 
