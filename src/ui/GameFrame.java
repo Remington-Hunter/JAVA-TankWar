@@ -362,7 +362,8 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
 
                         Thread.sleep(1500);
                         endFrame.dispose();
-                        this.dispose();
+                        this.setVisible(false);
+//                        this.dispose();
                         initVariable(0,2);
                     }
                     try {
@@ -497,10 +498,10 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             Missile.setMissileColor(1);//改变敌方坦克颜色
             setDifficulty(1);//改变地图难度
             Home.setHomeLocation(370, 500);//重置基地位置
-            hero.setTankLocation(220, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
 
             if (hero2 != null) {
-                hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+                hero2.setTankLocation(580, 480, Tank.Direction.STOP);//重置英雄坦克位置
             }
             this.dispose();
             EventQueue.invokeLater(GameFrame::new);
@@ -516,9 +517,9 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             Missile.setHurt(30);//设置敌人坦克伤害
             setDifficulty(2);//改变地图难度
             Home.setHomeLocation(370, 250);//重置基地位置
-            hero.setTankLocation(220, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             if (hero2 != null) {
-                hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+                hero2.setTankLocation(580, 480, Tank.Direction.STOP);//重置英雄坦克位置
             }
             this.dispose();
             EventQueue.invokeLater(GameFrame::new);
@@ -533,9 +534,9 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             Missile.setHurt(40);//设置敌人坦克伤害
             setDifficulty(3);//改变地图难度
             Home.setHomeLocation(390, 250);//重置基地位置
-            hero.setTankLocation(220, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+            hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
             if (hero2 != null) {
-                hero2.setTankLocation(580, 480, TankPlayer1.Direction.STOP);//重置英雄坦克位置
+                hero2.setTankLocation(580, 480, Tank.Direction.STOP);//重置英雄坦克位置
             }
             this.dispose();
             EventQueue.invokeLater(GameFrame::new);
