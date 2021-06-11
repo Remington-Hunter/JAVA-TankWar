@@ -362,9 +362,9 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
 
                         Thread.sleep(1500);
                         endFrame.dispose();
-                        this.setVisible(false);
+//                        this.setVisible(false);
 //                        this.dispose();
-                        initVariable(0,2);
+//                        initVariable(0,2);
                     }
                     try {
                         FileWriter fileWriter = new FileWriter("txt/score.txt");
