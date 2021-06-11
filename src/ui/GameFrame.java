@@ -359,9 +359,10 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                         //JOptionPane.showMessageDialog(null, "游戏结束！");
                         maxScore();
                         EndFrame endFrame = new EndFrame();
-                        this.dispose();
+
                         Thread.sleep(1500);
                         endFrame.dispose();
+                        this.dispose();
                         initVariable(0,2);
                     }
                     try {
