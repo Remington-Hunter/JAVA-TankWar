@@ -16,6 +16,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 双人对战窗口
+ */
 public class DoubleFrame extends JFrame implements Runnable, ActionListener {
     public static final int DOUBLE_FRAME_WIDTH = 800;
     public static final int DOUBLE_FRAME_HEIGHT = 600;
@@ -57,7 +60,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
              */
             public void paint(Graphics g) {
                 super.paint(g);
-                g.drawImage(ImageUtils.DOUBLE_BACKGROUND,0,0,null);
+                g.drawImage(ImageUtils.DOUBLE_BACKGROUND, 0, 0, null);
                 g.setColor(Color.BLACK);
                 g.drawString("玩家一的攻击力：" + MissilePlayer1.getHurt(), 10, 30);
                 g.drawString("玩家一的血量：" + tankPlayer1.getLife(), 10, 60);//玩家一属性
@@ -147,7 +150,7 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
         jMenuItem3.setActionCommand("back");
 
         this.setJMenuBar(jMenuBar);//添加菜单栏
-        System.out.println(isRunning);
+        //System.out.println(isRunning);
     }
 
     /**
@@ -158,7 +161,6 @@ public class DoubleFrame extends JFrame implements Runnable, ActionListener {
         while (true) {
             try {
                 Thread.sleep(20);
-                new Thread(new Supply()).start();
                 repaint();
             } catch (InterruptedException e) {
                 e.printStackTrace();

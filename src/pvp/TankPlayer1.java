@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Random;
 
 public class TankPlayer1 extends Tank implements KeyListener {
+    public static final int TANK1_WIDTH = 40;
+    public static final int TANK1_HEIGHT = 40;
     static int speed = 4;//坦克初始速度
     boolean bU = false, bD = false, bL = false, bR = false;
     private int x;
@@ -25,10 +27,33 @@ public class TankPlayer1 extends Tank implements KeyListener {
     private int oldY;//坦克上一步坐标
     private int life = 200;//坦克生命值
     private boolean alive = true;//坦克存活状态
-    public static final int TANK1_WIDTH = 40;
-    public static final int TANK1_HEIGHT = 40;
     private Direction direction = Direction.STOP;
     private Direction towardDirection = Direction.U;
+
+    /**
+     * 玩家一坦克的构造方法
+     *
+     * @param x 初始横坐标参数
+     * @param y 初始纵坐标位置
+     */
+    public TankPlayer1(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.oldX = x;
+        this.oldY = y;
+    }
+
+    /**
+     * 玩家一坦克的构造方法
+     *
+     * @param x         初始横坐标参数
+     * @param y         初始纵坐标位置
+     * @param direction 初始坦克方向
+     */
+    public TankPlayer1(int x, int y, Direction direction) {
+        this(x, y);
+        this.direction = direction;
+    }
 
     public int getX() {
         return x;
@@ -58,13 +83,13 @@ public class TankPlayer1 extends Tank implements KeyListener {
         return alive;
     }
 
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
     @Override
     public boolean isGood() {
         return false;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
     }
 
     @Override
@@ -72,37 +97,11 @@ public class TankPlayer1 extends Tank implements KeyListener {
 
     }
 
-
     /**
      * 判断子弹是否进入坦克范围
      */
     public Rectangle getRect() {
         return new Rectangle(x, y, TANK1_WIDTH, TANK1_HEIGHT);
-    }
-
-    /**
-     * 玩家一坦克的构造方法
-     *
-     * @param x 初始横坐标参数
-     * @param y 初始纵坐标位置
-     */
-    public TankPlayer1(int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.oldX = x;
-        this.oldY = y;
-    }
-
-    /**
-     * 玩家一坦克的构造方法
-     *
-     * @param x         初始横坐标参数
-     * @param y         初始纵坐标位置
-     * @param direction 初始坦克方向
-     */
-    public TankPlayer1(int x, int y, Direction direction) {
-        this(x, y);
-        this.direction = direction;
     }
 
     /**

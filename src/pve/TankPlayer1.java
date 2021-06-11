@@ -25,8 +25,6 @@ public class TankPlayer1 extends Tank implements KeyListener {
     private int oldX; // 原来的坐标
     private int oldY;
 
-
-
     private static int speed = TANK_SPEED;
     private static int botSpeed = TANK_SPEED;
 
@@ -44,7 +42,8 @@ public class TankPlayer1 extends Tank implements KeyListener {
     private Tank.Direction direction = Tank.Direction.STOP;
     private Direction towardDirection = Direction.U;
 
-
+    enum SKILL{NO,WATER_WALK, SUPER_MISSILE, BOMB};
+    SKILL skill = SKILL.NO;
     /**
      * 设置x坐标
      *

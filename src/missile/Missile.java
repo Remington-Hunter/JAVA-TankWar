@@ -3,7 +3,6 @@ package missile;
 import home.Home;
 import land.HardWall;
 import land.Wall;
-import pve.TankPlayer1;
 import pve.TankPlayer2;
 import tank.Tank;
 import explode.Explode;
@@ -30,6 +29,8 @@ public class Missile {
     private int y;
     private boolean good; // 敌我坦克
     private boolean alive = true;
+    private int type;
+    private int life = 1;
 
     /**
      * 导弹的构造方法
@@ -50,6 +51,9 @@ public class Missile {
         Missile.missileColor = missileColor;
     }
 
+    public void setSuperMissile(){
+        this.life = 5;
+    };
     /**
      * 获得击毁的坦克的数量
      *
