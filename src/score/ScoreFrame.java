@@ -37,5 +37,20 @@ public class ScoreFrame extends JFrame {
         for (String str : ScoreList) {
             Jta.append(str + "\n");
         }
+        setSize(450, 300);
+        setVisible(true);
+        setResizable(false);
+        setTitle("历史记录");
+        setLocationRelativeTo(null);
+        addWindowListener(new WindowAdapter() {
+            public void WindowClosing(WindowEvent e) {
+                setVisible(false);
+                Jta.setText("");
+            }
+        });
+    }
 
+    public static void main(String[] args) throws IOException {
+        new ScoreFrame();
+    }
 }
