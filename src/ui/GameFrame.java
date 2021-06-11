@@ -266,7 +266,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
         //菜单项按钮
         JMenuItem jMenuItem1 = new JMenuItem("暂停/继续");
         JMenuItem jMenuItem2 = new JMenuItem("继续");
-        JMenuItem jMenuItem3 = new JMenuItem("背景音乐开/关");
+        JMenuItem jMenuItem3 = new JMenuItem("背景音乐开");
         JMenuItem jMenuItem4 = new JMenuItem("最高记录");
         JMenuItem jMenuItem5 = new JMenuItem("玩家得分记录");
         JMenuItem jMenuItem6 = new JMenuItem("关于游戏");
@@ -344,7 +344,6 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
     public void run() {
         //每隔20毫秒重新画图
         while (threadSwitch) {
-//            System.out.println(home.isAlive());
             try {
                 if (Missile.getCount() == 31 ||(!hero.isAlive()&&hero2==null)||(!hero.isAlive() && hero2 != null && !hero2.isAlive())) {
                     threadSwitch = false;
@@ -359,9 +358,9 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                         //JOptionPane.showMessageDialog(null, "游戏结束！");
                         maxScore();
                         EndFrame endFrame = new EndFrame();
-                        this.dispose();
                         Thread.sleep(1500);
                         endFrame.dispose();
+                        this.dispose();
                         initVariable(0,2);
                     }
                     try {
