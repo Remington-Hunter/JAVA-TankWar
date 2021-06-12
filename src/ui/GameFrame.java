@@ -497,10 +497,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             setDifficulty(1);//改变地图难度
             Home.setHomeLocation(370, 500);//重置基地位置
             hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
-
-            if (hero2 != null) {
-                hero2.setTankLocation(580, 480, Tank.Direction.STOP);//重置英雄坦克位置
-            }
+            hero2 = null;
             this.dispose();
             EventQueue.invokeLater(GameFrame::new);
         }
@@ -516,9 +513,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             setDifficulty(2);//改变地图难度
             Home.setHomeLocation(370, 250);//重置基地位置
             hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
-            if (hero2 != null) {
-                hero2.setTankLocation(580, 480, Tank.Direction.STOP);//重置英雄坦克位置
-            }
+            hero2 = null;
             this.dispose();
             EventQueue.invokeLater(GameFrame::new);
         }
@@ -533,9 +528,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
             setDifficulty(3);//改变地图难度
             Home.setHomeLocation(390, 250);//重置基地位置
             hero.setTankLocation(220, 480, Tank.Direction.STOP);//重置英雄坦克位置
-            if (hero2 != null) {
-                hero2.setTankLocation(580, 480, Tank.Direction.STOP);//重置英雄坦克位置
-            }
+            hero2 = null;
             this.dispose();
             EventQueue.invokeLater(GameFrame::new);
         }
