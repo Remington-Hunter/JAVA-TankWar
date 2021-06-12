@@ -352,6 +352,7 @@ public class GameFrame extends JFrame implements KeyListener, ActionListener, Ru
                         JOptionPane.showMessageDialog(null, "赢得胜利");
                         //判断是否是最高分
                         maxScore();
+                        initVariable(0,2);
                     }
                     if ((!hero.isAlive()&&hero2==null)||(!hero.isAlive() && hero2 != null && !hero2.isAlive())) {
                         new Thread(new MusicUtils(MusicUtils.PLAY_LOSE)).start();
